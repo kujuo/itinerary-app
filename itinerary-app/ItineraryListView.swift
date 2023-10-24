@@ -20,6 +20,6 @@ struct ItineraryListView: View {
           ItineraryRowView(itinerary: itinerary)
         }
       }
-    }.navigationViewStyle(.stack)
+    }
   }
 }

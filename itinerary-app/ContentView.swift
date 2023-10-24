@@ -26,7 +26,7 @@ struct ContentView: View {
 //          let collectionRef = store.collection("itineraries")
 //          do {
 //            let newDocReference = try collectionRef.addDocument(from: itinerary)
-//            print("Book stored with new document reference: \(newDocReference)")
+//            print("Itinerary stored with new document reference: \(newDocReference)")
 //          }
 //          catch {
 //            print(error)

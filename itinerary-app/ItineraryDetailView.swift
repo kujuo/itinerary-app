@@ -10,21 +10,21 @@ import SwiftUI
 struct ItineraryDetailView: View {
   var itinerary: Itinerary
   var body: some View {
-    VStack {
-      Text(itinerary.location)
-      List {
-        if (itinerary.days != nil) {
-          ForEach(itinerary.days!) { day in
-            ForEach(day.events!) {
-              event in
-              HStack {
-                Text(event.description ?? "")
-                Text(event.name)
-              }
+    VStack(alignment: .leading) {
+      Text(itinerary.location + " events").font(.title)
+      if (itinerary.days != nil) {
+        ForEach(itinerary.days!) { day in
+          Text("Day " + day.dayNumber.description)
+          ForEach(day.events!) {
+            event in
+            HStack {
+              Text(event.name)
+              Text(event.description ?? "No description Available")
             }
           }
         }
       }
-    }
+      Spacer()
+    }.frame(maxWidth: .infinity, alignment: .topLeading)
   }
 }
