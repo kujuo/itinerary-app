@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct Itinerary: Identifiable, Codable {
+struct Itinerary: Identifiable, Codable, Comparable {
   
   var id: UUID
   var location: String
   var img: String?
   var isCurrent: Bool
   var days: [Day]?
+  var lastEditDate: Date
   
   // To conform to Codable protocol
   enum CodingKeys: String, CodingKey {
@@ -22,6 +23,14 @@ struct Itinerary: Identifiable, Codable {
     case img
     case isCurrent
     case days
+    case lastEditDate
   }
   
+  static func < (lhs: Itinerary, rhs: Itinerary) -> Bool {
+    lhs.lastEditDate < rhs.lastEditDate
+  }
+  
+  static func == (lhs: Itinerary, rhs: Itinerary) -> Bool {
+    lhs.lastEditDate == rhs.lastEditDate
+  }
 }

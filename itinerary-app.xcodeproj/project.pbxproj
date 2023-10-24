@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2F2B962AE73DEA0052BC0B /* ItineraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */; };
 		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryListView.swift; sourceTree = "<group>"; };
 		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		DBAE00BA2ADF7C87003137AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				DB7FFA912ADE4467009E2A7D /* Models */,
 				DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */,
 				DBBC87832ADE26AC00208797 /* ContentView.swift */,
+				DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */,
 				DBBC87852ADE26AD00208797 /* Assets.xcassets */,
 				DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */,
 				DBBC87872ADE26AD00208797 /* Preview Content */,
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2F2B962AE73DEA0052BC0B /* ItineraryListView.swift in Sources */,
 				DBBC87842ADE26AC00208797 /* ContentView.swift in Sources */,
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
