@@ -10,7 +10,7 @@ import Combine
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-struct ContentView: View {
+struct HomeView: View {
   
     var body: some View {
         VStack {
@@ -37,6 +37,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }
 
