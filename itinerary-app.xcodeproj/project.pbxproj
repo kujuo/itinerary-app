@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB2F2B962AE73DEA0052BC0B /* ItineraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */; };
-		DB2F2B982AE8753D0052BC0B /* ItineraryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F2B972AE8753D0052BC0B /* ItineraryRowView.swift */; };
-		DB2F2B9C2AE875B20052BC0B /* ItineraryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F2B9B2AE875B20052BC0B /* ItineraryDetailView.swift */; };
 		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -39,27 +36,32 @@
 		DB7FFA8E2ADE2902009E2A7D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA8D2ADE2902009E2A7D /* FirebaseStorage */; };
 		DB7FFA902ADE2902009E2A7D /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA8F2ADE2902009E2A7D /* FirebaseStorageCombine-Community */; };
 		DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7FFA922ADE4476009E2A7D /* Itinerary.swift */; };
+		DBA3B5912AF2F34D00BDE32B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B58C2AF2F34D00BDE32B /* AppView.swift */; };
+		DBA3B5922AF2F34D00BDE32B /* ItineraryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B58D2AF2F34D00BDE32B /* ItineraryRowView.swift */; };
+		DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B58E2AF2F34D00BDE32B /* HomeView.swift */; };
+		DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B58F2AF2F34D00BDE32B /* ItineraryDetailView.swift */; };
+		DBA3B5952AF2F34D00BDE32B /* ItineraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA3B5902AF2F34D00BDE32B /* ItineraryListView.swift */; };
 		DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE00BA2ADF7C87003137AD /* Event.swift */; };
 		DBAEBAA62ADE476900391B41 /* ItineraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEBAA52ADE476900391B41 /* ItineraryRepository.swift */; };
 		DBAEBAA82ADE482300391B41 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEBAA72ADE482200391B41 /* Day.swift */; };
 		DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */; };
-		DBBC87842ADE26AC00208797 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC87832ADE26AC00208797 /* ContentView.swift */; };
 		DBBC87862ADE26AD00208797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87852ADE26AD00208797 /* Assets.xcassets */; };
 		DBBC87892ADE26AD00208797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryListView.swift; sourceTree = "<group>"; };
-		DB2F2B972AE8753D0052BC0B /* ItineraryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryRowView.swift; sourceTree = "<group>"; };
-		DB2F2B9B2AE875B20052BC0B /* ItineraryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryDetailView.swift; sourceTree = "<group>"; };
 		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
+		DBA3B58C2AF2F34D00BDE32B /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		DBA3B58D2AF2F34D00BDE32B /* ItineraryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryRowView.swift; sourceTree = "<group>"; };
+		DBA3B58E2AF2F34D00BDE32B /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		DBA3B58F2AF2F34D00BDE32B /* ItineraryDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryDetailView.swift; sourceTree = "<group>"; };
+		DBA3B5902AF2F34D00BDE32B /* ItineraryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryListView.swift; sourceTree = "<group>"; };
 		DBAE00BA2ADF7C87003137AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DBAEBAA52ADE476900391B41 /* ItineraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryRepository.swift; sourceTree = "<group>"; };
 		DBAEBAA72ADE482200391B41 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		DBBC877E2ADE26AC00208797 /* itinerary-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "itinerary-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itinerary_appApp.swift; sourceTree = "<group>"; };
-		DBBC87832ADE26AC00208797 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DBBC87852ADE26AD00208797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +114,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		DBA3B58B2AF2F34D00BDE32B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DBA3B58C2AF2F34D00BDE32B /* AppView.swift */,
+				DBA3B58D2AF2F34D00BDE32B /* ItineraryRowView.swift */,
+				DBA3B58E2AF2F34D00BDE32B /* HomeView.swift */,
+				DBA3B58F2AF2F34D00BDE32B /* ItineraryDetailView.swift */,
+				DBA3B5902AF2F34D00BDE32B /* ItineraryListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		DBAEBAA42ADE472B00391B41 /* DataRepositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,10 +156,7 @@
 				DBAEBAA42ADE472B00391B41 /* DataRepositories */,
 				DB7FFA912ADE4467009E2A7D /* Models */,
 				DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */,
-				DBBC87832ADE26AC00208797 /* ContentView.swift */,
-				DB2F2B952AE73DEA0052BC0B /* ItineraryListView.swift */,
-				DB2F2B972AE8753D0052BC0B /* ItineraryRowView.swift */,
-				DB2F2B9B2AE875B20052BC0B /* ItineraryDetailView.swift */,
+				DBA3B58B2AF2F34D00BDE32B /* Views */,
 				DBBC87852ADE26AD00208797 /* Assets.xcassets */,
 				DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */,
 				DBBC87872ADE26AD00208797 /* Preview Content */,
@@ -264,13 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB2F2B962AE73DEA0052BC0B /* ItineraryListView.swift in Sources */,
-				DBBC87842ADE26AC00208797 /* ContentView.swift in Sources */,
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
-				DB2F2B9C2AE875B20052BC0B /* ItineraryDetailView.swift in Sources */,
-				DB2F2B982AE8753D0052BC0B /* ItineraryRowView.swift in Sources */,
+				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
+				DBA3B5922AF2F34D00BDE32B /* ItineraryRowView.swift in Sources */,
+				DBA3B5912AF2F34D00BDE32B /* AppView.swift in Sources */,
 				DBAEBAA82ADE482300391B41 /* Day.swift in Sources */,
+				DBA3B5952AF2F34D00BDE32B /* ItineraryListView.swift in Sources */,
+				DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */,
 				DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */,
 				DBAEBAA62ADE476900391B41 /* ItineraryRepository.swift in Sources */,
 			);
