@@ -11,11 +11,20 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 struct HomeView: View {
-  
-    var body: some View {
-        VStack {
-          ItineraryListView()
-        }
+  var body: some View {
+    NavigationStack {
+//      Text("Hello, SwiftUI!").navigationTitle("dfslkjsldfkj")
+//          .navigationBarTitleDisplayMode(.inline)
+//          .toolbar { // <2>
+//              ToolbarItem(placement: .principal) { // <3>
+//                  VStack {
+//                      Text("Title").font(.headline)
+//                      Text("Subtitle").font(.subheadline)
+//                  }
+//              }
+//          }
+//      ItineraryListView()
+    }.navigationTitle("Characters")
 //        .padding()
 //        .onAppear(perform: {
 //          let store = Firestore.firestore()

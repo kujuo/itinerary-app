@@ -9,6 +9,7 @@ import Combine
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 // import Firebase modules here
 
 class ItineraryRepository: ObservableObject {
@@ -16,10 +17,12 @@ class ItineraryRepository: ObservableObject {
   private let path: String = "itineraries"
   private let store = Firestore.firestore()
   @Published var itineraries: [Itinerary] = []
+  @Published var currentItinerary: Itinerary? = nil
   private var cancellables: Set<AnyCancellable> = []
+  
   init() {
-      self.get()
-    }
+    self.get()
+  }
   
     func get() {
       store.collection(path)
@@ -32,6 +35,16 @@ class ItineraryRepository: ObservableObject {
           self.itineraries = querySnapshot?.documents.compactMap { document in
             try? document.data(as: Itinerary.self)
           } ?? []
+          self.current()
+          print(self.itineraries)
         }
     }
+  func current() {
+    print(self.itineraries)
+    for itinerary in itineraries {
+      if itinerary.isCurrent {
+        currentItinerary = itinerary
+      }
+    }
+  }
 }

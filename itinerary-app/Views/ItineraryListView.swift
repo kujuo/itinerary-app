@@ -17,7 +17,7 @@ struct ItineraryListView: View {
     NavigationView {
       List {
         ForEach(itineraries) { itinerary in
-          ItineraryRowView(itinerary: itinerary)
+          ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
         }
       }
     }

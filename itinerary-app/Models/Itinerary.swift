@@ -34,3 +34,4 @@ struct Itinerary: Identifiable, Codable, Comparable {
     lhs.lastEditDate == rhs.lastEditDate
   }
 }
+
