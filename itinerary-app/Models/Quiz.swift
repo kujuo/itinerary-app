@@ -64,7 +64,7 @@ enum QuizQuestionType {
 }
 
 // the questions variable will be an array of all the quiz questions since they wil always be the same
-struct Quiz: ObservableObject {
+struct Quiz {
     var questions: [QuizQuestion]
     var duration: Int?
     var continent: Continent?

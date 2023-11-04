@@ -6,18 +6,21 @@
 //
 
 
+
+// would I have a navigation link or just a button that moves to next page
+//NavigationLink(
+   //destination: DurationQuestionView(quiz: quiz)) {
+
 import SwiftUI
 
 struct QuizBeginningView: View {
   //@ObservedObject var quiz: Quiz
-    var text: String
-    var background: Color = Color("AccentColor")
-  
-  var body: some View {
-     // would I have a navigation link or just a button that moves to next page
-    //NavigationLink(
-        //destination: DurationQuestionView(quiz: quiz)) {
-                  Text("Welcome to the Location Finder")
+    var body: some View {
+        VStack {
+            Text("Welcome to the Location Finder")
+                .font(.largeTitle)
+            CardView()
+        }
     }
 }
 

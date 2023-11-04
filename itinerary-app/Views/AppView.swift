@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppView: View {
-  @ObservedObject var quiz = quiz()
+  //@ObservedObject var quiz = quiz()
   var body: some View {
     
     TabView {
@@ -24,7 +24,7 @@ struct AppView: View {
           Text("History")
       }
       
-      HomeView()
+        QuizBeginningView()
       .tabItem {
           Image(systemName: "plus.circle.fill")
           Text("Create Itinerary")
