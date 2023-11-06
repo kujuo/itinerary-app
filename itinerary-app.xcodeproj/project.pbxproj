@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		DB38044B2AF34A2700BD36C4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044A2AF34A2700BD36C4 /* HistoryView.swift */; };
 		DB38044D2AF3562400BD36C4 /* wah.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DB38044C2AF3562400BD36C4 /* wah.jpg */; };
+		DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044F2AF74F9900BD36C4 /* EventNavView.swift */; };
+		DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804512AF752CF00BD36C4 /* EventDetailView.swift */; };
+		DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804542AF86A6A00BD36C4 /* Helpers.swift */; };
 		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -53,6 +56,9 @@
 /* Begin PBXFileReference section */
 		DB38044A2AF34A2700BD36C4 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		DB38044C2AF3562400BD36C4 /* wah.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wah.jpg; sourceTree = "<group>"; };
+		DB38044F2AF74F9900BD36C4 /* EventNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNavView.swift; sourceTree = "<group>"; };
+		DB3804512AF752CF00BD36C4 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		DB3804542AF86A6A00BD36C4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		DBA3B58C2AF2F34D00BDE32B /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -111,8 +117,18 @@
 			children = (
 				DBA3B58D2AF2F34D00BDE32B /* ItineraryNavView.swift */,
 				DBA3B58F2AF2F34D00BDE32B /* ItineraryDetailView.swift */,
+				DB38044F2AF74F9900BD36C4 /* EventNavView.swift */,
+				DB3804512AF752CF00BD36C4 /* EventDetailView.swift */,
 			);
 			path = ItineraryViews;
+			sourceTree = "<group>";
+		};
+		DB3804532AF86A5B00BD36C4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DB3804542AF86A6A00BD36C4 /* Helpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		DB7FFA912ADE4467009E2A7D /* Models */ = {
@@ -164,6 +180,7 @@
 		DBBC87802ADE26AC00208797 /* itinerary-app */ = {
 			isa = PBXGroup;
 			children = (
+				DB3804532AF86A5B00BD36C4 /* Helpers */,
 				DBAEBAA42ADE472B00391B41 /* DataRepositories */,
 				DB7FFA912ADE4467009E2A7D /* Models */,
 				DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */,
@@ -289,12 +306,15 @@
 			files = (
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,
+				DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
 				DBA3B5922AF2F34D00BDE32B /* ItineraryNavView.swift in Sources */,
 				DBA3B5912AF2F34D00BDE32B /* AppView.swift in Sources */,
 				DB38044B2AF34A2700BD36C4 /* HistoryView.swift in Sources */,
 				DBAEBAA82ADE482300391B41 /* Day.swift in Sources */,
+				DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */,
 				DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */,
+				DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */,
 				DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */,
 				DBAEBAA62ADE476900391B41 /* ItineraryRepository.swift in Sources */,
 			);

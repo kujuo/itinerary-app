@@ -14,30 +14,16 @@ struct HistoryView: View {
     let current = itineraryRepository.currentItinerary
     NavigationStack {
       VStack(alignment: .leading) {
-        Text("Current Itinerary").font(.title)
+        Text("Current Itinerary").font(.title2).fontWeight(.bold)
         if let current {
-          ItineraryNavView(itinerary: current, sizeHeight: 200, isCurrent: true)
+          ItineraryNavView(itinerary: current, isCurrent: true, saved: true)
         }
+        Spacer(minLength: 20)
 //        ItineraryNavView(itinerary: current, sizeHeight: 200, isCurrent: false)
-        Text("Past Itineraries").font(.title).frame(alignment:.leading)
+        Text("Past Itineraries").font(.title2).frame(alignment:.leading).fontWeight(.bold)
         ScrollView(.vertical) {
           ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
-          }
-          ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
-          }
-          ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
-          }
-          ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
-          }
-          ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
-          }
-          ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, sizeHeight: 100, isCurrent: false)
+            ItineraryNavView(itinerary: itinerary, isCurrent: false, saved: true)
           }
         }.frame(alignment: .leading)
       }

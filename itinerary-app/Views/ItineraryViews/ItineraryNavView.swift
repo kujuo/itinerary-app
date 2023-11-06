@@ -14,17 +14,24 @@ struct ItineraryNavView: View {
   var itinerary: Itinerary
   var sizeHeight: CGFloat
   let sizeWidth: CGFloat = 340
-  let isCurrent: Bool?
+  var isCurrent: Bool
+  var saved: Bool
+  
   @State var imgURL: URL? = nil
+  
+  init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil) {
+    self.itinerary = itinerary
+    self.isCurrent = isCurrent
+    self.sizeHeight = isCurrent ? 200 : 100
+    self.saved = saved
+    self.imgURL = imgURL
+  }
   
   var body: some View {
     NavigationLink(
-      destination: ItineraryDetailView(itinerary: itinerary)) {
+      destination: ItineraryDetailView(itinerary: itinerary, saved: saved)) {
         VStack (alignment: .leading, content: {
           ZStack {
-            Text("sdfasldjf")
-            Text("aslkdjfaqirjoq")
-
             // Image
             AsyncImage(url: imgURL) { image in image.resizable() } placeholder: { Color.blue.opacity(0.7) }
               .frame(width: sizeWidth, height: sizeHeight)
@@ -41,34 +48,37 @@ struct ItineraryNavView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             // Text within the button
             HStack {
-              VStack(alignment: .leading) {
-                Text(itinerary.location).frame(alignment: .leading)
-                  .fontWeight(.bold).foregroundColor(Color.white)
-//                  .border(Color.green , width: 2.0)
-                Spacer()
-                Text("2 weeks").frame(alignment: .leading)
-                  .fontWeight(.bold).foregroundColor(Color.white)
-//                  .border(Color.green , width: 2.0)
-              }.padding(10)
+              if (self.isCurrent) {
+                VStack(alignment: .leading) {
+                  Text(itinerary.location).frame(alignment: .leading)
+                    .fontWeight(.bold).foregroundColor(Color.white)
+                    .font(.title)
+                  Spacer()
+                  Text("2 weeks").frame(alignment: .leading)
+                    .fontWeight(.bold).foregroundColor(Color.white)
+                    .font(.title)
+                }.padding(10)
+              }
+              else {
+                VStack(alignment: .leading) {
+                  Text(itinerary.location).frame(alignment: .leading)
+                    .fontWeight(.bold).foregroundColor(Color.white)
+                    .font(.title3)
+                  Spacer()
+                  Text("2 weeks").frame(alignment: .leading)
+                    .fontWeight(.bold).foregroundColor(Color.white)
+                    .font(.title3)
+                }.padding(10)
+              }
               Spacer()
               // Menu
               VStack {
                 Menu {
-                    Button("first") {  }
-                    Button("second") {  }
-                    Menu {
-                        Button("third") {  }
-                        Button("forth") {  }
-                    } label: {
-                        Label("More", systemImage: "folder.circle")
-                    }
-
-                    Button("Delete", role: .destructive) {
-                    }
-
+                    Button("Set as New Current") {  }
+                    Button("Delete", role: .destructive) {  }
                 } label: {
                   Label("", systemImage: "ellipsis").foregroundColor(Color.white)
-                    .border(Color.green , width: 2.0)
+//                    .border(Color.green , width: 2.0)
                     .font(.system(size: 25))
                 }.padding(10)
                 Spacer()
@@ -79,25 +89,31 @@ struct ItineraryNavView: View {
         .frame(maxWidth: sizeWidth, maxHeight: sizeHeight)
         // first VStack
       }
-//      .onAppear(perform: {
-//        getURL(path: "DSC_0387.jpeg")
-//      })
-  }
-  func getURL(path: String) {
-    let storageRef = Storage.storage().reference()
-    let starsRef = storageRef.child(path)
-    // Fetch the download URL
-    
-    starsRef.downloadURL(completion: { (url, error) in
-      if let error = error {
-        // Handle any errors
-        print("Error getting download URL: \(error.localizedDescription)")
-      } else {
-        // Get the download URL for 'images/stars.jpg'
-        if let downloadURL = url {
-          imgURL = downloadURL
-        }
+      .onAppear(perform: {
+        getURL(path: "DSC_0387.jpeg") { urlString in // <-- here
+          self.imgURL = urlString
+          print("---> urlString: \(urlString)" ) // <-- here
       }
-    })
+      })
   }
 }
+
+func getURL(path: String, completion: @escaping (URL) -> Void) {
+  let storageRef = Storage.storage().reference()
+  let starsRef = storageRef.child(path)
+  // Fetch the download URL
+  
+  starsRef.downloadURL(completion: { (url, error) in
+    if let error = error {
+      // Handle any errors
+      print("Error getting download URL: \(error.localizedDescription)")
+    } else {
+      // Get the download URL for 'images/stars.jpg'
+      if let downloadURL = url {
+        completion(downloadURL)
+//          imgURL = downloadURL
+      }
+    }
+  })
+}
+
