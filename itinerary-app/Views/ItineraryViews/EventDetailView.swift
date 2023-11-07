@@ -17,7 +17,7 @@ struct EventDetailView: View {
         .frame(width: UIScreen.main.bounds.width, height: 250)
         .aspectRatio(contentMode: .fit)
       VStack(alignment: .leading) {
-        Text((event.timeStart ?? "Unknown time") + "-" + (event.timeEnd ?? "Unknown time"))
+        Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
           .font(.title3).fontWeight(.bold).padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
         Text(event.description ?? "")
       }.frame(maxWidth: 340, alignment: .center)
