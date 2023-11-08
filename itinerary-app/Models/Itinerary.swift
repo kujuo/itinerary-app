@@ -10,11 +10,11 @@ import SwiftUI
 struct Itinerary: Identifiable, Codable, Comparable {
   
   var id: UUID
-  var location: String
-  var img: String?
-  var isCurrent: Bool
+  var location: String // ie "Pittsburgh"
+  var img: String? // link to image, either external or stored on firebase
+  var isCurrent: Bool // is it the current itinerary?
   var days: [Day]?
-  var lastEditDate: Date
+  var lastEditDate: Date // last edit date
   
   // To conform to Codable protocol
   enum CodingKeys: String, CodingKey {

@@ -10,7 +10,7 @@ import Foundation
 struct Day: Identifiable, Codable {
   
   var id: UUID
-  var dayNumber: Int
+  var dayNumber: Int // the number the day is 
   var events: [Event]?
   
   // To conform to Codable protocol
