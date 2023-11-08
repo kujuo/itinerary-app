@@ -12,10 +12,11 @@ struct ItineraryDetailView: View {
   var saved: Bool
   var body: some View {
     ScrollView {
-      VStack(/*alignment: .leading*/) {
+      VStack() {
+        // TOP IMAGE OVERLAY
         ZStack(alignment: .topLeading){
           AsyncImage(url: URL(string: "https://cdn.britannica.com/74/65574-050-B1A02E0C/Downtown-Pittsburgh-Pennsylvania-Fort-Pitt-Bridge-Monongahela.jpg")) { image in image.resizable() }
-            placeholder: { Color.blue.opacity(0.7) }
+        placeholder: { lightBlueColor.opacity(0.9) }
             .frame(width: UIScreen.main.bounds.width, height: 250)
             .aspectRatio(contentMode: .fit)
           Rectangle()
@@ -44,19 +45,27 @@ struct ItineraryDetailView: View {
           }
         }.frame(maxHeight: 250)
 
-        VStack(alignment: .leading) {
+        
+        // Days
+        LazyVStack(pinnedViews: [.sectionHeaders]) {
           if (itinerary.days != nil) {
             ForEach(itinerary.days!) { day in
-              Text("Day " + day.dayNumber.description)
-    //          NavigationView {
-                ForEach(day.events!) {
-                  event in
-  //                HStack {
-                    EventNavView(event: event)
-  //                }
+              Section(header: HStack {
+                Text("Day " + day.dayNumber.description).padding(10).font(.title3).fontWeight(.bold)
+                Spacer()
+              }.background(Color.white).frame(width: UIScreen.main.bounds.width)
+                .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
+              ) {
+                VStack(alignment: .center) {
+                  ForEach(day.events!) {
+                    event in
+                      EventNavView(event: event)
+                  }
                 }
+              }
             }
           }
+
         }
         Spacer()
       }.frame(maxWidth: .infinity/*, alignment: .topLeading*/)

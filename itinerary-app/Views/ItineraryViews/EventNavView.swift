@@ -15,54 +15,121 @@ struct EventNavView: View {
   var body: some View {
     switch event.type {
     case .meal:
-      Link(destination: URL(string: "https://www.apple.com")!) {
-        AsyncImage(url: URL(string: "https://www.apple.com")) { image in image.resizable() } 
-          placeholder: { Color.blue.opacity(0.7) }
-          .frame(width: 300, height: 100)
-          .clipShape(RoundedRectangle(cornerRadius: 20))
-          .aspectRatio(contentMode: .fit)
+      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+        Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
       NavigationLink(destination: EventDetailView(event: event)) {
-        Text(event.name)
-        AsyncImage(url: URL(string: "https://www.apple.com")) { image in image.resizable() } placeholder: { Color.blue.opacity(0.7) }
-          .frame(width: 200, height: 100)
-          .clipShape(RoundedRectangle(cornerRadius: 20))
-          .aspectRatio(contentMode: .fit)
+        Attraction(event: event)
       }
     case .travel:
-      Link(destination: URL(string: "https://www.apple.com")!) {
-          Image(systemName: "link.circle.fill")
-              .font(.largeTitle)
-      }
+      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+        Travel(event: event)
+      }.foregroundColor(Color.black)
     }
-//    {
-//    case .single(let singleContent):
-//        SingleView(content: singleContent)
-//    case .split(let splittableContentLeft, let splittableContentRight):
-//        HSplitView {
-//            SplittableView(content: splittableContentLeft)
-//            SplittableView(content: splittableContentRight)
-//        }
-//    }
   }
-  
-  func getURL(path: String) {
-    let storageRef = Storage.storage().reference()
-    let starsRef = storageRef.child(path)
-    // Fetch the download URL
-    
-    starsRef.downloadURL(completion: { (url, error) in
-      if let error = error {
-        // Handle any errors
-        print("Error getting download URL: \(error.localizedDescription)")
-      } else {
-        // Get the download URL for 'images/stars.jpg'
-        if let downloadURL = url {
-          imgURL = downloadURL
-        }
-      }
-    })
+}
+
+struct Meal: View {
+  var event: Event
+  var body: some View {
+    VStack(alignment: .center) {
+      ZStack(alignment: .topLeading){
+        Rectangle()
+          .fill(lightBlueColor.opacity(0.9))
+          .frame(width: 340, height: 100)
+          .clipShape(RoundedRectangle(cornerRadius: 20))
+        HStack {
+          VStack (alignment: .leading){
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+            Text("Meal: " + event.name)
+              .font(.title3).fontWeight(.heavy)
+              .multilineTextAlignment(.leading)
+            Spacer()
+          }
+          Spacer()
+          VStack {
+            Spacer()
+            Image(systemName: "chevron.forward.circle")
+              .resizable()
+              .frame(width: 30, height: 30)
+            Spacer()
+          }
+        }.padding(10)
+      }.frame(maxWidth: 340, maxHeight: 100)
+    }
+  }
+}
+
+struct Attraction: View {
+  @State var imgURL: URL? = nil
+  var event: Event
+  var body: some View {
+    VStack(alignment: .center) {
+      ZStack(alignment: .topLeading){
+        AsyncImage(url: imgURL) { image in image.resizable() }
+      placeholder: { lightBlueColor.opacity(0.9) }
+          .frame(width: 340, height: 200)
+          .aspectRatio(contentMode: .fit)
+          .clipShape(RoundedRectangle(cornerRadius: 20))
+        Rectangle()
+          .fill(LinearGradient(
+              gradient: .init(colors: [Color.black.opacity(0.9), Color.black.opacity(0.4), Color.black.opacity(0.1), Color.white.opacity(0.2), Color.black.opacity(0.3)]),
+              startPoint: .init(x: 0.5, y: 0.0),
+              endPoint: .init(x: 0.5, y: 1)
+          ))
+          .frame(width: 340, height: 200)
+          .clipShape(RoundedRectangle(cornerRadius: 20))
+        HStack {
+          VStack (alignment: .leading){
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.white)
+            Text(event.name)
+              .font(.title3).fontWeight(.heavy)
+              .foregroundColor(Color.white).multilineTextAlignment(.leading)
+//              .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+          }/*.padding(EdgeInsets(top: 15, leading: 15, bottom: 0, trailing: 0))*/
+          Spacer()
+          VStack {
+            Spacer()
+            Image(systemName: "chevron.forward.circle")
+              .resizable()
+              .frame(width: 30, height: 30)
+              .tint(Color.white)
+            Spacer()
+          }
+        }.padding(10)
+      }.frame(maxWidth: 340, maxHeight: 200)
+    }
+  }
+}
+
+struct Travel: View {
+  var event: Event
+  var body: some View {
+    HStack {
+      Spacer()
+      Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+        .font(.caption)
+//        .border(Color.green , width: 2.0)
+      Image(systemName: "ellipsis")
+//        .resizable()
+        .rotationEffect(.degrees(90))
+//        .frame(height: 25)
+//        .border(Color.green , width: 2.0)
+      Text("Travel: " + event.name)
+      Spacer()
+      VStack {
+        Spacer()
+        Image(systemName: "chevron.forward.circle")
+          .resizable()
+          .frame(width: 30, height: 30)
+        Spacer()
+      }.padding(10)
+    }.frame(maxWidth: 340)
   }
 }
 

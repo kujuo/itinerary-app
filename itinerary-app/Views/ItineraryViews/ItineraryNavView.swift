@@ -30,10 +30,10 @@ struct ItineraryNavView: View {
   var body: some View {
     NavigationLink(
       destination: ItineraryDetailView(itinerary: itinerary, saved: saved)) {
-        VStack (alignment: .leading, content: {
+        LazyVStack (alignment: .leading, content: {
           ZStack {
             // Image
-            AsyncImage(url: imgURL) { image in image.resizable() } placeholder: { Color.blue.opacity(0.7) }
+            AsyncImage(url: imgURL) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
               .frame(width: sizeWidth, height: sizeHeight)
               .clipShape(RoundedRectangle(cornerRadius: 20))
               .aspectRatio(contentMode: .fit)
@@ -87,33 +87,11 @@ struct ItineraryNavView: View {
           }
         })
         .frame(maxWidth: sizeWidth, maxHeight: sizeHeight)
-        // first VStack
       }
       .onAppear(perform: {
-        getURL(path: "DSC_0387.jpeg") { urlString in // <-- here
+        getURL(path: itinerary.img) { urlString in // <-- here
           self.imgURL = urlString
-          print("---> urlString: \(urlString)" ) // <-- here
       }
       })
   }
 }
-
-func getURL(path: String, completion: @escaping (URL) -> Void) {
-  let storageRef = Storage.storage().reference()
-  let starsRef = storageRef.child(path)
-  // Fetch the download URL
-  
-  starsRef.downloadURL(completion: { (url, error) in
-    if let error = error {
-      // Handle any errors
-      print("Error getting download URL: \(error.localizedDescription)")
-    } else {
-      // Get the download URL for 'images/stars.jpg'
-      if let downloadURL = url {
-        completion(downloadURL)
-//          imgURL = downloadURL
-      }
-    }
-  })
-}
-

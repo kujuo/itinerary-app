@@ -6,21 +6,41 @@
 //
 
 import Foundation
+import FirebaseStorage
+import SwiftUI
 
 func timeTransform(time: String?) -> String {
   if let t = time {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HHmm"
-    var dateFromStr = dateFormatter.date(from: t)!
+    let dateFromStr = dateFormatter.date(from: t)!
 
-  //  // Time with date in long format
-  //  dateFormatter.dateFormat = "hh:mm:ss a 'on' MMMM dd, yyyy"
-  //  var timeInLongFromDate = dateFormatter.string(from: dateFromStr)
-  //  print(timeInLongFromDate)
     dateFormatter.dateFormat = "hh:mm a"
-    var timeFromDate = dateFormatter.string(from: dateFromStr)
+    let timeFromDate = dateFormatter.string(from: dateFromStr)
     return timeFromDate
   }
   else { return "Unknown time" }
 }
 
+func getURL(path: String?, completion: @escaping (URL) -> Void) {
+  if let p = path {
+    let storageRef = Storage.storage().reference()
+    let starsRef = storageRef.child(p)
+    // Fetch the download URL
+    
+    starsRef.downloadURL(completion: { (url, error) in
+      if let error = error {
+        // Handle any errors
+        print("Error getting download URL: \(error.localizedDescription)")
+      } else {
+        if let downloadURL = url {
+          completion(downloadURL)
+        }
+      }
+    })
+  }
+}
+
+// TO DO: ADD HELPER FOR TIMES SO EVERYTHING ISN'T 2 WEEK
+
+let lightBlueColor: Color = Color(red: 0.61960784313, green: 0.909803922, blue: 1)

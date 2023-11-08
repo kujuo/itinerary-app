@@ -19,7 +19,6 @@ struct HistoryView: View {
           ItineraryNavView(itinerary: current, isCurrent: true, saved: true)
         }
         Spacer(minLength: 20)
-//        ItineraryNavView(itinerary: current, sizeHeight: 200, isCurrent: false)
         Text("Past Itineraries").font(.title2).frame(alignment:.leading).fontWeight(.bold)
         ScrollView(.vertical) {
           ForEach(itineraries) { itinerary in
