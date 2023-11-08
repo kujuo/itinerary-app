@@ -14,6 +14,7 @@ import FirebaseStorage
 
 class ItineraryRepository: ObservableObject {
   // Set up properties here
+  static let itineraryRepository = ItineraryRepository()
   private let path: String = "itineraries"
   private let store = Firestore.firestore()
   @Published var itineraries: [Itinerary] = []
