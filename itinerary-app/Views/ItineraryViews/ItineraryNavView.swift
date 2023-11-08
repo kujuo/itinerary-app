@@ -6,11 +6,15 @@
 //
 
 import Foundation
-import Foundation
 import SwiftUI
 import FirebaseStorage
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
 
 struct ItineraryNavView: View {
+  @ObservedObject var itineraryRepository: ItineraryRepository
   var itinerary: Itinerary
   var sizeHeight: CGFloat
   let sizeWidth: CGFloat = 340
@@ -19,11 +23,12 @@ struct ItineraryNavView: View {
   
   @State var imgURL: URL? = nil
   
-  init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil) {
+  init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil/*, itineraryRepository: ItineraryRepository*/) {
     self.itinerary = itinerary
     self.isCurrent = isCurrent
     self.sizeHeight = isCurrent ? 200 : 100
     self.saved = saved
+    self.itineraryRepository = ItineraryRepository.itineraryRepository
     self.imgURL = imgURL
   }
   
@@ -74,8 +79,48 @@ struct ItineraryNavView: View {
               // Menu
               VStack {
                 Menu {
-                    Button("Set as New Current") {  }
-                    Button("Delete", role: .destructive) {  }
+                  Button("Set as New Current", action: {
+                    let store = Firestore.firestore()
+                    if let oldCurrentItinerary: Itinerary = itineraryRepository.currentItinerary {
+                      let oldCurrentItineraryRef = store.collection("itineraries").document(oldCurrentItinerary.id.uuidString)
+                      // Set the "capital" field of the city 'DC'
+                      oldCurrentItineraryRef.updateData([
+                        "isCurrent": false
+                      ]) { err in
+                        if let err = err {
+                          print("Error updating document: \(err)")
+                        } else {
+                          print("Old current itinerary unset as current")
+                        }
+                      }
+                    }
+                    let newCurrentItineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+                    newCurrentItineraryRef.updateData([
+                      "isCurrent": true
+                    ]) { err in
+                      if let err = err {
+                        print("Error updating document: \(err)")
+                      } else {
+                        print("Document successfully updated")
+                      }
+                    }
+
+                  })
+                    Button("Delete", role: .destructive) {
+                      let store = Firestore.firestore()
+                      let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+
+                      // Set the "capital" field of the city 'DC'
+                      itineraryRef.updateData([
+                        "isCurrent": true
+                      ]) { err in
+                        if let err = err {
+                          print("Error updating document: \(err)")
+                        } else {
+                          print("Document successfully updated")
+                        }
+                      }
+                    }
                 } label: {
                   Label("", systemImage: "ellipsis").foregroundColor(Color.white)
 //                    .border(Color.green , width: 2.0)
