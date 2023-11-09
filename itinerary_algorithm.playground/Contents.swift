@@ -9,6 +9,7 @@ struct QuizLocationAnswers{
     var continent: String
     var weather: String
     var type_of_city: String
+    var duration: Int
     
     enum CodingKeys: String, CodingKey {
         case continent
@@ -18,9 +19,9 @@ struct QuizLocationAnswers{
 }
 
 struct QuizActivityAnswers{
-    var location: String
+    //var location: String
     var activityTags: [String]
-    var activitiesChosen: [Event]
+    var activitiesChosen: [Event]?
     var foodTags:[String]
     
     enum CodingKeys: String, CodingKey {
@@ -41,9 +42,9 @@ struct Event: Identifiable, Codable {
   
   var id: UUID
   var name: String
+  var type: EventType
   var description: String?
   var img: String?
-  var type: EventType
   var latitude: Double?
   var longitude: Double?
   var timeStart: String?
@@ -169,6 +170,7 @@ struct Address: Decodable{
 
 
 
+
 let cityDestinations = [
     CityDestination(name: "Paris", latitude: 48.8566, longitude: 2.3522, weather: "warm", cityTypes: ["modern", "historical"], continent: "Europe"),
     CityDestination(name: "Cairo", latitude: 30.0444, longitude: 31.2357, weather: "hot", cityTypes: ["historical"], continent: "Africa"),
@@ -198,7 +200,70 @@ func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinati
 }
 
 
-let quizResult = QuizLocationAnswers(continent: "Europe", weather: "cold", type_of_city: "modern")
+let quizResult = QuizLocationAnswers(continent: "Europe", weather: "cold", type_of_city: "modern", duration: 3)
+
+
+class DataManager {
+    static let shared = DataManager() // Singleton instance
+    private var listofid: [String] = [] // Private storage for IDs
+    
+    private init() {} // Private initializer to ensure singleton usage
+    
+    func fetchAndStoreIDs(from urlString: String, completion: @escaping (Bool) -> Void) {
+        guard let url = URL(string: urlString) else {
+            print("Error: Invalid URL")
+            completion(false)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("Error: Invalid HTTP response")
+                completion(false)
+                return
+            }
+
+            guard let data = data else {
+                print("Error: No data to decode")
+                completion(false)
+                return
+            }
+
+            guard let answer = try? JSONDecoder().decode(Answer.self, from: data) else {
+                print("Error: Couldn't decode data into Answer")
+                completion(false)
+                return
+            }
+
+            self?.listofid.removeAll() // Clear any old IDs
+            for location in answer.data {
+                self?.listofid.append(location.id)
+            }
+            
+            completion(true) // Indicates success
+        }
+        
+        task.resume() // Start the network request
+    }
+    
+    // Function to retrieve stored IDs
+    func getStoredIDs() -> [String] {
+        return listofid
+    }
+}
+
+
+
+
+
+
+
 
 if let bestDestination = findBestDestination(for: quizResult, from: cityDestinations) {
     print(bestDestination.latitude)
@@ -220,87 +285,48 @@ if let bestDestination = findBestDestination(for: quizResult, from: cityDestinat
     let restauranturl = "https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=\(latitude)%2C\(longtitude)&key=547B30F2C5CF4458B82FAC44F069D0FA&category=restaurants&language=en"
     
     // get the id list for all the attraction activities
-    var attraction_list: [String] = []
-    let task_attraction = URLSession.shared.dataTask(with: URL(string: attractionsurl)!) { (data, response, error) in
-        guard let data = data else {
-          print("Error: No data to decode")
-          return
+    DataManager.shared.fetchAndStoreIDs(from: attractionsurl) { success in
+        if success {
+            let ids = DataManager.shared.getStoredIDs()
+            // Now you have the IDs and can use them
+            print("Stored IDs: \(ids)")
+        } else {
+            print("Failed to fetch IDs.")
         }
+    }
+
     
-
-        guard let answer = try? JSONDecoder().decode(Answer.self, from: data) else {
-          print("Error: Couldn't decode data into a result")
-          return
+    
+    DataManager.shared.fetchAndStoreIDs(from: geosurl) { success in
+        if success {
+            let ids = DataManager.shared.getStoredIDs()
+            // Now you have the IDs and can use them
+            print("Stored IDs: \(ids)")
+        } else {
+            print("Failed to fetch IDs.")
         }
-        
-
-            
-        for location in answer.data {
-          attraction_list.append(location.id)
-            print(attraction_list)
-          //print("The \(location.name) 's id is \(location.id)")
-        }
-        //print(attraction_list)
-        //print("--------------------------------------------------------------------")
     }
     
-    task_attraction.resume()
-    
-    var geos_list: [String] = []
-    let task_geos = URLSession.shared.dataTask(with: URL(string: geosurl)!) { (data, response, error) in
-        guard let data = data else {
-          print("Error: No data to decode")
-          return
-        }
-        
-        guard let answer = try? JSONDecoder().decode(Answer.self, from: data) else {
-          print("Error: Couldn't decode data into a result")
-          return
-        }
-        
 
-            
-        for location in answer.data {
-            geos_list.append(location.id)
-            print(geos_list)
-          //print("The \(location.name) 's id is \(location.id)")
+    
+    DataManager.shared.fetchAndStoreIDs(from: restauranturl) { success in
+        if success {
+            let ids = DataManager.shared.getStoredIDs()
+            // Now you have the IDs and can use them
+            print("Stored IDs: \(ids)")
+        } else {
+            print("Failed to fetch IDs.")
         }
-        //print(attraction_list)
-        //print("--------------------------------------------------------------------")
     }
     
-    task_geos.resume()
-    
-    var rest_list: [String] = []
-    let task_rests = URLSession.shared.dataTask(with: URL(string: restauranturl)!) { (data, response, error) in
-        guard let data = data else {
-          print("Error: No data to decode")
-          return
-        }
-
-        guard let answer = try? JSONDecoder().decode(Answer.self, from: data) else {
-          print("Error: Couldn't decode data into a result")
-          return
-        }
-        
-
-            
-        for location in answer.data {
-            rest_list.append(location.id)
-            print(rest_list)
-          //print("The \(location.name) 's id is \(location.id)")
-        }
-        //print(attraction_list)
-        //print("--------------------------------------------------------------------")
-    }
-    
-    task_rests.resume()
     
     
     
 } else {
     print("We could not find a destination that matches all your preferences.")
 }
+
+
 
 
 
