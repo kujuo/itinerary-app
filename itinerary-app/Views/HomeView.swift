@@ -43,9 +43,9 @@ struct HomeView: View {
 //          let event10 = Event(id: UUID(), name: "Bus", type: EventType.travel, timeStart: "1500", timeEnd: "130", url: "https://www.google.com/maps/dir/Pamela's+Diner,+Forbes+Avenue,+Pittsburgh,+PA/Carnegie+Museum+of+Natural+History,+Forbes+Avenue,+Pittsburgh,+PA/@40.4427904,-79.9593845,15.77z/data=!4m13!4m12!1m5!1m1!1s0x8834f229e57e54fb:0x85711e3bfcf4be29!2m2!1d-79.9575695!2d40.4412653!1m5!1m1!1s0x8834f3c2df9e12c1:0x229123cb51fbc6a8!2m2!1d-79.949974!2d40.4433215?entry=ttu")
 //          let event11 = Event(id: UUID(), name: "Eiffel Tower 3", description: "The Carnegie Museum of Natural History (abbreviated as CMNH) is a natural history museum in the Oakland neighborhood of Pittsburgh, Pennsylvania. It was founded by Pittsburgh-based industrialist Andrew Carnegie in 1896. Housing some 22 million specimens, the museum features one of the finest paleontological collections in the world.", type: EventType.attraction, timeStart: "1030", timeEnd: "1400")
 //
-//          let day2 = Day(id: UUID(), dayNumber: 2, events: [event6, event7, event8, event9, event10])
+////          let day2 = Day(id: UUID(), dayNumber: 2, events: [event6, event7, event8, event9, event10])
 //
-//          let itinerary = Itinerary(id: UUID(), location: "Paris3", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg", isCurrent: false, days: [day, day2], lastEditDate: Date())
+//          let itinerary = Itinerary(id: UUID(), location: "Woooo", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg", isCurrent: false, days: [day], lastEditDate: Date())
 //          let collectionRef = store.collection("itineraries")
 //          do {
 //            let newDocReference = try collectionRef.document(itinerary.id.uuidString).setData(from: itinerary)

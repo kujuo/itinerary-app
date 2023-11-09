@@ -15,8 +15,7 @@ struct ItineraryDetailView: View {
       VStack() {
         // TOP IMAGE OVERLAY
         ZStack(alignment: .topLeading){
-          AsyncImage(url: URL(string: "https://cdn.britannica.com/74/65574-050-B1A02E0C/Downtown-Pittsburgh-Pennsylvania-Fort-Pitt-Bridge-Monongahela.jpg")) { image in image.resizable() }
-        placeholder: { lightBlueColor.opacity(0.9) }
+          AsyncImage(url: URL(string: itinerary.img ?? "")) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
             .frame(width: UIScreen.main.bounds.width, height: 250)
             .aspectRatio(contentMode: .fit)
           Rectangle()
@@ -65,7 +64,6 @@ struct ItineraryDetailView: View {
               }
             }
           }
-
         }
         Spacer()
       }.frame(maxWidth: .infinity/*, alignment: .topLeading*/)

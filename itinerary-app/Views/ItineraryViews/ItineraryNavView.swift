@@ -20,16 +20,13 @@ struct ItineraryNavView: View {
   let sizeWidth: CGFloat = 340
   var isCurrent: Bool
   var saved: Bool
-  
-  @State var imgURL: URL? = nil
-  
+    
   init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil/*, itineraryRepository: ItineraryRepository*/) {
     self.itinerary = itinerary
     self.isCurrent = isCurrent
     self.sizeHeight = isCurrent ? 200 : 100
     self.saved = saved
     self.itineraryRepository = ItineraryRepository.itineraryRepository
-    self.imgURL = imgURL
   }
   
   var body: some View {
@@ -38,10 +35,11 @@ struct ItineraryNavView: View {
         LazyVStack (alignment: .leading, content: {
           ZStack {
             // Image
-            AsyncImage(url: imgURL) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
+            AsyncImage(url: URL(string: itinerary.img ?? "")) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
               .frame(width: sizeWidth, height: sizeHeight)
               .clipShape(RoundedRectangle(cornerRadius: 20))
-              .aspectRatio(contentMode: .fit)
+              .aspectRatio(contentMode: .fill)
+              .clipped()
             // Gradient on top of the image
             Rectangle()
                 .fill(LinearGradient(
@@ -59,7 +57,7 @@ struct ItineraryNavView: View {
                     .fontWeight(.bold).foregroundColor(Color.white)
                     .font(.title)
                   Spacer()
-                  Text("2 weeks").frame(alignment: .leading)
+                  Text(getDurationString(days: itinerary.days?.count ?? 0)).frame(alignment: .leading)
                     .fontWeight(.bold).foregroundColor(Color.white)
                     .font(.title)
                 }.padding(10)
@@ -70,7 +68,7 @@ struct ItineraryNavView: View {
                     .fontWeight(.bold).foregroundColor(Color.white)
                     .font(.title3)
                   Spacer()
-                  Text("2 weeks").frame(alignment: .leading)
+                  Text(getDurationString(days: itinerary.days?.count ?? 0)).frame(alignment: .leading)
                     .fontWeight(.bold).foregroundColor(Color.white)
                     .font(.title3)
                 }.padding(10)
@@ -81,9 +79,9 @@ struct ItineraryNavView: View {
                 Menu {
                   Button("Set as New Current", action: {
                     let store = Firestore.firestore()
+                    // if there's a current itinerary, remove it
                     if let oldCurrentItinerary: Itinerary = itineraryRepository.currentItinerary {
                       let oldCurrentItineraryRef = store.collection("itineraries").document(oldCurrentItinerary.id.uuidString)
-                      // Set the "capital" field of the city 'DC'
                       oldCurrentItineraryRef.updateData([
                         "isCurrent": false
                       ]) { err in
@@ -94,6 +92,7 @@ struct ItineraryNavView: View {
                         }
                       }
                     }
+                    // update the new itinerary!
                     let newCurrentItineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
                     newCurrentItineraryRef.updateData([
                       "isCurrent": true
@@ -104,25 +103,23 @@ struct ItineraryNavView: View {
                         print("Document successfully updated")
                       }
                     }
-
                   })
                     Button("Delete", role: .destructive) {
                       let store = Firestore.firestore()
                       let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
-
-                      // Set the "capital" field of the city 'DC'
-                      itineraryRef.updateData([
-                        "isCurrent": true
-                      ]) { err in
+                      if (itinerary.isCurrent) {
+                        itineraryRepository.currentItinerary = nil
+                      }
+                      itineraryRef.delete() { err in
                         if let err = err {
-                          print("Error updating document: \(err)")
+                          print("Error removing document: \(err)")
                         } else {
-                          print("Document successfully updated")
+                          print("Document successfully removed")
                         }
                       }
                     }
                 } label: {
-                  Label("", systemImage: "ellipsis").foregroundColor(Color.white)
+                  Label("", systemImage: "ellipsis.circle").foregroundColor(Color.white)
 //                    .border(Color.green , width: 2.0)
                     .font(.system(size: 25))
                 }.padding(10)
@@ -133,10 +130,5 @@ struct ItineraryNavView: View {
         })
         .frame(maxWidth: sizeWidth, maxHeight: sizeHeight)
       }
-      .onAppear(perform: {
-        getURL(path: itinerary.img) { urlString in // <-- here
-          self.imgURL = urlString
-      }
-      })
   }
 }

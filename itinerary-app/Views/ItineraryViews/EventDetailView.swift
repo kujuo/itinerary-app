@@ -15,7 +15,7 @@ struct EventDetailView: View {
       if let url = event.url {
         Link(destination: URL(string: url)!) {}
       }
-      AsyncImage(url: URL(string: "https://cdn.britannica.com/74/65574-050-B1A02E0C/Downtown-Pittsburgh-Pennsylvania-Fort-Pitt-Bridge-Monongahela.jpg")) { image in image.resizable() }
+      AsyncImage(url: URL(string: event.img ?? "")) { image in image.resizable() }
         placeholder: { Color.blue.opacity(0.7) }
         .frame(width: UIScreen.main.bounds.width, height: 250)
         .aspectRatio(contentMode: .fit)
@@ -29,6 +29,3 @@ struct EventDetailView: View {
   }
 }
 
-#Preview {
-  EventDetailView(event: Event(id: UUID(), name: "BUS", type: .attraction))
-}

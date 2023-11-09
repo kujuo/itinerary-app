@@ -41,6 +41,13 @@ func getURL(path: String?, completion: @escaping (URL) -> Void) {
   }
 }
 
-// TO DO: ADD HELPER FOR TIMES SO EVERYTHING ISN'T 2 WEEK
+func getDurationString(days: Int) -> String {
+  if (days < 7) {
+    return "\(days) days"
+  }
+  else {
+    return "\(days % 7) weeks"
+  }
+}
 
 let lightBlueColor: Color = Color(red: 0.61960784313, green: 0.909803922, blue: 1)

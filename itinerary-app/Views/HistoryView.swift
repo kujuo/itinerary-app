@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HistoryView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
-//  @ObservedObject var itineraryRepository: ItineraryRepository
   var body: some View {
     let itineraries = itineraryRepository.itineraries.sorted()
     let current = itineraryRepository.currentItinerary
@@ -39,7 +38,9 @@ struct HistoryView: View {
         Text("Past Itineraries").font(.title2).frame(alignment:.leading).fontWeight(.bold)
         ScrollView(.vertical) {
           ForEach(itineraries) { itinerary in
-            ItineraryNavView(itinerary: itinerary, isCurrent: false, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+            if (!itinerary.isCurrent) {
+              ItineraryNavView(itinerary: itinerary, isCurrent: false, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+            }
           }
         }.frame(alignment: .leading)
       }
