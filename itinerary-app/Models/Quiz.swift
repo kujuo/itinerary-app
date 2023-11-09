@@ -64,15 +64,15 @@ enum QuizQuestionType {
 }
 
 // the questions variable will be an array of all the quiz questions since they wil always be the same
-struct Quiz {
-    var questions: [QuizQuestion]
+class Quiz {
+    var questions: [QuizQuestion] = []
     var duration: Int?
     var continent: Continent?
     var weather: Weather?
     var cityType: City?
     
     // these are the only options that a user can select for the continent
-    enum Continent {
+    enum Continent: String, CaseIterable {
         case northAmerica
         case southAmerica
         case africa

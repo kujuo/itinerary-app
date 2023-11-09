@@ -14,15 +14,16 @@
 import SwiftUI
 
 struct QuizBeginningView: View {
-  //@ObservedObject var quiz: Quiz
     var body: some View {
         VStack {
-            Text("Welcome to the Location Finder")
-                .font(.largeTitle)
+            Text("Location Finder")
+                .fontWeight(.bold)
+                .font(.system(size: 30))
+                .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
             CardView()
+         
         }
     }
 }
-
     
 

@@ -15,7 +15,6 @@
 		3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */; };
 		3921C9822AF3FFC40052C785 /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9812AF3FFC40052C785 /* CityTypeView.swift */; };
 		3921C9842AF400000052C785 /* GivenLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9832AF400000052C785 /* GivenLocationView.swift */; };
-		39C143222AF5B4CF0056C841 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143212AF5B4CF0056C841 /* PrimaryButton.swift */; };
 		39C143242AF604850056C841 /* CustomBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143232AF604840056C841 /* CustomBackgroundView.swift */; };
 		39C143272AF607DD0056C841 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143262AF607DD0056C841 /* ColorExtension.swift */; };
 		39C143292AF60DE70056C841 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143282AF60DE70056C841 /* CardView.swift */; };
@@ -69,7 +68,6 @@
 		3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuestionView.swift; sourceTree = "<group>"; };
 		3921C9812AF3FFC40052C785 /* CityTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
 		3921C9832AF400000052C785 /* GivenLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenLocationView.swift; sourceTree = "<group>"; };
-		39C143212AF5B4CF0056C841 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		39C143232AF604840056C841 /* CustomBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackgroundView.swift; sourceTree = "<group>"; };
 		39C143262AF607DD0056C841 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		39C143282AF60DE70056C841 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -129,6 +127,7 @@
 		3921C97A2AF3FE990052C785 /* QuizViews */ = {
 			isa = PBXGroup;
 			children = (
+				39C143202AF5B48E0056C841 /* Components */,
 				3921C9782AF3F2C50052C785 /* QuizBeginningView.swift */,
 				3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */,
 				3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */,
@@ -142,7 +141,6 @@
 		39C143202AF5B48E0056C841 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				39C143212AF5B4CF0056C841 /* PrimaryButton.swift */,
 				39C143232AF604840056C841 /* CustomBackgroundView.swift */,
 				39C143282AF60DE70056C841 /* CardView.swift */,
 			);
@@ -212,7 +210,6 @@
 				DB7FFA912ADE4467009E2A7D /* Models */,
 				DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */,
 				DBA3B58B2AF2F34D00BDE32B /* Views */,
-				39C143202AF5B48E0056C841 /* Components */,
 				39C143252AF607AB0056C841 /* Utility */,
 				DBBC87852ADE26AD00208797 /* Assets.xcassets */,
 				3921C9742AF315410052C785 /* GoogleService-Info.plist */,
@@ -332,7 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39C143222AF5B4CF0056C841 /* PrimaryButton.swift in Sources */,
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,
 				3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */,

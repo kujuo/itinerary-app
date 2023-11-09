@@ -15,4 +15,5 @@ extension Color {
     static let customGreenDark = Color("ColorGreenDark")
     static let customBlush = Color("blushy background")
     static let customTan = Color("tan background")
+    static let customBlue = Color("AccentColor")
 }
