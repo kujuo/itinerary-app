@@ -65,7 +65,7 @@ struct CardView: View {
                             .italic()
                             .foregroundColor(.customBlush)
                         NavigationLink(
-                            destination: DurationQuestionView(quiz: quiz)) {
+                            destination: DurationQuestionView(quiz: Quiz())) {
                                 Text("Take the Quiz")
                                     .font(.subheadline)
                                     .fontWeight(.light)
@@ -74,8 +74,8 @@ struct CardView: View {
                                     .padding()
                                     .background(Color("AccentColor"))
                                     .cornerRadius(20)
-                            }
-                        
+                            }                    
+
                     }
                     .frame(width: 160, height: 100)
                 }

@@ -22,12 +22,12 @@ struct DurationQuestionView: View {
                         .padding(.top, 5) // Adjust top padding
                     Stepper("\(days) days", value: $days, in: 1...31)
                         .padding(.bottom, 10) // Adjust bottom padding
-                    Button { quiz.duration = days } label: {
-                        NavigationLink(
-                            destination: ContinentQuestionView(quiz: quiz)) {
-                                              Text("Next")
-                            }
-                        }
+                  NavigationLink(destination: ContinentQuestionView(quiz: quiz)) {
+                      Text("Next")
+                  }.simultaneousGesture(TapGesture().onEnded{
+                    quiz.duration = days
+                  })
+
                 }
             }
     }

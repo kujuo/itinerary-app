@@ -20,6 +20,7 @@ struct CityTypeView: View {
     
     var body: some View {
             VStack {
+//              Text(quiz.continent?.rawValue ?? "wrong").font(.title).bold()
                 Text("Select the type of city you'd like to visit:")
                     .padding(.bottom, 10)
                 Picker("City Type", selection: $selectedCity) {
@@ -29,15 +30,13 @@ struct CityTypeView: View {
                 }
                 .pickerStyle(.wheel) // You can use other styles as well
                 
-                Button {
-                    quiz.cityType = selectedCity
-                } label: {
-                    NavigationLink(
-                        destination: GivenLocationView(quiz: quiz)
-                    ) {
-                        Text("Next")
-                    }
-                }
+              
+              NavigationLink(destination: GivenLocationView(quiz: quiz)) {
+                  Text("Next")
+              }.simultaneousGesture(TapGesture().onEnded{
+                quiz.cityType = selectedCity
+              })
+
             }
             NavigationStack {
                 VStack {

@@ -77,15 +77,39 @@ extension Quiz.City {
         case .metropolitanCity:
             return "Metropolitan City"
         case .modern:
-          return "Modern"
+          return "modern"
         case .historical:
-          return "Historical"
+          return "historical"
         case .coastal:
-          return "Coastal"
+          return "coastal"
         }
         
     }
 }
+
+
+extension Quiz.Continent{
+  func toString() -> String {
+      switch self {
+      case .northAmerica:
+          return "North America"
+      case .southAmerica:
+        return "South America"
+      case .africa:
+        return "Africa"
+      case .asia:
+        return "Asia"
+      case .antarctica:
+        return "Antarctica"
+      case .europe:
+        return "Europe"
+      case .australia:
+        return "Australia"
+      }
+  }
+  
+}
+
 
 // the questions variable will be an array of all the quiz questions since they wil always be the same
 class Quiz {

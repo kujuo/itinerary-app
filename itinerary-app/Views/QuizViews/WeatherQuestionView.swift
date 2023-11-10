@@ -27,15 +27,13 @@ struct WeatherQuestionView: View {
                 }
                 .pickerStyle(.wheel) // You can use other styles as well
                 
-                Button {
-                    quiz.weather = selectedWeather
-                } label: {
-                    NavigationLink(
-                        destination: CityTypeView(quiz: quiz)
-                    ) {
-                        Text("Next")
-                    }
-                }
+              
+              NavigationLink(destination: CityTypeView(quiz: quiz)) {
+                  Text("Next")
+              }.simultaneousGesture(TapGesture().onEnded{
+                quiz.weather = selectedWeather
+              })
+
             }
         }
         
