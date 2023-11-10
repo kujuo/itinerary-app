@@ -33,13 +33,12 @@ struct QuizActivityAnswers{
 }
 
 enum EventType: String, Codable {
-    case meal
+    case restaurant
     case attraction
-    case travel
+    case geo
 }
 
 struct Event: Identifiable, Codable {
-  
   var id: UUID
   var name: String
   var type: EventType
@@ -120,7 +119,7 @@ struct CityDestination {
 }
 
 
-// structs for api calls
+// structs for api calls (nearby search)
 struct Answer: Decodable{
   let data: [Location]
   
@@ -160,9 +159,44 @@ struct Address: Decodable{
 }
 
 
+//struct required for specific location info
+struct Answer_sp: Decodable{
+  let data: [Location_sp]
+  
+  enum CodingKeys: String, CodingKey{
+    case data = "data"
+  }
+}
 
+struct Location_sp: Decodable {
+  let id: String
+  let name: String
+  let address: Address_sp
+  
+  enum CodingKeys: String, CodingKey {
+    case id = "location_id"
+    case name = "name"
+    case address = "address_obj"
+  }
+}
 
-
+struct Address_sp: Decodable{
+  let street1: String?
+  let street2: String?
+  let city: String?
+  let state: String
+  let country: String
+  let address_string: String
+  
+  enum CodingKeys: String, CodingKey{
+    case street1 = "street1"
+    case street2 = "street2"
+    case city = "city"
+    case state = "state"
+    case country = "country"
+    case address_string = "address_string"
+  }
+}
 
 
 
@@ -200,12 +234,14 @@ func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinati
 }
 
 
-let quizResult = QuizLocationAnswers(continent: "Europe", weather: "cold", type_of_city: "modern", duration: 3)
+let quizResult = QuizLocationAnswers(continent: "Asia", weather: "warm", type_of_city: "modern", duration: 3)
 
 
 class DataManager {
     static let shared = DataManager() // Singleton instance
     private var listofid: [String] = [] // Private storage for IDs
+    private var listofname: [String] = [] //Private storage for names
+    
     
     private init() {} // Private initializer to ensure singleton usage
     
@@ -242,8 +278,10 @@ class DataManager {
             }
 
             self?.listofid.removeAll() // Clear any old IDs
+            self?.listofname.removeAll()
             for location in answer.data {
                 self?.listofid.append(location.id)
+                self?.listofname.append(location.name)
             }
             
             completion(true) // Indicates success
@@ -255,6 +293,10 @@ class DataManager {
     // Function to retrieve stored IDs
     func getStoredIDs() -> [String] {
         return listofid
+    }
+    
+    func getStoredNames() -> [String]{
+        return listofname
     }
 }
 
@@ -284,42 +326,91 @@ if let bestDestination = findBestDestination(for: quizResult, from: cityDestinat
     
     let restauranturl = "https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=\(latitude)%2C\(longtitude)&key=547B30F2C5CF4458B82FAC44F069D0FA&category=restaurants&language=en"
     
+    
+    
+
+    let semaphore1 = DispatchSemaphore(value: 0)
+    
+    var attractions: [String] = []
     // get the id list for all the attraction activities
     DataManager.shared.fetchAndStoreIDs(from: attractionsurl) { success in
         if success {
             let ids = DataManager.shared.getStoredIDs()
+            
             // Now you have the IDs and can use them
             print("Stored IDs: \(ids)")
+            let names = DataManager.shared.getStoredNames()
+            print("Stored Names: \(names)")
+            attractions = names
         } else {
-            print("Failed to fetch IDs.")
+            print("Failed to fetch IDs (attractions).")
         }
+        semaphore1.signal()
     }
-
+    semaphore1.wait() // Wait for the signal
+    print(attractions)
     
     
+    var geos: [String] = []
+    let semaphore2 = DispatchSemaphore(value: 0)
     DataManager.shared.fetchAndStoreIDs(from: geosurl) { success in
         if success {
             let ids = DataManager.shared.getStoredIDs()
             // Now you have the IDs and can use them
             print("Stored IDs: \(ids)")
+            let names = DataManager.shared.getStoredNames()
+            geos = names
+            print("Stored Names: \(names)")
         } else {
-            print("Failed to fetch IDs.")
+            print("Failed to fetch IDs (geos).")
         }
+        semaphore2.signal()
     }
+    semaphore2.wait() // Wait for the signal
+    print(geos)
     
 
-    
+    var restaurants: [String] = []
+    let semaphore3 = DispatchSemaphore(value: 0)
     DataManager.shared.fetchAndStoreIDs(from: restauranturl) { success in
         if success {
             let ids = DataManager.shared.getStoredIDs()
             // Now you have the IDs and can use them
             print("Stored IDs: \(ids)")
+            let names = DataManager.shared.getStoredNames()
+            restaurants = names
+            print("Stored Names: \(names)")
         } else {
-            print("Failed to fetch IDs.")
+            print("Failed to fetch IDs (restaurants).")
         }
+        semaphore3.signal()
+    }
+    semaphore3.wait()
+    print(restaurants)
+    
+    func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int) -> Day{
+        let Event1 = Event(id: UUID(), name: attraction_list[daynumber] , type: .attraction)
+        let Event2 = Event(id: UUID(), name: geos_list[daynumber] , type: .geo)
+        let Event3 = Event(id: UUID(), name: restaurant_list[daynumber] , type: .restaurant)
+        
+        let Dayplan = Day(id: UUID(), dayNumber: daynumber, events: [Event1, Event2, Event3])
+        
+        return Dayplan
     }
     
     
+    func generate_itinerary(attrac: [String], geos: [String], restaurant: [String], daynumber: Int, location: String) -> Itinerary {
+        var dayplan: [Day] = []
+        for i in 0...daynumber {
+            dayplan.append(generateEvent_for_day(attraction_list: attrac, geos_list: geos, restaurant_list: restaurant, daynumber: i))
+        }
+        let Itinerary = Itinerary(id: UUID(), location: location, isCurrent: true, days:dayplan,  lastEditDate: Date())
+        return Itinerary
+    }
+    
+    let test_itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: quizResult.duration, location: bestDestination.name)
+    
+    print(test_itinerary)
     
     
 } else {
