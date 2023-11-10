@@ -82,6 +82,9 @@ struct GivenLocationView: View {
     //          Text(quiz.weather?.rawValue ?? "wrongweather")
               Text(location ?? "" )
               Spacer()
+              NavigationLink(destination: GeneratingItineraryView(location:location ?? "NOTHING")) {
+                  Text("Next")
+              }
             }
 //          var location = bestDestination?.name
 //          Spacer()
