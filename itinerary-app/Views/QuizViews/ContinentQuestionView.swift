@@ -25,14 +25,15 @@ struct ContinentQuestionView: View {
                 }
                 .pickerStyle(.wheel) // You can use other styles as well
 
-                NavigationLink(destination: WeatherQuestionView(quiz: quiz)) {
-                    Button(action: {
-                        quiz.continent = selectedContinent
-                    }) {
-                        Text("Next")
+                Button { quiz.continent = selectedContinent } label: {
+                    NavigationLink(
+                        destination: WeatherQuestionView(quiz: quiz)) {
+                                          Text("Next")
+                        }
                     }
-                }
             }
         }
     }
 }
+
+

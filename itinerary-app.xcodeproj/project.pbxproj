@@ -13,8 +13,8 @@
 		3921C97C2AF3FECA0052C785 /* DurationQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */; };
 		3921C97E2AF3FEF40052C785 /* ContinentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */; };
 		3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */; };
-		3921C9822AF3FFC40052C785 /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9812AF3FFC40052C785 /* CityTypeView.swift */; };
 		3921C9842AF400000052C785 /* GivenLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9832AF400000052C785 /* GivenLocationView.swift */; };
+		39AF7AC32AFDA47E003637C9 /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AF7AC22AFDA47E003637C9 /* CityTypeView.swift */; };
 		39C143242AF604850056C841 /* CustomBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143232AF604840056C841 /* CustomBackgroundView.swift */; };
 		39C143272AF607DD0056C841 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143262AF607DD0056C841 /* ColorExtension.swift */; };
 		39C143292AF60DE70056C841 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143282AF60DE70056C841 /* CardView.swift */; };
@@ -66,8 +66,8 @@
 		3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationQuestionView.swift; sourceTree = "<group>"; };
 		3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentQuestionView.swift; sourceTree = "<group>"; };
 		3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuestionView.swift; sourceTree = "<group>"; };
-		3921C9812AF3FFC40052C785 /* CityTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
 		3921C9832AF400000052C785 /* GivenLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenLocationView.swift; sourceTree = "<group>"; };
+		39AF7AC22AFDA47E003637C9 /* CityTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
 		39C143232AF604840056C841 /* CustomBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackgroundView.swift; sourceTree = "<group>"; };
 		39C143262AF607DD0056C841 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		39C143282AF60DE70056C841 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -132,8 +132,8 @@
 				3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */,
 				3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */,
 				3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */,
-				3921C9812AF3FFC40052C785 /* CityTypeView.swift */,
 				3921C9832AF400000052C785 /* GivenLocationView.swift */,
+				39AF7AC22AFDA47E003637C9 /* CityTypeView.swift */,
 			);
 			path = QuizViews;
 			sourceTree = "<group>";
@@ -332,8 +332,8 @@
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,
 				3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */,
-				3921C9822AF3FFC40052C785 /* CityTypeView.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
+				39AF7AC32AFDA47E003637C9 /* CityTypeView.swift in Sources */,
 				3921C9792AF3F2C50052C785 /* QuizBeginningView.swift in Sources */,
 				39C143292AF60DE70056C841 /* CardView.swift in Sources */,
 				3921C97C2AF3FECA0052C785 /* DurationQuestionView.swift in Sources */,

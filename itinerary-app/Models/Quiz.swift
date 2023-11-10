@@ -63,13 +63,32 @@ enum QuizQuestionType {
     case activity
 }
 
+
+//toString for view in city type
+extension Quiz.City {
+    func toString() -> String {
+        switch self {
+        case .desert:
+            return "Desert"
+        case .island:
+            return "Island"
+        case .natureReserve:
+            return "Nature Reserve"
+        case .metropolitanCity:
+            return "Metropolitan City"
+        }
+    }
+}
+
 // the questions variable will be an array of all the quiz questions since they wil always be the same
 class Quiz {
-    var questions: [QuizQuestion] = []
+    var questions: [QuizQuestion]? = []
     var duration: Int?
     var continent: Continent?
     var weather: Weather?
     var cityType: City?
+    
+    
     
     // these are the only options that a user can select for the continent
     enum Continent: String, CaseIterable {
@@ -82,16 +101,20 @@ class Quiz {
         case australia
     }
     
-    enum Weather {
+    enum Weather: String, CaseIterable, Identifiable {
         case hot
         case warm
         case cold
+        
+        var id: String { rawValue }
     }
     
-    enum City {
-        case island
-        case metropolitanCity
-        case desert
-        case natureReserve
+    enum City: String, CaseIterable, Identifiable {
+        case modern
+        case historical
+        case coastal
+
+        var id: String { rawValue }
     }
+    
 }

@@ -14,7 +14,6 @@ struct DurationQuestionView: View {
     @State private var days = 0
     
     var body: some View {
-        NavigationView {
             ZStack {
                 Color(.colorGreenMedium)
                 VStack {
@@ -23,15 +22,14 @@ struct DurationQuestionView: View {
                         .padding(.top, 5) // Adjust top padding
                     Stepper("\(days) days", value: $days, in: 1...31)
                         .padding(.bottom, 10) // Adjust bottom padding
-                    NavigationLink(
-                        destination: ContinentQuestionView(quiz: quiz)) {
-                        Button(action: { quiz.duration = days }) {
-                            Text("Next")
+                    Button { quiz.duration = days } label: {
+                        NavigationLink(
+                            destination: ContinentQuestionView(quiz: quiz)) {
+                                              Text("Next")
+                            }
                         }
-                    }
                 }
             }
-        }
     }
 }
 
