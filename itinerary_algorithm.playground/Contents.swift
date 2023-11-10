@@ -1,8 +1,4 @@
 import Foundation
-import SwiftUI
-//import PlaygroundSupport
-//PlaygroundPage.current.needsIndefiniteExecution = true
-
 
 // built-in structs
 struct QuizLocationAnswers{
@@ -18,19 +14,6 @@ struct QuizLocationAnswers{
     }
 }
 
-struct QuizActivityAnswers{
-    //var location: String
-    var activityTags: [String]
-    var activitiesChosen: [Event]?
-    var foodTags:[String]
-    
-    enum CodingKeys: String, CodingKey {
-        case location
-        case activityTags
-        case activitiesChosen
-        case foodTags
-    }
-}
 
 enum EventType: String, Codable {
     case restaurant
@@ -109,15 +92,6 @@ struct Itinerary: Identifiable, Codable, Comparable {
 
 
 // structs required by algorithm / api calls
-struct CityDestination {
-    var name: String
-    var latitude: Double
-    var longitude: Double
-    var weather: String
-    var cityTypes: [String]
-    var continent: String
-}
-
 
 // structs for api calls (nearby search)
 struct Answer: Decodable{
@@ -158,50 +132,14 @@ struct Address: Decodable{
   }
 }
 
-
-//struct required for specific location info
-struct Answer_sp: Decodable{
-  let data: [Location_sp]
-  
-  enum CodingKeys: String, CodingKey{
-    case data = "data"
-  }
+struct CityDestination {
+    var name: String
+    var latitude: Double
+    var longitude: Double
+    var weather: String
+    var cityTypes: [String]
+    var continent: String
 }
-
-struct Location_sp: Decodable {
-  let id: String
-  let name: String
-  let address: Address_sp
-  
-  enum CodingKeys: String, CodingKey {
-    case id = "location_id"
-    case name = "name"
-    case address = "address_obj"
-  }
-}
-
-struct Address_sp: Decodable{
-  let street1: String?
-  let street2: String?
-  let city: String?
-  let state: String
-  let country: String
-  let address_string: String
-  
-  enum CodingKeys: String, CodingKey{
-    case street1 = "street1"
-    case street2 = "street2"
-    case city = "city"
-    case state = "state"
-    case country = "country"
-    case address_string = "address_string"
-  }
-}
-
-
-
-
-
 
 
 
@@ -231,6 +169,27 @@ func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinati
     
     // Return the first destination that matches all criteria, or nil if there's no match
     return typeMatchedDestinations.first
+}
+
+
+func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int) -> Day{
+    let Event1 = Event(id: UUID(), name: attraction_list[daynumber] , type: .attraction)
+    let Event2 = Event(id: UUID(), name: geos_list[daynumber] , type: .geo)
+    let Event3 = Event(id: UUID(), name: restaurant_list[daynumber] , type: .restaurant)
+    
+    let Dayplan = Day(id: UUID(), dayNumber: daynumber, events: [Event1, Event2, Event3])
+    
+    return Dayplan
+}
+
+
+func generate_itinerary(attrac: [String], geos: [String], restaurant: [String], daynumber: Int, location: String) -> Itinerary {
+    var dayplan: [Day] = []
+    for i in 0...daynumber {
+        dayplan.append(generateEvent_for_day(attraction_list: attrac, geos_list: geos, restaurant_list: restaurant, daynumber: i))
+    }
+    let Itinerary = Itinerary(id: UUID(), location: location, isCurrent: true, days:dayplan,  lastEditDate: Date())
+    return Itinerary
 }
 
 
@@ -388,25 +347,7 @@ if let bestDestination = findBestDestination(for: quizResult, from: cityDestinat
     semaphore3.wait()
     print(restaurants)
     
-    func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int) -> Day{
-        let Event1 = Event(id: UUID(), name: attraction_list[daynumber] , type: .attraction)
-        let Event2 = Event(id: UUID(), name: geos_list[daynumber] , type: .geo)
-        let Event3 = Event(id: UUID(), name: restaurant_list[daynumber] , type: .restaurant)
-        
-        let Dayplan = Day(id: UUID(), dayNumber: daynumber, events: [Event1, Event2, Event3])
-        
-        return Dayplan
-    }
-    
-    
-    func generate_itinerary(attrac: [String], geos: [String], restaurant: [String], daynumber: Int, location: String) -> Itinerary {
-        var dayplan: [Day] = []
-        for i in 0...daynumber {
-            dayplan.append(generateEvent_for_day(attraction_list: attrac, geos_list: geos, restaurant_list: restaurant, daynumber: i))
-        }
-        let Itinerary = Itinerary(id: UUID(), location: location, isCurrent: true, days:dayplan,  lastEditDate: Date())
-        return Itinerary
-    }
+
     
     let test_itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: quizResult.duration, location: bestDestination.name)
     
