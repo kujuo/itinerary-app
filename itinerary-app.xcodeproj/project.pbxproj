@@ -11,6 +11,10 @@
 		DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044F2AF74F9900BD36C4 /* EventNavView.swift */; };
 		DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804512AF752CF00BD36C4 /* EventDetailView.swift */; };
 		DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804542AF86A6A00BD36C4 /* Helpers.swift */; };
+		5104FAEE2AFC4B04002AB289 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5104FAED2AFC4B04002AB289 /* OpenAI */; };
+		513815962AFC42DF0053F932 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 513815952AFC42DF0053F932 /* OpenAIKit */; };
+		515782622AFCBE4800FAED75 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515782612AFCBE4800FAED75 /* Quiz.swift */; };
+		515782642AFCC32C00FAED75 /* quiz_2_itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */; };
 		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -57,6 +61,8 @@
 		DB38044F2AF74F9900BD36C4 /* EventNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNavView.swift; sourceTree = "<group>"; };
 		DB3804512AF752CF00BD36C4 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		DB3804542AF86A6A00BD36C4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		515782612AFCBE4800FAED75 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quiz_2_itinerary.swift; sourceTree = "<group>"; };
 		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		DBA3B58C2AF2F34D00BDE32B /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -77,11 +83,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5104FAEE2AFC4B04002AB289 /* OpenAI in Frameworks */,
 				DB7FFA6E2ADE2902009E2A7D /* FirebaseDatabase in Frameworks */,
 				DB7FFA7C2ADE2902009E2A7D /* FirebaseFunctionsCombine-Community in Frameworks */,
 				DB7FFA742ADE2902009E2A7D /* FirebaseFirestore in Frameworks */,
 				DB7FFA602ADE2902009E2A7D /* FirebaseAnalyticsSwift in Frameworks */,
 				DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */,
+				513815962AFC42DF0053F932 /* OpenAIKit in Frameworks */,
 				DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				DB7FFA842ADE2902009E2A7D /* FirebaseMLModelDownloader in Frameworks */,
 				DB7FFA782ADE2902009E2A7D /* FirebaseFirestoreSwift in Frameworks */,
@@ -135,6 +143,8 @@
 				DB7FFA922ADE4476009E2A7D /* Itinerary.swift */,
 				DBAEBAA72ADE482200391B41 /* Day.swift */,
 				DBAE00BA2ADF7C87003137AD /* Event.swift */,
+				515782612AFCBE4800FAED75 /* Quiz.swift */,
+				515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +251,8 @@
 				DB7FFA8B2ADE2902009E2A7D /* FirebaseRemoteConfigSwift */,
 				DB7FFA8D2ADE2902009E2A7D /* FirebaseStorage */,
 				DB7FFA8F2ADE2902009E2A7D /* FirebaseStorageCombine-Community */,
+				513815952AFC42DF0053F932 /* OpenAIKit */,
+				5104FAED2AFC4B04002AB289 /* OpenAI */,
 			);
 			productName = "itinerary-app";
 			productReference = DBBC877E2ADE26AC00208797 /* itinerary-app.app */;
@@ -253,6 +265,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
@@ -272,6 +287,8 @@
 			mainGroup = DBBC87752ADE26AC00208797;
 			packageReferences = (
 				DB7FFA5A2ADE2902009E2A7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				513815942AFC42DE0053F932 /* XCRemoteSwiftPackageReference "openai-kit" */,
+				5104FAEC2AFC4B04002AB289 /* XCRemoteSwiftPackageReference "OpenAI" */,
 			);
 			productRefGroup = DBBC877F2ADE26AC00208797 /* Products */;
 			projectDirPath = "";
@@ -312,6 +329,8 @@
 				DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */,
 				DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */,
 				DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */,
+				515782642AFCC32C00FAED75 /* quiz_2_itinerary.swift in Sources */,
+				515782622AFCBE4800FAED75 /* Quiz.swift in Sources */,
 				DBAEBAA62ADE476900391B41 /* ItineraryRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +541,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5104FAEC2AFC4B04002AB289 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.4;
+			};
+		};
+		513815942AFC42DE0053F932 /* XCRemoteSwiftPackageReference "openai-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dylanshine/openai-kit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.2;
+			};
+		};
 		DB7FFA5A2ADE2902009E2A7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -533,6 +568,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5104FAED2AFC4B04002AB289 /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5104FAEC2AFC4B04002AB289 /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+		513815952AFC42DF0053F932 /* OpenAIKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 513815942AFC42DE0053F932 /* XCRemoteSwiftPackageReference "openai-kit" */;
+			productName = OpenAIKit;
+		};
 		DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB7FFA5A2ADE2902009E2A7D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
