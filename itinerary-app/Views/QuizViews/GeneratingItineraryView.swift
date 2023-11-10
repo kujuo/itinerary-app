@@ -205,32 +205,36 @@ func generateEventList (bestDestination: CityDestination, category: Int) -> [Str
 
 
 struct GeneratingItineraryView: View {
-  @State private var itinerary: Itinerary? = nil
-  var location: String
-  var bestDestination: CityDestination
+    @State private var itinerary: Itinerary? = nil
+    var location: String
+    var bestDestination: CityDestination
     var body: some View {
-      VStack {
-        let attractions = generateEventList(bestDestination: bestDestination, category: 1)
-        let geos = generateEventList(bestDestination: bestDestination, category: 2)
-        let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
-        
-        let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
-        
-        let i = itinerary 
-        
-        Text("Itinerary Finished Generating!")
-            .padding(.bottom, 10)
-        Spacer()
-//        Text(itinerary.days?[0].events?[0].name ?? "None")
-        NavigationLink(destination: ItineraryDetailView(itinerary: itinerary, saved: false)) {
-            Text("Next")
+        ZStack {
+            Color(.colorGreenMedium)
+            VStack {
+                let attractions = generateEventList(bestDestination: bestDestination, category: 1)
+                let geos = generateEventList(bestDestination: bestDestination, category: 2)
+                let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
+                
+                let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
+                
+                let i = itinerary
+                
+                Text("Itinerary Finished Generating!")
+                    .padding(.bottom, 10)
+                    .font(.system(size: 40, weight: .bold))
+                Spacer()
+                //        Text(itinerary.days?[0].events?[0].name ?? "None")
+                NavigationLink(destination: ItineraryDetailView(itinerary: itinerary, saved: false)) {
+                    Text("Next")
+                }
+                //          Text(quiz_ans.continent)
+                //          Text(quiz.continent?.rawValue ?? "wrong").font(.title).bold()
+                //          Text(quiz_ans.weather)
+                //          Text(quiz.weather?.rawValue ?? "wrongweather")
+                
+                
+            }
         }
-//          Text(quiz_ans.continent)
-//          Text(quiz.continent?.rawValue ?? "wrong").font(.title).bold()
-//          Text(quiz_ans.weather)
-//          Text(quiz.weather?.rawValue ?? "wrongweather")
-        
-        
-      }
     }
 }
