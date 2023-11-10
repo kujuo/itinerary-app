@@ -95,8 +95,6 @@ class Quiz {
     var weather: Weather?
     var cityType: City?
     
-    
-    
     // these are the only options that a user can select for the continent
     enum Continent: String, CaseIterable {
         case northAmerica

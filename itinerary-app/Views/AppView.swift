@@ -4,6 +4,7 @@
 //
 //  Created by jhou on 11/1/23.
 //
+
 import SwiftUI
 
 struct AppView: View {
@@ -37,3 +38,4 @@ struct AppView_Previews: PreviewProvider {
         AppView()
     }
 }
+
