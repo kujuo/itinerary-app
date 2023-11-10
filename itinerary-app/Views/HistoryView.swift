@@ -27,7 +27,7 @@ struct HistoryView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             // Text within the button
             HStack {
-              Text("Add an itinerary!").frame(alignment: .leading)
+              Text("Set an itinerary as your current one!").frame(alignment: .leading)
                 .fontWeight(.bold).foregroundColor(Color.white)
                 .font(.title3)
             }.padding(10)

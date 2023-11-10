@@ -11,21 +11,37 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 struct HomeView: View {
+  @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   var body: some View {
+    let current = itineraryRepository.currentItinerary
+    
     NavigationStack {
-//      Text("Hello, SwiftUI!").navigationTitle("dfslkjsldfkj")
-//          .navigationBarTitleDisplayMode(.inline)
-//          .toolbar { // <2>
-//              ToolbarItem(placement: .principal) { // <3>
-//                  VStack {
-//                      Text("Title").font(.headline)
-//                      Text("Subtitle").font(.subheadline)
-//                  }
-//              }
-//          }
-//      ItineraryListView()
-    }.navigationTitle("Characters")
-        .padding()
+      Text("Welcome!").font(.title).fontWeight(.heavy)
+      Spacer()
+      VStack(alignment: .leading) {
+        Text("Current Itinerary").font(.title2).fontWeight(.bold)
+        if let current {
+          ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+        }
+        else {
+          ZStack {
+            // Gradient on top of the image
+            Rectangle()
+                .fill(lightBlueColor)
+                .frame(width: 340, height: 200)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+            // Text within the button
+            HStack {
+              Text("Set an itinerary as your current one!").frame(alignment: .leading)
+                .fontWeight(.bold).foregroundColor(Color.white)
+                .font(.title3)
+            }.padding(10)
+              Spacer()
+          }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
+        }
+      }
+      Spacer()
+    }
 //        .onAppear(perform: {
 //          let store = Firestore.firestore()
 //          let event1 = Event(id: UUID(), name: "Baguette Cafe", type: EventType.meal, timeStart: "0700", timeEnd: "1030", url: "https://maps.app.goo.gl/eM3YziUNKzWNmwnX8")
@@ -45,7 +61,7 @@ struct HomeView: View {
 //
 ////          let day2 = Day(id: UUID(), dayNumber: 2, events: [event6, event7, event8, event9, event10])
 //
-//          let itinerary = Itinerary(id: UUID(), location: "Woooo", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg", isCurrent: false, days: [day], lastEditDate: Date())
+//          let itinerary = Itinerary(id: UUID(), location: "Test Saving Itinerary", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg", isCurrent: false, days: [day], lastEditDate: Date())
 //          let collectionRef = store.collection("itineraries")
 //          do {
 //            let newDocReference = try collectionRef.document(itinerary.id.uuidString).setData(from: itinerary)

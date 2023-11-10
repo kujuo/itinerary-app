@@ -7,9 +7,13 @@
 
 import Foundation
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+
 struct ItineraryDetailView: View {
   var itinerary: Itinerary
-  var saved: Bool
+  @State var saved: Bool
   var body: some View {
     ScrollView {
       VStack() {
@@ -31,12 +35,27 @@ struct ItineraryDetailView: View {
             HStack {
               Spacer()
               if (saved) {
-                Button {} label: {
+                Button {
+                  
+                } label: {
                   ButtonWithIcon(text: "Saved", systemImage: "checkmark.circle", color: Color.green)
                 }
               }
               else {
-                Button {} label: {
+                Button {
+                  do {
+                    let store = Firestore.firestore()
+                    let collectionRef = store.collection("itineraries")
+                    let newDocReference = try collectionRef.document(itinerary.id.uuidString).setData(from: itinerary)
+                    print("Itinerary stored with new document reference: \(newDocReference)")
+                    self.saved = true
+                    ItineraryRepository.itineraryRepository.get()
+                  }
+                  catch {
+                    print("Itinerary save failed with error: \(error)" )
+                  }
+                  
+                } label: {
                   ButtonWithIcon(text: "Save?", systemImage: "questionmark.circle", color: Color.red)
                 }
               }

@@ -41,6 +41,7 @@ func getURL(path: String?, completion: @escaping (URL) -> Void) {
   }
 }
 
+
 func getDurationString(days: Int) -> String {
   if (days < 7) {
     return "\(days) days"

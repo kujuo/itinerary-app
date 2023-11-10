@@ -37,11 +37,10 @@ class ItineraryRepository: ObservableObject {
             try? document.data(as: Itinerary.self)
           } ?? []
           self.current()
-          print(self.itineraries)
         }
     }
+  
   func current() {
-    print(self.itineraries)
     for itinerary in itineraries {
       if itinerary.isCurrent {
         currentItinerary = itinerary
