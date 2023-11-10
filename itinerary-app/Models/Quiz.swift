@@ -76,7 +76,14 @@ extension Quiz.City {
             return "Nature Reserve"
         case .metropolitanCity:
             return "Metropolitan City"
+        case .modern: 
+          return "Modern"
+        case .historical:
+          return "Historical"
+        case .coastal: 
+          return "Coastal"
         }
+        
     }
 }
 
@@ -113,6 +120,11 @@ class Quiz {
         case modern
         case historical
         case coastal
+        case island
+        case metropolitanCity
+        case desert
+        case natureReserve
+      
 
         var id: String { rawValue }
     }
