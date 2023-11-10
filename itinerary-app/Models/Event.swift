@@ -7,9 +7,10 @@
 
 import Foundation
 enum EventType: String, Codable {
-    case meal
+    case restaurant
     case attraction
     case travel
+    case geo
 }
 
 struct Event: Identifiable, Codable {

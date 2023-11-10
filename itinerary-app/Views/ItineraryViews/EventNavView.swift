@@ -14,11 +14,15 @@ struct EventNavView: View {
   var event: Event
   var body: some View {
     switch event.type {
-    case .meal:
+    case .restaurant:
       Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
         Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
+      NavigationLink(destination: EventDetailView(event: event)) {
+        Attraction(event: event)
+      }
+    case .geo:
       NavigationLink(destination: EventDetailView(event: event)) {
         Attraction(event: event)
       }
