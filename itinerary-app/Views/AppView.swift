@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct AppView: View {
+  @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   var body: some View {
     
     TabView {
@@ -16,7 +17,7 @@ struct AppView: View {
           Text("Home")
       }
       
-      HomeView()
+      HistoryView(/*itineraryRepository: itineraryRepository*/)
       .tabItem {
           Image(systemName: "text.book.closed.fill")
           Text("History")
