@@ -83,7 +83,7 @@ struct GivenLocationView: View {
               Text(location ?? "" )
               Spacer()
               if let bestDestination {
-                NavigationLink(destination: GeneratingItineraryView(bestDestination:bestDestination)) {
+                NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination)) {
                     Text("Next")
                 }
               }
