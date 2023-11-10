@@ -76,11 +76,11 @@ extension Quiz.City {
             return "Nature Reserve"
         case .metropolitanCity:
             return "Metropolitan City"
-        case .modern: 
+        case .modern:
           return "Modern"
         case .historical:
           return "Historical"
-        case .coastal: 
+        case .coastal:
           return "Coastal"
         }
         
@@ -94,8 +94,6 @@ class Quiz {
     var continent: Continent?
     var weather: Weather?
     var cityType: City?
-    
-    
     
     // these are the only options that a user can select for the continent
     enum Continent: String, CaseIterable {

@@ -24,7 +24,7 @@ struct AppView: View {
           Text("History")
       }
       
-        QuizBeginningView()
+      QuizBeginningView()
       .tabItem {
           Image(systemName: "plus.circle.fill")
           Text("Create Itinerary")

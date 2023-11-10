@@ -7,24 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3921C9752AF315410052C785 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3921C9742AF315410052C785 /* GoogleService-Info.plist */; };
-		3921C9772AF317140052C785 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9762AF317140052C785 /* Quiz.swift */; };
-		3921C9792AF3F2C50052C785 /* QuizBeginningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9782AF3F2C50052C785 /* QuizBeginningView.swift */; };
-		3921C97C2AF3FECA0052C785 /* DurationQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */; };
-		3921C97E2AF3FEF40052C785 /* ContinentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */; };
-		3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */; };
-		3921C9842AF400000052C785 /* GivenLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921C9832AF400000052C785 /* GivenLocationView.swift */; };
-		39AF7AC32AFDA47E003637C9 /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AF7AC22AFDA47E003637C9 /* CityTypeView.swift */; };
-		39C143242AF604850056C841 /* CustomBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143232AF604840056C841 /* CustomBackgroundView.swift */; };
-		39C143272AF607DD0056C841 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143262AF607DD0056C841 /* ColorExtension.swift */; };
-		39C143292AF60DE70056C841 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C143282AF60DE70056C841 /* CardView.swift */; };
+
+		5104FAEE2AFC4B04002AB289 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5104FAED2AFC4B04002AB289 /* OpenAI */; };
+		513815962AFC42DF0053F932 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 513815952AFC42DF0053F932 /* OpenAIKit */; };
+		515782642AFCC32C00FAED75 /* quiz_2_itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */; };
 		DB38044B2AF34A2700BD36C4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044A2AF34A2700BD36C4 /* HistoryView.swift */; };
 		DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044F2AF74F9900BD36C4 /* EventNavView.swift */; };
 		DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804512AF752CF00BD36C4 /* EventDetailView.swift */; };
 		DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804542AF86A6A00BD36C4 /* Helpers.swift */; };
-		5104FAEE2AFC4B04002AB289 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5104FAED2AFC4B04002AB289 /* OpenAI */; };
-		513815962AFC42DF0053F932 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 513815952AFC42DF0053F932 /* OpenAIKit */; };
-		515782642AFCC32C00FAED75 /* quiz_2_itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */; };
+		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
 		DB7FFA602ADE2902009E2A7D /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5F2ADE2902009E2A7D /* FirebaseAnalyticsSwift */; };
@@ -63,26 +54,25 @@
 		DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */; };
 		DBBC87862ADE26AD00208797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87852ADE26AD00208797 /* Assets.xcassets */; };
 		DBBC87892ADE26AD00208797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */; };
+		DBE6241D2AFDCD100040B58F /* WeatherQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624142AFDCD100040B58F /* WeatherQuestionView.swift */; };
+		DBE6241E2AFDCD100040B58F /* DurationQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624152AFDCD100040B58F /* DurationQuestionView.swift */; };
+		DBE6241F2AFDCD100040B58F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624172AFDCD100040B58F /* CardView.swift */; };
+		DBE624202AFDCD100040B58F /* CustomBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624182AFDCD100040B58F /* CustomBackgroundView.swift */; };
+		DBE624212AFDCD100040B58F /* ContinentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624192AFDCD100040B58F /* ContinentQuestionView.swift */; };
+		DBE624222AFDCD100040B58F /* GivenLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6241A2AFDCD100040B58F /* GivenLocationView.swift */; };
+		DBE624232AFDCD100040B58F /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6241B2AFDCD100040B58F /* CityTypeView.swift */; };
+		DBE624242AFDCD100040B58F /* QuizBeginningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE6241C2AFDCD100040B58F /* QuizBeginningView.swift */; };
+		DBE624272AFDCDEC0040B58F /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624262AFDCDEC0040B58F /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3921C9742AF315410052C785 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3921C9762AF317140052C785 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
-		3921C9782AF3F2C50052C785 /* QuizBeginningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizBeginningView.swift; sourceTree = "<group>"; };
-		3921C97B2AF3FECA0052C785 /* DurationQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationQuestionView.swift; sourceTree = "<group>"; };
-		3921C97D2AF3FEF40052C785 /* ContinentQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentQuestionView.swift; sourceTree = "<group>"; };
-		3921C97F2AF3FF220052C785 /* WeatherQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherQuestionView.swift; sourceTree = "<group>"; };
-		3921C9832AF400000052C785 /* GivenLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenLocationView.swift; sourceTree = "<group>"; };
-		39AF7AC22AFDA47E003637C9 /* CityTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
-		39C143232AF604840056C841 /* CustomBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackgroundView.swift; sourceTree = "<group>"; };
-		39C143262AF607DD0056C841 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		39C143282AF60DE70056C841 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-
+		515782612AFCBE4800FAED75 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quiz_2_itinerary.swift; sourceTree = "<group>"; };
 		DB38044A2AF34A2700BD36C4 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		DB38044F2AF74F9900BD36C4 /* EventNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNavView.swift; sourceTree = "<group>"; };
 		DB3804512AF752CF00BD36C4 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		DB3804542AF86A6A00BD36C4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		515782632AFCC32C00FAED75 /* quiz_2_itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quiz_2_itinerary.swift; sourceTree = "<group>"; };
+		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		DBA3B58C2AF2F34D00BDE32B /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		DBA3B58D2AF2F34D00BDE32B /* ItineraryNavView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryNavView.swift; sourceTree = "<group>"; };
@@ -95,6 +85,15 @@
 		DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itinerary_appApp.swift; sourceTree = "<group>"; };
 		DBBC87852ADE26AD00208797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DBE624142AFDCD100040B58F /* WeatherQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherQuestionView.swift; sourceTree = "<group>"; };
+		DBE624152AFDCD100040B58F /* DurationQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationQuestionView.swift; sourceTree = "<group>"; };
+		DBE624172AFDCD100040B58F /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		DBE624182AFDCD100040B58F /* CustomBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBackgroundView.swift; sourceTree = "<group>"; };
+		DBE624192AFDCD100040B58F /* ContinentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinentQuestionView.swift; sourceTree = "<group>"; };
+		DBE6241A2AFDCD100040B58F /* GivenLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GivenLocationView.swift; sourceTree = "<group>"; };
+		DBE6241B2AFDCD100040B58F /* CityTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
+		DBE6241C2AFDCD100040B58F /* QuizBeginningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizBeginningView.swift; sourceTree = "<group>"; };
+		DBE624262AFDCDEC0040B58F /* ColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +199,7 @@
 		DBA3B58B2AF2F34D00BDE32B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3921C97A2AF3FE990052C785 /* QuizViews */,
+				DBE624132AFDCD100040B58F /* QuizViews */,
 				DBA3B58C2AF2F34D00BDE32B /* AppView.swift */,
 				DBA3B58E2AF2F34D00BDE32B /* HomeView.swift */,
 				DB38044A2AF34A2700BD36C4 /* HistoryView.swift */,
@@ -236,6 +235,7 @@
 		DBBC87802ADE26AC00208797 /* itinerary-app */ = {
 			isa = PBXGroup;
 			children = (
+				DBE624252AFDCDEC0040B58F /* Utility */,
 				DB3804532AF86A5B00BD36C4 /* Helpers */,
 				DBAEBAA42ADE472B00391B41 /* DataRepositories */,
 				DB7FFA912ADE4467009E2A7D /* Models */,
@@ -255,6 +255,38 @@
 				DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DBE624132AFDCD100040B58F /* QuizViews */ = {
+			isa = PBXGroup;
+			children = (
+				DBE624162AFDCD100040B58F /* Components */,
+				DBE624192AFDCD100040B58F /* ContinentQuestionView.swift */,
+				DBE6241A2AFDCD100040B58F /* GivenLocationView.swift */,
+				DBE6241B2AFDCD100040B58F /* CityTypeView.swift */,
+				DBE6241C2AFDCD100040B58F /* QuizBeginningView.swift */,
+				DBE624142AFDCD100040B58F /* WeatherQuestionView.swift */,
+				DBE624152AFDCD100040B58F /* DurationQuestionView.swift */,
+			);
+			name = QuizViews;
+			path = "../../../mitun/itinerary-app/Views/QuizViews";
+			sourceTree = "<group>";
+		};
+		DBE624162AFDCD100040B58F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DBE624172AFDCD100040B58F /* CardView.swift */,
+				DBE624182AFDCD100040B58F /* CustomBackgroundView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DBE624252AFDCDEC0040B58F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				DBE624262AFDCDEC0040B58F /* ColorExtension.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,14 +401,13 @@
 			files = (
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,
-				3921C9802AF3FF220052C785 /* WeatherQuestionView.swift in Sources */,
+				DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */,
+				DBE624272AFDCDEC0040B58F /* ColorExtension.swift in Sources */,
+				DBE624232AFDCD100040B58F /* CityTypeView.swift in Sources */,
+				DBE624212AFDCD100040B58F /* ContinentQuestionView.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
-				39AF7AC32AFDA47E003637C9 /* CityTypeView.swift in Sources */,
-				3921C9792AF3F2C50052C785 /* QuizBeginningView.swift in Sources */,
-				39C143292AF60DE70056C841 /* CardView.swift in Sources */,
-				3921C97C2AF3FECA0052C785 /* DurationQuestionView.swift in Sources */,
-				39C143242AF604850056C841 /* CustomBackgroundView.swift in Sources */,
-				DBA3B5922AF2F34D00BDE32B /* ItineraryRowView.swift in Sources */,
+				DBA3B5922AF2F34D00BDE32B /* ItineraryNavView.swift in Sources */,
+				DBE624242AFDCD100040B58F /* QuizBeginningView.swift in Sources */,
 				DBA3B5912AF2F34D00BDE32B /* AppView.swift in Sources */,
 				3921C97E2AF3FEF40052C785 /* ContinentQuestionView.swift in Sources */,
 				DBAEBAA82ADE482300391B41 /* Day.swift in Sources */,
@@ -386,9 +417,14 @@
 				DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */,
 				DBA3B5922AF2F34D00BDE32B /* ItineraryNavView.swift in Sources */,
 				DB38044B2AF34A2700BD36C4 /* HistoryView.swift in Sources */,
+				DBE624222AFDCD100040B58F /* GivenLocationView.swift in Sources */,
+				DBE6241D2AFDCD100040B58F /* WeatherQuestionView.swift in Sources */,
+				DBE624202AFDCD100040B58F /* CustomBackgroundView.swift in Sources */,
 				DBAEBAA82ADE482300391B41 /* Day.swift in Sources */,
 				DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */,
+				DBE6241F2AFDCD100040B58F /* CardView.swift in Sources */,
 				DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */,
+				DBE6241E2AFDCD100040B58F /* DurationQuestionView.swift in Sources */,
 				DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */,
 				DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */,
 				515782642AFCC32C00FAED75 /* quiz_2_itinerary.swift in Sources */,
