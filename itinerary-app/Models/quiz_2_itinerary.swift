@@ -34,16 +34,16 @@ let cityDestinations = [
 
 
 // Function to find the best matching city destination based on quiz results
-func findBestDestination(for quizResult: Quiz, from cityDestinations: [CityDestination]) -> CityDestination? {
+func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinations: [CityDestination]) -> CityDestination? {
     // Filter the destinations based on the continent
-  let continentMatchedDestinations = cityDestinations.filter { $0.continent == quizResult.continent?.rawValue }
+    let continentMatchedDestinations = cityDestinations.filter { $0.continent == quizResult.continent }
     
     // Filter the destinations based on the weather
-  let weatherMatchedDestinations = continentMatchedDestinations.filter { $0.weather == quizResult.weather?.rawValue }
+    let weatherMatchedDestinations = continentMatchedDestinations.filter { $0.weather == quizResult.weather }
     
     // Filter the destinations based on the city type
     // Since cityTypes is an array, we check if the array contains the quiz result's typeOfCity
-  let typeMatchedDestinations = weatherMatchedDestinations.filter { $0.cityTypes.contains(quizResult.cityType?.rawValue ?? "historical") }
+    let typeMatchedDestinations = weatherMatchedDestinations.filter { $0.cityTypes.contains(quizResult.type_of_city) }
     
     // Return the first destination that matches all criteria, or nil if there's no match
     return typeMatchedDestinations.first
