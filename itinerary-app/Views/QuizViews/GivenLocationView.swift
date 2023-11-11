@@ -20,14 +20,15 @@ struct QuizLocationAnswers{
     }
 }
 
-struct CityDestination {
-    var name: String
-    var latitude: Double
-    var longitude: Double
-    var weather: String
-    var cityTypes: [String]
-    var continent: String
-}
+//struct CityDestination {
+//    var name: String
+//    var latitude: Double
+//    var longitude: Double
+//    var weather: String
+//    var cityTypes: [String]
+//    var continent: String
+//}
+
 
 func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinations: [CityDestination]) -> CityDestination? {
     // Filter the destinations based on the continent
@@ -38,23 +39,23 @@ func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinati
     
     // Filter the destinations based on the city type
     // Since cityTypes is an array, we check if the array contains the quiz result's typeOfCity
-    let typeMatchedDestinations = weatherMatchedDestinations.filter { $0.cityTypes.contains(quizResult.type_of_city) }
+    let typeMatchedDestinations = weatherMatchedDestinations.filter { $0.cityType.contains(quizResult.type_of_city) }
     
     // Return the first destination that matches all criteria, or nil if there's no match
     return typeMatchedDestinations.first
 }
 
 let cityDestinations = [
-    CityDestination(name: "Paris", latitude: 48.8566, longitude: 2.3522, weather: "warm", cityTypes: ["modern", "historical"], continent: "Europe"),
-    CityDestination(name: "Cairo", latitude: 30.0444, longitude: 31.2357, weather: "hot", cityTypes: ["historical"], continent: "Africa"),
-    CityDestination(name: "New York", latitude: 40.7128, longitude: -74.0060, weather: "warm", cityTypes: ["modern", "coastal"], continent: "North America"),
-    CityDestination(name: "Tokyo", latitude: 35.6895, longitude: 139.6917, weather: "warm", cityTypes: ["modern", "coastal"], continent: "Asia"),
-    CityDestination(name: "Sydney", latitude: -33.8688, longitude: 151.2093, weather: "warm", cityTypes: ["modern", "coastal"], continent: "Australia"),
-    CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityTypes: ["coastal"], continent: "South America"),
-    CityDestination(name: "Moscow", latitude: 55.7558, longitude: 37.6173, weather: "cold", cityTypes: ["modern", "historical"], continent: "Europe"),
-    CityDestination(name: "Cape Town", latitude: -33.9249, longitude: 18.4241, weather: "warm", cityTypes: ["coastal", "historical"], continent: "Africa"),
-    CityDestination(name: "London", latitude: 51.5074, longitude: -0.1278, weather: "cold", cityTypes: ["modern", "historical"], continent: "Europe"),
-    CityDestination(name: "Vancouver", latitude: 49.2827, longitude: -123.1207, weather: "cold", cityTypes: ["modern", "coastal"], continent: "North America")
+  CityDestination(name: "Paris", latitude: 48.8566, longitude: 2.3522, weather: "warm", cityType: ["modern", "historical"], continent: "Europe"),
+  CityDestination(name: "Cairo", latitude: 30.0444, longitude: 31.2357, weather: "hot", cityType: ["historical"], continent: "Africa"),
+  CityDestination(name: "New York", latitude: 40.7128, longitude: -74.0060, weather: "warm", cityType: ["modern", "coastal"], continent: "North America"),
+  CityDestination(name: "Tokyo", latitude: 35.6895, longitude: 139.6917, weather: "warm", cityType: ["modern", "coastal"], continent: "Asia"),
+  CityDestination(name: "Sydney", latitude: -33.8688, longitude: 151.2093, weather: "warm", cityType: ["modern", "coastal"], continent: "Australia"),
+  CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
+  CityDestination(name: "Moscow", latitude: 55.7558, longitude: 37.6173, weather: "cold", cityType: ["modern", "historical"], continent: "Europe"),
+  CityDestination(name: "Cape Town", latitude: -33.9249, longitude: 18.4241, weather: "warm", cityType: ["coastal", "historical"], continent: "Africa"),
+  CityDestination(name: "London", latitude: 51.5074, longitude: -0.1278, weather: "cold", cityType: ["modern", "historical"], continent: "Europe"),
+  CityDestination(name: "Vancouver", latitude: 49.2827, longitude: -123.1207, weather: "cold", cityType: ["modern", "coastal"], continent: "North America")
 ]
 
 
@@ -67,7 +68,8 @@ struct GivenLocationView: View {
     var body: some View {
         var quiz_ans = QuizLocationAnswers(continent: quiz.continent?.toString() ?? "Asia", weather: quiz.weather?.rawValue ?? "warm", type_of_city: quiz.cityType?.toString() ?? "modern", duration: quiz.duration ?? 3)
         
-        let bestDestination = findBestDestination(for: quiz_ans, from: cityDestinations)
+//        let bestDestination = findBestDestination(for: quiz_ans, from: cityDestinations)
+      let bestDestination = quiz.getBestDestination()
         ZStack {
             Color(.colorGreenMedium)
             VStack {
@@ -92,7 +94,6 @@ struct GivenLocationView: View {
                                 .font(.system(size: 40, weight: .semibold))
                                 .font(.title2)
                                 .foregroundColor(.white)
-                    
                     
                     if let bestDestination {
                         NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination)) {

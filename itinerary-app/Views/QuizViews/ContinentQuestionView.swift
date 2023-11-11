@@ -9,7 +9,7 @@ import SwiftUI
 struct ContinentQuestionView: View {
     var quiz: Quiz
     
-    @State private var selectedContinent = Quiz.Continent.northAmerica // Default selection
+    @State private var selectedContinent = Continent.northAmerica // Default selection
     
 
     var body: some View {
@@ -19,7 +19,7 @@ struct ContinentQuestionView: View {
                 Text("Select the continent you'd like to visit:")
                     .padding(.bottom, 10)
                 Picker("Continent", selection: $selectedContinent) {
-                    ForEach(Quiz.Continent.allCases, id: \.self) { continent in
+                    ForEach(Continent.allCases, id: \.self) { continent in
                         Text(continent.rawValue).tag(continent)
                     }
                 }
@@ -37,6 +37,7 @@ struct ContinentQuestionView: View {
                       .frame(width: 200, height: 300)
               }.simultaneousGesture(TapGesture().onEnded{
                 quiz.continent = selectedContinent
+                quiz.continentMatchUpdate(continent: selectedContinent, points: 1)
               })
             }
         }
