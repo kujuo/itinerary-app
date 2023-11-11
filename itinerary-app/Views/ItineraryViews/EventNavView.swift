@@ -15,7 +15,7 @@ struct EventNavView: View {
   var body: some View {
     switch event.type {
     case .restaurant:
-      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+      Link(destination: URL(string: event.img ?? "https://www.google.com/maps")!) {
         Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
@@ -72,7 +72,7 @@ struct Attraction: View {
   var body: some View {
     VStack(alignment: .center) {
       ZStack(alignment: .topLeading){
-        AsyncImage(url: imgURL) { image in image.resizable() }
+        AsyncImage(url: URL(string:event.img ?? "")) { image in image.resizable() }
       placeholder: { lightBlueColor.opacity(0.9) }
           .frame(width: 340, height: 200)
           .aspectRatio(contentMode: .fit)
