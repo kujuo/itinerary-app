@@ -5,6 +5,7 @@
 //  Created by Mitun Adenuga on 11/9/23.
 //
 
+
 import SwiftUI
 
 struct CityTypeView: View {
@@ -86,10 +87,4 @@ struct CityTypeView: View {
 
 
 
-/*VStack {
- Color(.colorGreenMedium)
- VStack {
-     Text("Click the picture that represents the type of city you would like to go to:")
-         .padding(.bottom, 10)
- }
-}*/
+
