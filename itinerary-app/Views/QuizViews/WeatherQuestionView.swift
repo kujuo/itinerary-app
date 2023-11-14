@@ -108,29 +108,33 @@ struct WeatherQuestionView: View {
             Color(.colorGreenMedium)
             VStack {
                 Spacer()
+                
                 ZStack {
-                                    // Bigger rounded rectangle as a background with stroke
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .foregroundColor(Color.customGreenLight.opacity(0.5))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .stroke(lineWidth: 2) // Adjust the thickness of the stroke
-                                                .foregroundColor(Color.customTan) // Stroke color
-                                        )
-                                        .frame(width: 350, height: 150)
+                    // Bigger rounded rectangle as a background with stroke
+                        RoundedRectangle(cornerRadius: 30)
+                        .foregroundColor(Color.customLightTan.opacity(0.5))
+                        .overlay(
+                        RoundedRectangle(cornerRadius: 30)
+                        .stroke(lineWidth: 2) // Adjust the thickness of the stroke
+                        .foregroundColor(Color.customBlush) // Stroke color
+                            .shadow(color: .customBlush.opacity(0.5), radius: 3, x:  2, y: 2)
+                        )
+                        .frame(width: 350, height: 150)
                      
                     // Text with thick rounded border
                     Text("What type of weather would you like?")
                         .font(.system(size: 20))
+                        //.foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
                         .fontWeight(.medium)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 20) // Adjust corner radius as needed
-                                .stroke(lineWidth: 2) // Adjust the thickness of the border
-                                .foregroundColor(Color.customTan) // Border color
+                                .stroke(lineWidth: 1) // Adjust the thickness of the border
+                                .foregroundColor(Color.customBlush) // Border color
+                                .shadow(color: .customBlush, radius: 3, x:  2, y: 2)
                         )
-                        .frame(width: 300, height: 350)
+                        .frame(width: 300, height: 100)
                     
                 }
                 Spacer()
@@ -142,6 +146,7 @@ struct WeatherQuestionView: View {
                             selectedWeather = weatherType
                         }) {
                             Text(weatherType.rawValue)
+                                .font(.title3)
                                 .foregroundColor(selectedWeather == weatherType ? .white : .black)
                                 .padding()
                                 .background(selectedWeather == weatherType ? Color("AccentColor") : Color("ButtonBackground"))
