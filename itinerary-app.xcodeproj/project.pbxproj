@@ -51,6 +51,7 @@
 		DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE00BA2ADF7C87003137AD /* Event.swift */; };
 		DBAEBAA62ADE476900391B41 /* ItineraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEBAA52ADE476900391B41 /* ItineraryRepository.swift */; };
 		DBAEBAA82ADE482300391B41 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEBAA72ADE482200391B41 /* Day.swift */; };
+		DBB7630E2B002562005DD3C4 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB7630D2B002562005DD3C4 /* LocationRepository.swift */; };
 		DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */; };
 		DBBC87862ADE26AD00208797 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87852ADE26AD00208797 /* Assets.xcassets */; };
 		DBBC87892ADE26AD00208797 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBBC87882ADE26AD00208797 /* Preview Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		DBAE00BA2ADF7C87003137AD /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		DBAEBAA52ADE476900391B41 /* ItineraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryRepository.swift; sourceTree = "<group>"; };
 		DBAEBAA72ADE482200391B41 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		DBB7630D2B002562005DD3C4 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		DBBC877E2ADE26AC00208797 /* itinerary-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "itinerary-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBBC87812ADE26AC00208797 /* itinerary_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itinerary_appApp.swift; sourceTree = "<group>"; };
 		DBBC87852ADE26AD00208797 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				DBAEBAA52ADE476900391B41 /* ItineraryRepository.swift */,
+				DBB7630D2B002562005DD3C4 /* LocationRepository.swift */,
 			);
 			path = DataRepositories;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				DBE6244D2AFDD8820040B58F /* GivenLocationView.swift in Sources */,
 				DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */,
 				DBE624272AFDCDEC0040B58F /* ColorExtension.swift in Sources */,
+				DBB7630E2B002562005DD3C4 /* LocationRepository.swift in Sources */,
 				DBBC87822ADE26AC00208797 /* itinerary_appApp.swift in Sources */,
 				DBA3B5922AF2F34D00BDE32B /* ItineraryNavView.swift in Sources */,
 				DBE624492AFDD8820040B58F /* DurationQuestionView.swift in Sources */,

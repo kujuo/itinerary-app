@@ -11,6 +11,7 @@ import SwiftUI
 struct CardView: View {
     var quiz: Quiz = Quiz()
     var body: some View {
+      
         NavigationView {
             ZStack {
                 CustomBackgroundView()
@@ -65,7 +66,7 @@ struct CardView: View {
                             .italic()
                             .foregroundColor(.customBlush)
                         NavigationLink(
-                            destination: DurationQuestionView(quiz: Quiz())) {
+                          destination: DurationQuestionView(quiz: quiz)) {
                                 Text("Take the Quiz")
                                     .font(.subheadline)
                                     .fontWeight(.light)
@@ -74,7 +75,9 @@ struct CardView: View {
                                     .padding()
                                     .background(Color("AccentColor"))
                                     .cornerRadius(20)
-                            }                    
+                            }  .simultaneousGesture(TapGesture().onEnded{
+                              quiz.resetDestinationPoints()
+                            })
 
                     }
                     .frame(width: 160, height: 100)

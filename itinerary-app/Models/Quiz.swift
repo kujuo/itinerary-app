@@ -64,8 +64,9 @@ enum QuizQuestionType {
 }
 
 
+
 //toString for view in city type
-extension Quiz.City {
+extension CityType {
     func toString() -> String {
         switch self {
         case .desert:
@@ -88,7 +89,7 @@ extension Quiz.City {
 }
 
 
-extension Quiz.Continent{
+extension Continent{
   func toString() -> String {
       switch self {
       case .northAmerica:
@@ -109,6 +110,37 @@ extension Quiz.Continent{
   }
   
 }
+// these are the only options that a user can select for the continent
+enum Continent: String, CaseIterable {
+    case northAmerica
+    case southAmerica
+    case africa
+    case asia
+    case antarctica
+    case europe
+    case australia
+}
+
+enum Weather: String, CaseIterable, Identifiable {
+    case hot
+    case warm
+    case cold
+    
+    var id: String { rawValue }
+}
+
+enum CityType: String, CaseIterable, Identifiable {
+    case modern
+    case historical
+    case coastal
+    case island
+    case metropolitanCity
+    case desert
+    case natureReserve
+  
+
+    var id: String { rawValue }
+}
 
 
 // the questions variable will be an array of all the quiz questions since they wil always be the same
@@ -117,40 +149,55 @@ class Quiz {
     var duration: Int?
     var continent: Continent?
     var weather: Weather?
-    var cityType: City?
-    
-    
-    
-    // these are the only options that a user can select for the continent
-    enum Continent: String, CaseIterable {
-        case northAmerica
-        case southAmerica
-        case africa
-        case asia
-        case antarctica
-        case europe
-        case australia
+    var cityType: CityType?
+    var continentMatching: Dictionary<String, [CityDestination]>
+    var weatherMatching: Dictionary<String, [CityDestination]>
+    var cityTypeMatching: Dictionary<String, [CityDestination]>
+    var destinationPoints: Dictionary<CityDestination, Int>?
+  init(questions: [QuizQuestion]? = nil, duration: Int? = nil, continent: Continent? = nil, weather: Weather? = nil, cityType: CityType? = nil) {
+    self.questions = questions
+    self.duration = duration
+    self.continent = continent
+    self.weather = weather
+    self.cityType = cityType
+    self.continentMatching = Dictionary<String, [CityDestination]>()
+    self.weatherMatching = Dictionary<String, [CityDestination]>()
+    self.cityTypeMatching = Dictionary<String, [CityDestination]>()
+    self.destinationPoints = nil
+    destinationPoints = LocationRepository.locationRepository.mapDestinations(quiz: self)
+//    print(destinationPoints)
+  }
+  
+  func resetDestinationPoints() {destinationPoints = LocationRepository.locationRepository.mapDestinations(quiz: self)}
+  
+  func continentMatchUpdate(continent: Continent, points: Int) {
+    continentMatching[continent.toString()]?.forEach {
+      destination in
+      destinationPoints?[destination, default: 0] += points
+      print("Updated this destination for the continent")
+      print(destinationPoints?[destination])
     }
-    
-    enum Weather: String, CaseIterable, Identifiable {
-        case hot
-        case warm
-        case cold
-        
-        var id: String { rawValue }
+    print(destinationPoints)
+  }
+  func weatherMatchUpdate(weather: Weather, points: Int) {
+    weatherMatching[weather.rawValue]?.forEach {
+      destination in
+      print("Updated this destination for the continent")
+      destinationPoints?[destination, default: 0] += points
     }
-    
-    enum City: String, CaseIterable, Identifiable {
-        case modern
-        case historical
-        case coastal
-        case island
-        case metropolitanCity
-        case desert
-        case natureReserve
-      
-
-        var id: String { rawValue }
+    print(destinationPoints)
+  }
+  func cityTypeUpdate(cityType: CityType, points: Int) {
+    cityTypeMatching[cityType.toString()]?.forEach {
+      destination in
+      print("Updated this destination for the continent")
+      destinationPoints?[destination, default: 0] += points
     }
-    
+    print(destinationPoints)
+  }
+  
+  func getBestDestination() -> CityDestination? {
+    let sortedByValueDictionary = destinationPoints?.sorted { $0.1 > $1.1 }
+    return sortedByValueDictionary?.first?.0 ?? nil
+  }
 }
