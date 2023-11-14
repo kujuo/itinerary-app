@@ -105,22 +105,38 @@ struct WeatherQuestionView: View {
     
     var body: some View {
         ZStack {
-            Color(.colorGreenMedium)
+                    // Gradient background covering the upper half of the screen
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color(.colorGreenMedium), .clear]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
                 
                 ZStack {
                     // Bigger rounded rectangle as a background with stroke
                         RoundedRectangle(cornerRadius: 30)
-                        .foregroundColor(Color.customLightTan.opacity(0.5))
+                        .foregroundColor(Color.colorGreenMedium)
                         .overlay(
                         RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 2) // Adjust the thickness of the stroke
+                        .stroke(lineWidth: 1) // Adjust the thickness of the stroke
                         .foregroundColor(Color.customBlush) // Stroke color
                             .shadow(color: .customBlush.opacity(0.5), radius: 3, x:  2, y: 2)
                         )
-                        .frame(width: 350, height: 150)
-                     
+                        .frame(width: 350, height: 190)
+                    
+                    RoundedRectangle(cornerRadius: 30)
+                                           .foregroundColor(Color.customLightTan.opacity(0.5))
+                                           .overlay(
+                                               RoundedRectangle(cornerRadius: 30)
+                                                   .stroke(lineWidth: 1) // Adjust the thickness of the border
+                                                   .foregroundColor(Color.customBlush) // Border color
+                                                   .shadow(color: .customBlush, radius: 3, x:  2, y: 2)
+                                           )
+                                           .frame(width: 330, height: 130) // Adjust size accordingly
+                    Spacer()
                     // Text with thick rounded border
                     Text("What type of weather would you like?")
                         .font(.system(size: 20))
@@ -128,35 +144,41 @@ struct WeatherQuestionView: View {
                         .multilineTextAlignment(.center)
                         .fontWeight(.medium)
                         .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 20) // Adjust corner radius as needed
-                                .stroke(lineWidth: 1) // Adjust the thickness of the border
-                                .foregroundColor(Color.customBlush) // Border color
-                                .shadow(color: .customBlush, radius: 3, x:  2, y: 2)
-                        )
-                        .frame(width: 300, height: 100)
+                        .frame(width: 250, height: 100)
+                    
+                    Divider()
+                                            .background(Color.customBlush)
+                                            .frame(width: 400, height: 1)
+                                            .offset(y: 250) // Adjust the offset to position the divider
+                    
+                    
                     
                 }
                 Spacer()
                
-                
-                HStack {
-                    ForEach(Quiz.Weather.allCases, id: \.self) { weatherType in
-                        Button(action: {
-                            selectedWeather = weatherType
-                        }) {
-                            Text(weatherType.rawValue)
-                                .font(.title3)
-                                .foregroundColor(selectedWeather == weatherType ? .white : .black)
-                                .padding()
-                                .background(selectedWeather == weatherType ? Color("AccentColor") : Color("ButtonBackground"))
-                                .cornerRadius(10)
+                VStack(spacing:40) {
+                    HStack {
+                        ForEach(Quiz.Weather.allCases, id: \.self) {
+                            weatherType in
+                            Button(action: {
+                                selectedWeather = weatherType
+                            }) {
+                                Text(weatherType.rawValue)
+                                    .font(.title)
+                                    .foregroundColor(selectedWeather == weatherType ? .white : .black)
+                                    .padding()
+                                    .background(selectedWeather == weatherType ? Color("AccentColor") : Color("ButtonBackground"))
+                                    .cornerRadius(10)
+                                
+                            }
+                            
                         }
+                        
                     }
-                    
                 }
-                Spacer()
+                .padding(.top, 60)
                 
+                Spacer()
                 
                 NavigationLink(destination: CityTypeView(quiz: quiz)) {
                     Text("Next")
