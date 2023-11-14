@@ -100,7 +100,10 @@ import SwiftUI
 
 struct WeatherQuestionView: View {
     var quiz: Quiz
-    
+    @State private var shadowColor: Color = .customSalmon
+    @State private var shadowRadius: CGFloat = 8
+    @State private var shadowX: CGFloat = 20
+    @State private var shadowY: CGFloat = 0
     @State private var selectedWeather = Quiz.Weather.cold // Default selection
     
     var body: some View {
@@ -121,21 +124,33 @@ struct WeatherQuestionView: View {
                         .foregroundColor(Color.colorGreenMedium)
                         .overlay(
                         RoundedRectangle(cornerRadius: 30)
-                        .stroke(lineWidth: 1) // Adjust the thickness of the stroke
+                        .stroke(lineWidth: 0) // Adjust the thickness of the stroke
                         .foregroundColor(Color.customBlush) // Stroke color
-                            .shadow(color: .customBlush.opacity(0.5), radius: 3, x:  2, y: 2)
+                            //.shadow(color: .customBlush, radius: 5, x:  2, y: 2)
                         )
-                        .frame(width: 350, height: 190)
+                        .frame(width: 320, height: 190)
+                    // define the shadow using the state variables from earlier
+                                           .shadow(color: shadowColor, radius: shadowRadius, x: shadowX, y: shadowY)
+                                            
+                                           .onAppear() {
+                                                   withAnimation(.linear(duration: 2.5)) {
+                                                       shadowColor = .customSalmon
+                                                       shadowRadius = 4
+                                                       shadowX =  -5
+                                                       shadowY = 5
+                                                   }
+                                               }
                     
                     RoundedRectangle(cornerRadius: 30)
                                            .foregroundColor(Color.customLightTan.opacity(0.5))
                                            .overlay(
                                                RoundedRectangle(cornerRadius: 30)
                                                    .stroke(lineWidth: 1) // Adjust the thickness of the border
-                                                   .foregroundColor(Color.customBlush) // Border color
-                                                   .shadow(color: .customBlush, radius: 3, x:  2, y: 2)
+                                                   .foregroundColor(Color.customSalmon) // Border color
+                                                .shadow(color: .customSalmon, radius: 3, x:  2, y: 2)
                                            )
-                                           .frame(width: 330, height: 130) // Adjust size accordingly
+                                           .frame(width: 280, height: 130) // Adjust size accordingly
+                    
                     Spacer()
                     // Text with thick rounded border
                     Text("What type of weather would you like?")
@@ -144,12 +159,12 @@ struct WeatherQuestionView: View {
                         .multilineTextAlignment(.center)
                         .fontWeight(.medium)
                         .padding()
-                        .frame(width: 250, height: 100)
+                        .frame(width: 300, height: 150)
                     
                     Divider()
-                                            .background(Color.customBlush)
-                                            .frame(width: 400, height: 1)
-                                            .offset(y: 250) // Adjust the offset to position the divider
+                                            .background(Color.customSalmon)
+                                            .frame(width: 400, height: 2)
+                                            .offset(y: 300) // Adjust the offset to position the divider
                     
                     
                     
