@@ -100,11 +100,11 @@ import SwiftUI
 
 struct WeatherQuestionView: View {
     var quiz: Quiz
-    @State private var shadowColor: Color = .customSalmon
+    @State private var shadowColor: Color = .customOrange
     @State private var shadowRadius: CGFloat = 8
     @State private var shadowX: CGFloat = 20
     @State private var shadowY: CGFloat = 0
-    @State private var selectedWeather = Quiz.Weather.cold // Default selection
+    @State private var selectedWeather = Weather.cold // Default selection
     
     var body: some View {
         ZStack {
@@ -134,7 +134,7 @@ struct WeatherQuestionView: View {
                                             
                                            .onAppear() {
                                                    withAnimation(.linear(duration: 2.5)) {
-                                                       shadowColor = .customSalmon
+                                                       shadowColor = .customOrange
                                                        shadowRadius = 4
                                                        shadowX =  -5
                                                        shadowY = 5
@@ -146,8 +146,8 @@ struct WeatherQuestionView: View {
                                            .overlay(
                                                RoundedRectangle(cornerRadius: 30)
                                                    .stroke(lineWidth: 1) // Adjust the thickness of the border
-                                                   .foregroundColor(Color.customSalmon) // Border color
-                                                .shadow(color: .customSalmon, radius: 3, x:  2, y: 2)
+                                                   .foregroundColor(Color.customOrange) // Border color
+                                                .shadow(color: .customOrange, radius: 3, x:  2, y: 2)
                                            )
                                            .frame(width: 280, height: 130) // Adjust size accordingly
                     
@@ -162,7 +162,7 @@ struct WeatherQuestionView: View {
                         .frame(width: 300, height: 150)
                     
                     Divider()
-                                            .background(Color.customSalmon)
+                                            .background(Color.customOrange)
                                             .frame(width: 400, height: 2)
                                             .offset(y: 300) // Adjust the offset to position the divider
                     
@@ -173,7 +173,7 @@ struct WeatherQuestionView: View {
                
                 VStack(spacing:40) {
                     HStack {
-                        ForEach(Quiz.Weather.allCases, id: \.self) {
+                        ForEach(Weather.allCases, id: \.self) {
                             weatherType in
                             Button(action: {
                                 selectedWeather = weatherType
