@@ -195,7 +195,7 @@ struct WeatherQuestionView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: CityTypeView(quiz: quiz)) {
+                NavigationLink(destination: CityTypeView3(quiz: quiz)) {
                     Text("Next")
                         .font(.subheadline)
                         .fontWeight(.medium)

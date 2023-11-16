@@ -140,6 +140,18 @@ enum CityType: String, CaseIterable, Identifiable {
   
 
     var id: String { rawValue }
+    
+    var imageName: String {
+           switch self {
+           case .desert: return "dubai"
+           case .island: return "island"
+           case .natureReserve: return "nature"
+           case .metropolitanCity: return "big_city"
+           case .historical: return "historical"
+           case .modern: return "modern"
+           case .coastal: return "coastal"
+           }
+       }
 }
 
 

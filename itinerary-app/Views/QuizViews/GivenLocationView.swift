@@ -63,54 +63,49 @@ let cityDestinations = [
 
 struct GivenLocationView: View {
     var quiz: Quiz
-    
+
     var body: some View {
         let bestDestination = quiz.getBestDestination()
-        
+
         ZStack {
             Image("flight2")
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-            
-            VStack {
-                Spacer()
-                
-                Text("Your location is:")
-                    .font(.system(size: 40, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.top, 70)
-                
-                Text(bestDestination?.name ?? "")
-                    .font(.system(size: 40, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.top, 20)
-                
-                Spacer()
-                
-                if let bestDestination {
-                    NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
-                        HStack {
-                            Spacer()
-                            Text("Next")
-                                .font(.subheadline)
-                                .fontWeight(.light)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 100, height: 50)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(Color.white, lineWidth: 2)
-                                )
-                                .padding()
-                        }
+
+            // Move the text and button outside of the VStack
+            Text("Your location is:")
+                .font(.system(size: 40, weight: .semibold))
+                .foregroundColor(.white)
+                .padding(.bottom, 60)
+
+            Text(bestDestination?.name ?? "")
+                .font(.system(size: 40, weight: .semibold))
+                .foregroundColor(.white)
+                .padding(.top, 25)
+
+            if let bestDestination {
+                NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
+                    HStack {
+                        Spacer()
+                        Text("Next")
+                            .font(.subheadline)
+                            .fontWeight(.light)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color("AccentColor"))
+                            .cornerRadius(20)
+                            .frame(width: 100, height: 50)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                            .padding()
                     }
-                    .padding(.bottom, 20)
                 }
+                .padding(.bottom, 20)
             }
         }
-        .navigationBarHidden(true)
     }
 }
+

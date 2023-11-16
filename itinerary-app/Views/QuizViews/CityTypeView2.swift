@@ -8,218 +8,112 @@
 import SwiftUI
 
 struct CityTypeView2: View {
-    
+
     var quiz: Quiz
-    
-    //variables for drop shadow
-    @State private var shadowColor: Color = .customOrange
-    @State private var shadowRadius: CGFloat = 8
-    @State private var shadowX: CGFloat = 20
-    @State private var shadowY: CGFloat = 0
-    
+
     @State private var currentIndex: Int = 0
     @GestureState private var dragOffset: CGFloat = 0
-    @State private var selectedCity = CityType.island // Default selection
-    
-    private let images: [String] = ["dubai", "island", "nature", "big_city"]
-    
-    private let cityTypes: [CityType] = [.island, .metropolitanCity, .desert, .natureReserve]
-    
+
+    private let cityTypes: [CityType] = [.desert, .island, .natureReserve, .metropolitanCity, .historical, .modern, .coastal]
+
     var body: some View {
         ZStack {
-            // Gradient background covering the upper half of the screen
             LinearGradient(
                 gradient: Gradient(colors: [Color(.colorGreenMedium), .clear]),
                 startPoint: .top,
                 endPoint: .bottom
             )
             .edgesIgnoringSafeArea(.all)
+
             VStack {
                 Spacer()
-                
+
                 ZStack {
-                    // Bigger rounded rectangle as a background with stroke
-                    RoundedRectangle(cornerRadius: 30)
+                    /* RoundedRectangle(cornerRadius: 30)
                         .foregroundColor(Color.colorGreenMedium)
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(lineWidth: 0) // Adjust the thickness of the stroke
-                                .foregroundColor(Color.customBlush) // Stroke color
-                            //.shadow(color: .customBlush, radius: 5, x:  2, y: 2)
+                                .stroke(lineWidth: 0)
+                                .foregroundColor(Color.customBlush)
                         )
                         .frame(width: 320, height: 190)
-                    // define the shadow using the state variables from earlier
-                        .shadow(color: shadowColor, radius: shadowRadius, x: shadowX, y: shadowY)
-                    
-                        .onAppear() {
-                            withAnimation(.linear(duration: 1.5)) {
-                                shadowColor = .customOrange
-                                shadowRadius = 4
-                                shadowX =  -5
-                                shadowY = 5
-                            }
-                        }
-                    
+                        .shadow(color: .customOrange, radius: 8, x: 20, y: 0)
+
                     RoundedRectangle(cornerRadius: 30)
                         .foregroundColor(Color.customLightTan.opacity(0.5))
                         .overlay(
                             RoundedRectangle(cornerRadius: 30)
-                                .stroke(lineWidth: 1) // Adjust the thickness of the border
-                                .foregroundColor(Color.customOrange) // Border color
-                                .shadow(color: .customOrange, radius: 3, x:  2, y: 2)
+                                .stroke(lineWidth: 1)
+                                .foregroundColor(Color.customOrange)
+                                .shadow(color: .customOrange, radius: 3, x: 2, y: 2)
                         )
-                        .frame(width: 280, height: 130) // Adjust size accordingly
-                    
+                        .frame(width: 280, height: 130)
+
                     Spacer()
-                    // Text with thick rounded border
+
                     Text("Select the type of city you would like to visit: ")
                         .font(.system(size: 20))
-                    //.foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
                         .fontWeight(.medium)
                         .padding()
                         .frame(width: 300, height: 150)
-                    
+
                     Divider()
                         .background(Color.customOrange)
                         .frame(width: 400, height: 2)
-                        .offset(y: 300) // Adjust the offset to position the divider
-                    
-                    Button {
-                        updateQuizCityType(cityType: .desert)
-                    } label: {
-                        ZStack {
-                            Image("dubai")
-                            Text("desert")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
+                        .offset(y: 300) */
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: 20) {
+                            ForEach(0..<cityTypes.count, id: \.self) { index in
+                                CityTypeButton(cityType: cityTypes[index], currentIndex: $currentIndex, buttonIndex: index, updateQuizCityType: updateQuizCityType)
+                            }
                         }
+                        .padding()
                     }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .island)
-                    } label: {
-                        ZStack {
-                            Image("island")
-                            Text("island")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .natureReserve)
-                    } label: {
-                        ZStack {
-                            Image("nature")
-                            Text("Nature Reserve")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .metropolitanCity)
-                    } label: {
-                        ZStack {
-                            Image("big_city")
-                            Text("Metropolitan City")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .historical)
-                    } label: {
-                        ZStack {
-                            Image("historical")
-                            Text("Historical")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .modern)
-                    } label: {
-                        ZStack {
-                            Image("modern")
-                            Text("Modern")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    Button {
-                        updateQuizCityType(cityType: .coastal)
-                    } label: {
-                        ZStack {
-                            Image("coastal")
-                            Text("Coastal")
-                                .font(.subheadline)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 200, height: 300)
-                        }
-                    }
-                    
-                    
                 }
-                
-                
+
                 Spacer()
-                
-                VStack(spacing:40) {
-                    HStack {
-                        
-                    }
+
+                VStack(spacing: 40) {
+                    HStack {}
                 }
                 .padding(.top, 60)
             }
         }
-    }    
+    }
+
     private func updateQuizCityType(cityType: CityType) {
         quiz.cityType = cityType
+    }
+}
+
+struct CityTypeButton: View {
+    let cityType: CityType
+    @Binding var currentIndex: Int
+    let buttonIndex: Int
+    let updateQuizCityType: (CityType) -> Void
+
+    var body: some View {
+        Button {
+            currentIndex = buttonIndex
+            updateQuizCityType(cityType)
+        } label: {
+            VStack {
+                Image(cityType.imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 300)
+                    .opacity(currentIndex == buttonIndex ? 1.0 : 0.5)
+                Text(cityType.rawValue)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color("AccentColor"))
+                    .cornerRadius(20)
+            }
+        }
     }
 }
