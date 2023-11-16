@@ -78,7 +78,7 @@ struct DurationQuestionView: View {
                                            .shadow(color: shadowColor, radius: shadowRadius, x: shadowX, y: shadowY)
                                             
                                            .onAppear() {
-                                                   withAnimation(.linear(duration: 2.5)) {
+                                                   withAnimation(.linear(duration: 1.5)) {
                                                        shadowColor = .customOrange
                                                        shadowRadius = 4
                                                        shadowX =  -5
@@ -118,11 +118,14 @@ struct DurationQuestionView: View {
                
                 VStack(spacing:40) {
                     HStack {
-                        Stepper("\(days) days", value: $days, in: 1...31)
+                        Stepper("\(days) \(days == 1 ? "day" : "days")", value: $days, in: 1...31)
                             .padding(.bottom, 10) // Adjust bottom padding
+                            .frame(width: 200)
                     }
                 }
                 .padding(.top, 60)
+                
+               
                 
                 Spacer()
                 

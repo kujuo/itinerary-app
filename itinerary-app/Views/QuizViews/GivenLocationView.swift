@@ -64,56 +64,53 @@ let cityDestinations = [
 struct GivenLocationView: View {
     var quiz: Quiz
     
-    //    @State location: String
     var body: some View {
-        var quiz_ans = QuizLocationAnswers(continent: quiz.continent?.toString() ?? "Asia", weather: quiz.weather?.rawValue ?? "warm", type_of_city: quiz.cityType?.toString() ?? "modern", duration: quiz.duration ?? 3)
+        let bestDestination = quiz.getBestDestination()
         
-//        let bestDestination = findBestDestination(for: quiz_ans, from: cityDestinations)
-      let bestDestination = quiz.getBestDestination()
         ZStack {
-            Color(.colorGreenMedium)
+            Image("flight2")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+            
             VStack {
-                var location = bestDestination?.name
+                Spacer()
+                
                 Text("Your location is:")
-                    .padding(.top, 70)
                     .font(.system(size: 40, weight: .semibold))
                     .foregroundColor(.white)
-    
+                    .padding(.top, 70)
+                
+                Text(bestDestination?.name ?? "")
+                    .font(.system(size: 40, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                
                 Spacer()
                 
-                Image("flight2")
-                    .resizable()
-                    .frame(width: 250.0, height: 300.0)
-                    .cornerRadius(10)
-                
-                Spacer()
-                
-                VStack {
-                            Text(location ?? "" )
-                                .padding(.top, 20)
-                                .font(.system(size: 40, weight: .semibold))
-                                .font(.title2)
-                                .foregroundColor(.white)
-                    
-                    if let bestDestination {
-                        NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination)) {
+                if let bestDestination {
+                    NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
+                        HStack {
+                            Spacer()
                             Text("Next")
                                 .font(.subheadline)
                                 .fontWeight(.light)
                                 .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color("AccentColor"))
                                 .cornerRadius(20)
-                                .frame(width: 100, height: 300)
+                                .frame(width: 100, height: 50)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.white, lineWidth: 2)
+                                )
+                                .padding()
                         }
                     }
+                    .padding(.bottom, 20)
                 }
-                //.padding(.top, 20)
-                
             }
-            
         }
-        
+        .navigationBarHidden(true)
     }
 }

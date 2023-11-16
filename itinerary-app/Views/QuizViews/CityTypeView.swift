@@ -21,7 +21,7 @@ struct CityTypeView: View {
     private let cityTypes: [CityType] = [.island, .metropolitanCity, .desert, .natureReserve]
     
     var body: some View {
-            VStack {
+           VStack {
 //              Text(quiz.continent?.rawValue ?? "wrong").font(.title).bold()
                 Text("Select the type of city you'd like to visit:")
                     .padding(.bottom, 10)
@@ -46,45 +46,50 @@ struct CityTypeView: View {
 
             }
             NavigationStack {
-                VStack {
-                    ZStack {
-                        ForEach(0..<images.count, id: \.self) { index in
-                            Image(images[index])
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 300, height: 500)
-                                .cornerRadius(25)
-                                .opacity(currentIndex == index ? 1.0 : 0.5)
-                                .scaleEffect(currentIndex == index ? 1.2 : 0.8)
-                                .offset(x: CGFloat(index - currentIndex) * 300 + dragOffset, y: 0)
-                            //quiz.cityType = cityTypes[index]
-                        }
-                    }
-                    
-                }
-                
-                
-            }
-            .gesture(
-                DragGesture()
-                    .onEnded { value in
-                        let threshold: CGFloat = 50
-                        if value.translation.width > threshold {
-                            withAnimation {
-                                currentIndex = max(0, currentIndex - 1)
-                                quiz.cityType = cityTypes[currentIndex]
-                            }
-                        } else if value.translation.width < -threshold {
-                            withAnimation {
-                                currentIndex = min(images.count - 1, currentIndex + 1)
-                                quiz.cityType = cityTypes[currentIndex]
-                            }
-                        }
-                    }
-            )
-        }
-    }
+                HStack(spacing: 20) {
+                               ForEach(0..<cityTypes.count, id: \.self) { index in
+                                   Button {
+                                       updateQuizCityType(cityType: cityTypes[index])
+                                   } label: {
+                                       ZStack {
+                                           Image(images[index])
+                                               .resizable()
+                                               .aspectRatio(contentMode: .fit)
+                                               .frame(width: 200, height: 300)
+                                               .cornerRadius(20)
+                                               .opacity(currentIndex == index ? 1.0 : 0.5)
+                                               .scaleEffect(currentIndex == index ? 1.2 : 0.8)
+                                       }
+                                   }
+                               }
+                           }
+                           .padding(.top, 60)
+                           .offset(x: CGFloat(currentIndex - 1) * -240 + dragOffset, y: 0) // Adjust the offset based on the button width and spacing
+                           .gesture(
+                               DragGesture()
+                                   .onEnded { value in
+                                       let threshold: CGFloat = 50
+                                       if value.translation.width > threshold {
+                                           currentIndex = max(0, currentIndex - 1)
+                                       } else if value.translation.width < -threshold {
+                                           currentIndex = min(cityTypes.count - 1, currentIndex + 1)
+                                       }
+                                       updateQuizCityType(cityType: cityTypes[currentIndex])
+                                   }
+                           )
+                       }
+                   }
 
+                   // Function to update quiz.cityType
+                   private func updateQuizCityType(cityType: CityType) {
+                       withAnimation {
+                           quiz.cityType = cityType
+                       }
+                   }
+               }
+                
+                
+            
 
 
 
