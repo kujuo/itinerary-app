@@ -63,6 +63,7 @@ let cityDestinations = [
 
 struct GivenLocationView: View {
     var quiz: Quiz
+    var cityType: CityType //from citytype view
 
     var body: some View {
         let bestDestination = quiz.getBestDestination()

@@ -14,7 +14,7 @@ struct CityTypeView2: View {
     @State private var currentIndex: Int = 0
     @GestureState private var dragOffset: CGFloat = 0
 
-    private let cityTypes: [CityType] = [.desert, .island, .natureReserve, .metropolitanCity, .historical, .modern, .coastal]
+    private let cityTypes: [CityType] = [.desert, .natureReserve, .modern, .historical, .modern, .coastal]
 
     var body: some View {
         ZStack {

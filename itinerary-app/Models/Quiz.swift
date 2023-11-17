@@ -71,18 +71,14 @@ extension CityType {
         switch self {
         case .desert:
             return "Desert"
-        case .island:
-            return "Island"
+        case .coastal:
+            return "Coastal"
         case .natureReserve:
             return "Nature Reserve"
-        case .metropolitanCity:
-            return "Metropolitan City"
         case .modern:
           return "modern"
         case .historical:
           return "historical"
-        case .coastal:
-          return "coastal"
         }
         
     }
@@ -133,8 +129,6 @@ enum CityType: String, CaseIterable, Identifiable {
     case modern
     case historical
     case coastal
-    case island
-    case metropolitanCity
     case desert
     case natureReserve
   
@@ -144,12 +138,10 @@ enum CityType: String, CaseIterable, Identifiable {
     var imageName: String {
            switch self {
            case .desert: return "dubai"
-           case .island: return "island"
            case .natureReserve: return "nature"
-           case .metropolitanCity: return "big_city"
+           case .modern: return "big_city"
            case .historical: return "historical"
-           case .modern: return "modern"
-           case .coastal: return "coastal"
+           case .coastal: return "island"
            }
        }
 }
