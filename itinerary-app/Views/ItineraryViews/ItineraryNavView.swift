@@ -35,11 +35,20 @@ struct ItineraryNavView: View {
         LazyVStack (alignment: .leading, content: {
           ZStack {
             // Image
-            AsyncImage(url: URL(string: itinerary.img ?? "")) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
-              .frame(width: sizeWidth, height: sizeHeight)
-              .clipShape(RoundedRectangle(cornerRadius: 20))
-              .aspectRatio(contentMode: .fill)
-              .clipped()
+            if (isCurrent && itinerary.img == nil) {
+              Image("default-travel")
+                .frame(width: sizeWidth, height: sizeHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .aspectRatio(contentMode: .fill)
+                .clipped()
+            }
+            else {
+              AsyncImage(url: URL(string: itinerary.img ?? "")) { image in image.resizable() } placeholder: { lightBlueColor.opacity(0.9) }
+                .frame(width: sizeWidth, height: sizeHeight)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .aspectRatio(contentMode: .fill)
+                .clipped()
+            }
             // Gradient on top of the image
             Rectangle()
                 .fill(LinearGradient(

@@ -8,9 +8,7 @@
 import SwiftUI
 import FirebaseStorage
 
-
 struct EventNavView: View {
-  @State var imgURL: URL? = nil
   var event: Event
   var body: some View {
     switch event.type {
@@ -20,11 +18,21 @@ struct EventNavView: View {
       }
     case .attraction:
       NavigationLink(destination: EventDetailView(event: event)) {
-        Attraction(event: event)
+        if let imgLink = event.img {
+          Attraction(event: event)
+        }
+        else {
+          ShortAttraction(event: event)
+        }
       }
     case .geo:
       NavigationLink(destination: EventDetailView(event: event)) {
-        Attraction(event: event)
+        if let imgLink = event.img {
+          Attraction(event: event)
+        }
+        else {
+          ShortAttraction(event: event)
+        }
       }
     case .travel:
       Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
@@ -33,6 +41,30 @@ struct EventNavView: View {
     }
   }
 }
+
+struct ShortEventNavView: View {
+  var event: Event
+  var body: some View {
+    NavigationLink(destination: EventDetailView(event: event)) {
+      HStack {
+        VStack(alignment: .leading) {
+          Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+            .font(.caption)
+            .foregroundColor(Color.black)
+          Text(event.name)
+            .font(.title3).fontWeight(.heavy)
+            .multilineTextAlignment(.leading)
+            .foregroundColor(Color.black)
+        }
+        Spacer()
+        Image(systemName: "chevron.forward.circle")
+          .resizable()
+          .frame(width: 30, height: 30)
+      }.frame(maxWidth: 340, maxHeight: 200)
+    }.padding(.bottom, 10).padding(.top, 10)
+  }
+}
+
 
 struct Meal: View {
   var event: Event
@@ -67,7 +99,6 @@ struct Meal: View {
 }
 
 struct Attraction: View {
-  @State var imgURL: URL? = nil
   var event: Event
   var body: some View {
     VStack(alignment: .center) {
@@ -107,6 +138,40 @@ struct Attraction: View {
           }
         }.padding(10)
       }.frame(maxWidth: 340, maxHeight: 200)
+    }
+  }
+}
+
+struct ShortAttraction: View {
+  var event: Event
+  var body: some View {
+    VStack(alignment: .center) {
+      ZStack(alignment: .topLeading){
+        Rectangle()
+          .fill(Color.customGreenDark)
+          .frame(width: 340, height: 100)
+          .clipShape(RoundedRectangle(cornerRadius: 20))
+        HStack {
+          VStack (alignment: .leading){
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.black)
+            Text(event.name)
+              .font(.title3).fontWeight(.heavy)
+              .foregroundColor(Color.black).multilineTextAlignment(.leading)
+            Spacer()
+          }
+          Spacer()
+          VStack {
+            Spacer()
+            Image(systemName: "chevron.forward.circle")
+              .resizable()
+              .frame(width: 30, height: 30)
+              .tint(Color.black)
+            Spacer()
+          }
+        }.padding(10)
+      }.frame(maxWidth: 340, maxHeight: 100)
     }
   }
 }
