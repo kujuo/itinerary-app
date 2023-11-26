@@ -101,10 +101,10 @@ struct Meal: View {
 struct Attraction: View {
   var event: Event
   var body: some View {
-    VStack(alignment: .center) {
+    LazyVStack(alignment: .center) {
       ZStack(alignment: .topLeading){
         AsyncImage(url: URL(string:event.img ?? "")) { image in image.resizable() }
-      placeholder: { lightBlueColor.opacity(0.9) }
+          placeholder: { ProgressView() }
           .frame(width: 340, height: 200)
           .aspectRatio(contentMode: .fit)
           .clipShape(RoundedRectangle(cornerRadius: 20))
