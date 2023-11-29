@@ -37,6 +37,7 @@ struct CityTypeView3: View {
                         .onTapGesture {
                             currentIndex = index
                             dragOffset = 0
+                            
                         }
                 }
             }
@@ -114,6 +115,7 @@ struct CityTypeImageView: View {
                         currentIndex = previouslySelectedIndex
                     }
                 }
+                
                 isSelected = true
                 currentIndex = index
                 dragOffset = 0
