@@ -140,8 +140,9 @@ enum CityType: String, CaseIterable, Identifiable {
            case .desert: return "dubai"
            case .natureReserve: return "nature"
            case .modern: return "big_city"
-           case .historical: return "historical"
+           case .historical: return "history"
            case .coastal: return "island"
+               
            }
        }
 }

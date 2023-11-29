@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		398499212B05E32A00BDE9E1 /* CityTypeView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398499202B05E32A00BDE9E1 /* CityTypeView2.swift */; };
 		398499232B06A35600BDE9E1 /* CityTypeView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398499222B06A35600BDE9E1 /* CityTypeView3.swift */; };
 		5104FAEE2AFC4B04002AB289 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 5104FAED2AFC4B04002AB289 /* OpenAI */; };
 		513815962AFC42DF0053F932 /* OpenAIKit in Frameworks */ = {isa = PBXBuildFile; productRef = 513815952AFC42DF0053F932 /* OpenAIKit */; };
@@ -69,7 +68,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		398499202B05E32A00BDE9E1 /* CityTypeView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView2.swift; sourceTree = "<group>"; };
 		398499222B06A35600BDE9E1 /* CityTypeView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTypeView3.swift; sourceTree = "<group>"; };
 		515782612AFCBE4800FAED75 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		DB2C76FB2AFDE92900DEC330 /* GeneratingItineraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratingItineraryView.swift; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				DB2C76FB2AFDE92900DEC330 /* GeneratingItineraryView.swift */,
 				DBE624462AFDD8810040B58F /* CityTypeView.swift */,
 				DBE624472AFDD8810040B58F /* QuizBeginningView.swift */,
-				398499202B05E32A00BDE9E1 /* CityTypeView2.swift */,
 				398499222B06A35600BDE9E1 /* CityTypeView3.swift */,
 			);
 			path = QuizViews;
@@ -377,7 +374,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				398499212B05E32A00BDE9E1 /* CityTypeView2.swift in Sources */,
 				DBE6244C2AFDD8820040B58F /* ContinentQuestionView.swift in Sources */,
 				DB7FFA932ADE4476009E2A7D /* Itinerary.swift in Sources */,
 				DBA3B5942AF2F34D00BDE32B /* ItineraryDetailView.swift in Sources */,

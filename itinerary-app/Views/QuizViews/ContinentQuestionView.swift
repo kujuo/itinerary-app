@@ -81,15 +81,6 @@ struct ContinentQuestionView: View {
                         .frame(width: 320, height: 190)
                     // define the shadow using the state variables from earlier
                                            .shadow(color: shadowColor, radius: shadowRadius, x: shadowX, y: shadowY)
-                                            
-                                           .onAppear() {
-                                                   withAnimation(.linear(duration: 1.3)) {
-                                                       shadowColor = .customOrange
-                                                       shadowRadius = 4
-                                                       shadowX =  -5
-                                                       shadowY = 5
-                                                   }
-                                               }
                     
                     RoundedRectangle(cornerRadius: 30)
                                            .foregroundColor(Color.customLightTan.opacity(0.5))

@@ -63,7 +63,6 @@ let cityDestinations = [
 
 struct GivenLocationView: View {
     var quiz: Quiz
-    var cityType: CityType //from citytype view
 
     var body: some View {
         let bestDestination = quiz.getBestDestination()
@@ -72,27 +71,28 @@ struct GivenLocationView: View {
             Image("flight2")
                 .resizable()
                 .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
+//                .edgesIgnoringSafeArea(.all)
+                .opacity(0.7)
 
             // Move the text and button outside of the VStack
             Text("Your location is:")
                 .font(.system(size: 40, weight: .semibold))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .padding(.bottom, 60)
 
             Text(bestDestination?.name ?? "")
                 .font(.system(size: 40, weight: .semibold))
                 .foregroundColor(.white)
                 .padding(.top, 25)
+            
 
             if let bestDestination {
                 NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
-                    HStack {
-                        Spacer()
+                    VStack {
                         Text("Next")
                             .font(.subheadline)
                             .fontWeight(.light)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding()
                             .background(Color("AccentColor"))
                             .cornerRadius(20)
@@ -102,7 +102,9 @@ struct GivenLocationView: View {
                                     .stroke(Color.white, lineWidth: 2)
                             )
                             .padding()
+                        Spacer()
                     }
+                    
                 }
                 .padding(.bottom, 20)
             }

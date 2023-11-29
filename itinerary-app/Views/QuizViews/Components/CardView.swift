@@ -20,22 +20,11 @@ struct CardView: View {
                     // MARK: - HEADER
                     VStack {
                         Text("With travel suggestions tailored just for you...'app name' finds you the perfect destination.")
-                            .multilineTextAlignment(.center)
+                            //.multilineTextAlignment(.center)
                             .italic()
                             .foregroundColor(.customBlush)
                     } // end of header
                     .padding(.horizontal, 30)
-                    VStack {
-                        Text("I know my destination")
-                            .font(.subheadline)
-                            .fontWeight(.regular)
-                            .foregroundColor(.customBlush)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.tanBackground)
-                            .cornerRadius(20)
-                    }
-                    .frame(width: 160, height: 100)
                     
                     ZStack {
                         Circle()
@@ -80,14 +69,14 @@ struct CardView: View {
                             })
 
                     }
-                    .frame(width: 160, height: 100)
+                    .frame(width: 170, height: 100)
                 }
                 .padding()
                 //.frame(width: buttonWidth, height: 80)
                 
                 
             } // the frame for the card itself
-            .frame(width: 320, height: 600)
+            .frame(width: 340, height: 600)
         }
     }
 }

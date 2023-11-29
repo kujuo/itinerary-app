@@ -131,15 +131,6 @@ struct WeatherQuestionView: View {
                         .frame(width: 320, height: 190)
                     // define the shadow using the state variables from earlier
                                            .shadow(color: shadowColor, radius: shadowRadius, x: shadowX, y: shadowY)
-                                            
-                                           .onAppear() {
-                                                   withAnimation(.linear(duration: 2.5)) {
-                                                       shadowColor = .customOrange
-                                                       shadowRadius = 4
-                                                       shadowX =  -5
-                                                       shadowY = 5
-                                                   }
-                                               }
                     
                     RoundedRectangle(cornerRadius: 30)
                                            .foregroundColor(Color.customLightTan.opacity(0.5))
@@ -162,9 +153,9 @@ struct WeatherQuestionView: View {
                         .frame(width: 300, height: 150)
                     
                     Divider()
-                                            .background(Color.customOrange)
-                                            .frame(width: 400, height: 2)
-                                            .offset(y: 300) // Adjust the offset to position the divider
+                        .background(Color.customOrange)
+                        .frame(width: 400, height: 2)
+                        .offset(y: 300) // Adjust the offset to position the divider
                     
                     
                     
