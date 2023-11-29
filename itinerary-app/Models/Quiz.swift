@@ -174,26 +174,26 @@ class Quiz {
     continentMatching[continent.toString()]?.forEach {
       destination in
       destinationPoints?[destination, default: 0] += points
-      print("Updated this destination for the continent")
-      print(destinationPoints?[destination])
+      print("Updated \(destination.name) for the continent")
+//      print(destinationPoints?[destination])
     }
-    print(destinationPoints)
+//    print(destinationPoints)
   }
   func weatherMatchUpdate(weather: Weather, points: Int) {
     weatherMatching[weather.rawValue]?.forEach {
       destination in
-      print("Updated this destination for the continent")
+      print("Updated \(destination.name) for the weather")
       destinationPoints?[destination, default: 0] += points
     }
-    print(destinationPoints)
+//    print(destinationPoints)
   }
   func cityTypeUpdate(cityType: CityType, points: Int) {
     cityTypeMatching[cityType.toString()]?.forEach {
       destination in
-      print("Updated this destination for the continent")
+      print("Updated \(destination.name) for the continent")
       destinationPoints?[destination, default: 0] += points
     }
-    print(destinationPoints)
+//    print(destinationPoints)
   }
   
   func getBestDestination() -> CityDestination? {

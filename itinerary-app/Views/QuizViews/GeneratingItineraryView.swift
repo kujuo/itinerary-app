@@ -49,7 +49,7 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
     let Event2 = Event(id: UUID(), name: geos_list[daynumber] , type: .geo)
     let Event3 = Event(id: UUID(), name: restaurant_list[daynumber] , type: .restaurant)
     
-    let Dayplan = Day(id: UUID(), dayNumber: daynumber, events: [Event1, Event2, Event3])
+    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event2, Event3])
     
     return Dayplan
 }
@@ -139,6 +139,7 @@ func generateEventList (bestDestination: CityDestination, category: Int) -> [Str
     if category == 1{
         let attractionsurl =
             "https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=\(latitude)%2C\(longtitude)&key=547B30F2C5CF4458B82FAC44F069D0FA&category=attractions&language=en"
+      print(attractionsurl)
         let semaphore1 = DispatchSemaphore(value: 0)
         
         var attractions: [String] = []
@@ -208,6 +209,7 @@ struct GeneratingItineraryView: View {
     @State private var itinerary: Itinerary? = nil
     var location: String
     var bestDestination: CityDestination
+    var dayCount: Int
     var body: some View {
         ZStack {
             Color(.colorGreenMedium)
@@ -216,7 +218,7 @@ struct GeneratingItineraryView: View {
                 let geos = generateEventList(bestDestination: bestDestination, category: 2)
                 let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
                 
-                let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
+                let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: dayCount, location: location)
                 
                 let i = itinerary
                 

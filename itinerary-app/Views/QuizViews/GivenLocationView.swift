@@ -96,7 +96,7 @@ struct GivenLocationView: View {
                                 .foregroundColor(.white)
                     
                     if let bestDestination {
-                        NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination)) {
+                      NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination, dayCount: quiz.duration ?? 1)) {
                             Text("Next")
                                 .font(.subheadline)
                                 .fontWeight(.light)
