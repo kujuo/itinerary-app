@@ -10,50 +10,43 @@ import FirebaseStorage
 
 struct EventNavView: View {
   var event: Event
-  var itinerary: Itinerary
-//  var dayEvent: (Int, Int)
   var body: some View {
     switch event.type {
     case .restaurant:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        Meal(event: event)
-//      }
-//      NavigationLink(destination: EventDetailView(event: event)) {
-//        Meal(event: event).foregroundColor(Color.black)
-//      }
+      NavigationLink(destination: EventDetailView(event: event)) {
+        Meal(event: event).foregroundColor(Color.black)
+      }
     case .attraction:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        if event.img != nil {
+      NavigationLink(destination: EventDetailView(event: event)) {
+        if let imgLink = event.img {
           Attraction(event: event)
         }
         else {
           ShortAttraction(event: event)
         }
-//      }
+      }
     case .geo:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        if event.img != nil {
+      NavigationLink(destination: EventDetailView(event: event)) {
+        if let imgLink = event.img {
           Attraction(event: event)
         }
         else {
           ShortAttraction(event: event)
         }
-//      }
+      }
     case .travel:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
+      NavigationLink(destination: EventDetailView(event: event)) {
         Travel(event: event)
           .foregroundColor(Color.black)
-//      }
+      }
     }
   }
 }
 
 struct ShortEventNavView: View {
   var event: Event
-  var itinerary: Itinerary
-//  var dayEvent: (Int, Int)
   var body: some View {
-//    NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
+    NavigationLink(destination: EventDetailView(event: event)) {
       HStack {
         VStack(alignment: .leading) {
           Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
@@ -69,8 +62,7 @@ struct ShortEventNavView: View {
           .resizable()
           .frame(width: 30, height: 30)
       }.frame(maxWidth: 340, maxHeight: 200)
-//    }
-    .padding(.bottom, 10).padding(.top, 10)
+    }.padding(.bottom, 10).padding(.top, 10)
   }
 }
 
@@ -86,15 +78,11 @@ struct Meal: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            if event.timeStart != nil {
-              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-                .font(.title3)
-                .foregroundColor(Color.black)
-            }
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
             Text("Meal: " + event.name)
               .font(.title3).fontWeight(.heavy)
               .multilineTextAlignment(.leading)
-              .foregroundColor(Color.black)
             Spacer()
           }
           Spacer()
@@ -103,7 +91,6 @@ struct Meal: View {
             Image(systemName: "chevron.forward.circle")
               .resizable()
               .frame(width: 30, height: 30)
-              .foregroundColor(Color.black)
             Spacer()
           }
         }.padding(10)
@@ -132,11 +119,9 @@ struct Attraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            if event.timeStart != nil {
-              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-                .font(.title3)
-                .foregroundColor(Color.white)
-            }
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.white)
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.white).multilineTextAlignment(.leading)
@@ -169,11 +154,9 @@ struct ShortAttraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            if event.timeStart != nil {
-              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-                .font(.title3)
-                .foregroundColor(Color.black)
-            }
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.black)
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.black).multilineTextAlignment(.leading)

@@ -9,14 +9,21 @@ import SwiftUI
 
 struct HistoryView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
+  @State var path = NavigationPath()
   var body: some View {
     let itineraries = itineraryRepository.itineraries.sorted()
     let current = itineraryRepository.currentItinerary
-    NavigationStack {
+    NavigationStack(path: $path) {
       VStack(alignment: .leading) {
         Text("Current Itinerary").font(.title2).fontWeight(.bold)
         if let current {
-          ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+          NavigationLink(value: current) {
+            ItineraryNavView(itinerary: current, isCurrent: true, saved: true)
+          }.navigationDestination(for: Itinerary.self) { itinerary in
+//            ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
+            ItineraryDetailView(itinerary: itinerary, saved: true)
+          }
+          
         }
         else {
           ZStack {
@@ -39,8 +46,13 @@ struct HistoryView: View {
         ScrollView(.vertical) {
           ForEach(itineraries) { itinerary in
             if (!itinerary.isCurrent) {
-              ItineraryNavView(itinerary: itinerary, isCurrent: false, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+              NavigationLink(value: itinerary) {
+                ItineraryNavView(itinerary: itinerary, isCurrent: false, saved: true)
+              }
             }
+          }
+          .navigationDestination(for: Itinerary.self) { itinerary in
+            ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
           }
         }.frame(alignment: .leading)
       }

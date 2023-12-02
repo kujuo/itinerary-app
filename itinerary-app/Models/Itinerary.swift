@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Itinerary: Identifiable, Codable, Comparable {
+struct Itinerary: Identifiable, Codable, Comparable, Hashable {
   
   var id: UUID
   var location: String // ie "Pittsburgh"
@@ -31,7 +31,10 @@ struct Itinerary: Identifiable, Codable, Comparable {
   }
   
   static func == (lhs: Itinerary, rhs: Itinerary) -> Bool {
-    lhs.lastEditDate == rhs.lastEditDate
+    lhs.id == rhs.id
+  }
+  func hash(into hasher: inout Hasher) {
+          hasher.combine(id)
   }
 }
 

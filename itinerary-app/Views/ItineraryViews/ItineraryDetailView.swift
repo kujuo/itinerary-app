@@ -15,24 +15,23 @@ struct ItineraryDetailView: View {
   var itinerary: Itinerary
   @State var saved: Bool
   @State private var detailed: Int = 0
+  @Binding var path: NavigationPath
   var body: some View {
     ScrollView {
+      LocationBannerImage(itinerary: itinerary, saved: saved, hasImage: itinerary.img != nil, height: itinerary.img != nil ? 250 : 100)
       if (detailed == 0) {
-        // TOP IMAGE OVERLAY
-        LocationBannerImage(itinerary: itinerary, saved: saved, hasImage: itinerary.img != nil, height: itinerary.img != nil ? 250 : 100)
         Picker("Type of View", selection: $detailed, content: {
                         Text("Detailed").tag(0)
                         Text("Overview").tag(1)
         }).pickerStyle(SegmentedPickerStyle())
-        DetailedView(itinerary: itinerary, saved: saved)
+        DetailedView(itinerary: itinerary, saved: saved, path: $path)
       }
       else {
-        LocationBannerImage(itinerary: itinerary, saved: saved, hasImage: itinerary.img != nil, height: itinerary.img != nil ? 250 : 100)
         Picker("Type of View", selection: $detailed, content: {
                         Text("Detailed").tag(0)
                         Text("Overview").tag(1)
         }).pickerStyle(SegmentedPickerStyle())
-        SummaryView(itinerary: itinerary, saved: saved)
+        SummaryView(itinerary: itinerary, saved: saved, path: $path)
       }
     }
   }
@@ -41,11 +40,13 @@ struct ItineraryDetailView: View {
 struct DetailedView: View {
   var itinerary: Itinerary
   @State var saved: Bool
+  @Binding var path: NavigationPath
+  
   var body: some View {
     VStack {
       LazyVStack(pinnedViews: [.sectionHeaders]) {
-        if (itinerary.days != nil) {
-          ForEach(itinerary.days!) { day in
+        if let days = itinerary.days {
+          ForEach(days) { day in
             Section(header: HStack {
               Text("Day " + day.dayNumber.description).padding(10).font(.title3).fontWeight(.bold)
               Spacer()
@@ -53,9 +54,14 @@ struct DetailedView: View {
              .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
              ) {
               VStack(alignment: .center) {
-                ForEach(day.events!) {
-                  event in
-                    EventNavView(event: event)
+                if let events = day.events {
+                  ForEach(events) { event in
+                    NavigationLink(value: event) {
+                      EventNavView(event: event, itinerary: itinerary)
+                    }
+                  }.navigationDestination(for: Event.self) { event in
+                    EventDetailView(event: event, itinerary: itinerary, path: $path)
+                  }
                 }
               }
             }
@@ -70,11 +76,12 @@ struct DetailedView: View {
 struct SummaryView: View {
   var itinerary: Itinerary
   @State var saved: Bool
+  @Binding var path: NavigationPath
   var body: some View {
     VStack {
       LazyVStack(pinnedViews: [.sectionHeaders]) {
-        if (itinerary.days != nil) {
-          ForEach(itinerary.days!) { day in
+        if let days = itinerary.days {
+          ForEach(days) { day in
             Section(header: HStack {
               Text("Day " + day.dayNumber.description).padding(10).font(.title3).fontWeight(.bold)
               Spacer()
@@ -82,8 +89,14 @@ struct SummaryView: View {
              .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
              ) {
               VStack(alignment: .center) {
-                ForEach(day.events!) {
-                  event in ShortEventNavView(event: event)
+                if let events = day.events {
+                  ForEach(events) { event in
+                    NavigationLink(value: event) {
+                      ShortEventNavView(event: event, itinerary: itinerary)
+                    }
+                  }.navigationDestination(for: Event.self) { event in
+                    EventDetailView(event: event, itinerary: itinerary, path: $path)
+                  }
                 }
               }
             }

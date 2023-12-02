@@ -13,16 +13,24 @@ import FirebaseFirestoreSwift
 struct HomeView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   @ObservedObject var loc = LocationRepository.locationRepository
+  @EnvironmentObject var navStateManager: NavigationStateManager
+//  @State var path = navStateManager
   var body: some View {
     let current = itineraryRepository.currentItinerary
     
-    NavigationStack {
+    NavigationStack(path: $navStateManager.path) {
       Text("Welcome!").font(.title).fontWeight(.heavy)
       Spacer()
       VStack(alignment: .leading) {
         Text("Current Itinerary").font(.title2).fontWeight(.bold)
         if let current {
-          ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+          NavigationLink(value: current) {
+            ItineraryNavView( itinerary: current, isCurrent: true, saved: true)
+          }
+          .navigationDestination(for: Itinerary.self) { itinerary in
+//            ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
+            ItineraryDetailView(itinerary: itinerary, saved: true)
+          }
         }
         else {
           ZStack {
@@ -63,7 +71,5 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView()
-}
+
 

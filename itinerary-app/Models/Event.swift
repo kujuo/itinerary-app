@@ -13,7 +13,7 @@ enum EventType: String, Codable {
     case geo
 }
 
-struct Event: Identifiable, Codable {
+struct Event: Identifiable, Codable, Hashable {
   
   var id: UUID
   var name: String // ie "McDonalds", "Eiffel Tower", "Bus"
@@ -40,5 +40,8 @@ struct Event: Identifiable, Codable {
     case timeStart
     case timeEnd
     case url
+  }
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }

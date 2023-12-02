@@ -14,24 +14,26 @@ import FirebaseFirestoreSwift
 
 
 struct ItineraryNavView: View {
-  @ObservedObject var itineraryRepository: ItineraryRepository
-  var itinerary: Itinerary
-  var sizeHeight: CGFloat
+  @ObservedObject var itineraryRepository: ItineraryRepository = ItineraryRepository.itineraryRepository
+//  @Binding var path: NavigationPath
+  @State var itinerary: Itinerary
+//  var sizeHeight: CGFloat
   let sizeWidth: CGFloat = 340
   var isCurrent: Bool
   var saved: Bool
     
-  init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil/*, itineraryRepository: ItineraryRepository*/) {
-    self.itinerary = itinerary
-    self.isCurrent = isCurrent
-    self.sizeHeight = isCurrent ? 200 : 100
-    self.saved = saved
-    self.itineraryRepository = ItineraryRepository.itineraryRepository
-  }
+//  init(itinerary: Itinerary, isCurrent: Bool, saved: Bool, imgURL: URL? = nil, wee: NavigationPath) {
+//    self.itinerary = itinerary
+//    self.isCurrent = isCurrent
+////    self.sizeHeight = isCurrent ? 200 : 100
+//    self.saved = saved
+//    self.itineraryRepository = ItineraryRepository.itineraryRepository
+//  }
   
   var body: some View {
-    NavigationLink(
-      destination: ItineraryDetailView(itinerary: itinerary, saved: saved)) {
+    let sizeHeight: CGFloat = isCurrent ? 200 : 100
+//    NavigationLink(
+//      value: itinerary) {
         LazyVStack (alignment: .leading, content: {
           ZStack {
             // Image
@@ -139,5 +141,23 @@ struct ItineraryNavView: View {
         })
         .frame(maxWidth: sizeWidth, maxHeight: sizeHeight)
       }
-  }
+//    .onAppear(perform: {
+//        print(path)
+//      })
+//  }
+}
+
+class ItineraryViewModel: ObservableObject {
+    @Published var itinerary: Itinerary
+
+    init(itinerary: Itinerary) {
+        self.itinerary = itinerary
+    }
+
+    func update(with newItinerary: Itinerary?) {
+        if let newItinerary = newItinerary {
+            itinerary = newItinerary
+          print("iconic")
+        }
+    }
 }
