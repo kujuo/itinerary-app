@@ -19,11 +19,7 @@ struct HistoryView: View {
         if let current {
           NavigationLink(value: current) {
             ItineraryNavView(itinerary: current, isCurrent: true, saved: true)
-          }.navigationDestination(for: Itinerary.self) { itinerary in
-//            ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
-            ItineraryDetailView(itinerary: itinerary, saved: true)
           }
-          
         }
         else {
           ZStack {
@@ -51,15 +47,13 @@ struct HistoryView: View {
               }
             }
           }
-          .navigationDestination(for: Itinerary.self) { itinerary in
-            ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
-          }
+          
         }.frame(alignment: .leading)
+      }.navigationDestination(for: Itinerary.self) { itinerary in
+        ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
       }
-    }
+    }.onAppear(perform: {
+      print(current?.location)
+    })
   }
-}
-
-#Preview {
-    HistoryView(itineraryRepository: ItineraryRepository())
 }

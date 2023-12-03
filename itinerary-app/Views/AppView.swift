@@ -13,16 +13,14 @@ class NavigationStateManager: ObservableObject {
     func popToRoot() {
         path = NavigationPath()
     }
+//    func goToSettings() {
+//        ...
+//    }
 }
-
 struct AppView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
-  @ObservedObject var navStateManager = NavigationStateManager()
-  @State private var selectedTab: Tab = .home
-  @State private var resetNavigation = false
   var body: some View {
       TabView {
-        
         HomeView()
           .tabItem {
             Image(systemName: "globe.europe.africa.fill")
@@ -33,8 +31,6 @@ struct AppView: View {
           .tabItem {
             Image(systemName: "text.book.closed.fill")
             Text("History")
-          }.onTapGesture {
-            HistoryView().path = NavigationPath()
           }
       
         QuizBeginningView()
@@ -42,10 +38,9 @@ struct AppView: View {
             Image(systemName: "plus.circle.fill")
             Text("Create Itinerary")
           }
-      }.environmentObject(navStateManager)
-      .onChange(of: selectedTab) { newTab in
-        navStateManager.popToRoot()
-        print("Changed Tabe")
+          .onTapGesture {
+                        print("Hello!")
+                      }
       }
   }
 }

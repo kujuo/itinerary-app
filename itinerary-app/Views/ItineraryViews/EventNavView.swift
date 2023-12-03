@@ -11,39 +11,28 @@ import FirebaseStorage
 struct EventNavView: View {
   var event: Event
   var itinerary: Itinerary
-//  var dayEvent: (Int, Int)
+  //  var dayEvent: (Int, Int)
   var body: some View {
     switch event.type {
     case .restaurant:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        Meal(event: event)
-//      }
-//      NavigationLink(destination: EventDetailView(event: event)) {
-//        Meal(event: event).foregroundColor(Color.black)
-//      }
+      Meal(event: event)
     case .attraction:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        if event.img != nil {
-          Attraction(event: event)
-        }
-        else {
-          ShortAttraction(event: event)
-        }
-//      }
+      if event.img != nil {
+        Attraction(event: event)
+      }
+      else {
+        ShortAttraction(event: event)
+      }
     case .geo:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        if event.img != nil {
-          Attraction(event: event)
-        }
-        else {
-          ShortAttraction(event: event)
-        }
-//      }
+      if event.img != nil {
+        Attraction(event: event)
+      }
+      else {
+        ShortAttraction(event: event)
+      }
     case .travel:
-//      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-        Travel(event: event)
-          .foregroundColor(Color.black)
-//      }
+      Travel(event: event)
+        .foregroundColor(Color.black)
     }
   }
 }
@@ -51,26 +40,25 @@ struct EventNavView: View {
 struct ShortEventNavView: View {
   var event: Event
   var itinerary: Itinerary
-//  var dayEvent: (Int, Int)
+  //  var dayEvent: (Int, Int)
   var body: some View {
-//    NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary, dayEvent: dayEvent)) {
-      HStack {
-        VStack(alignment: .leading) {
-          Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-            .font(.caption)
-            .foregroundColor(Color.black)
-          Text(event.name)
-            .font(.title3).fontWeight(.heavy)
-            .multilineTextAlignment(.leading)
-            .foregroundColor(Color.black)
-        }
-        Spacer()
-        Image(systemName: "chevron.forward.circle")
-          .resizable()
-          .frame(width: 30, height: 30)
-      }.frame(maxWidth: 340, maxHeight: 200)
-//    }
-    .padding(.bottom, 10).padding(.top, 10)
+    HStack {
+      VStack(alignment: .leading) {
+        Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+          .font(.caption)
+          .foregroundColor(Color.black)
+        Text(event.name)
+          .font(.title3).fontWeight(.heavy)
+          .multilineTextAlignment(.leading)
+          .foregroundColor(Color.black)
+      }
+      Spacer()
+      Image(systemName: "chevron.forward.circle")
+        .resizable()
+        .frame(width: 30, height: 30)
+    }.frame(maxWidth: 340, maxHeight: 200)
+    //    }
+      .padding(.bottom, 10).padding(.top, 10)
   }
 }
 
@@ -118,15 +106,15 @@ struct Attraction: View {
     LazyVStack(alignment: .center) {
       ZStack(alignment: .topLeading){
         AsyncImage(url: URL(string:event.img ?? "")) { image in image.resizable() }
-          placeholder: { ProgressView() }
+      placeholder: { ProgressView() }
           .frame(width: 340, height: 200)
           .aspectRatio(contentMode: .fit)
           .clipShape(RoundedRectangle(cornerRadius: 20))
         Rectangle()
           .fill(LinearGradient(
-              gradient: .init(colors: [Color.black.opacity(0.9), Color.black.opacity(0.4), Color.black.opacity(0.1), Color.white.opacity(0.2), Color.black.opacity(0.3)]),
-              startPoint: .init(x: 0.5, y: 0.0),
-              endPoint: .init(x: 0.5, y: 1)
+            gradient: .init(colors: [Color.black.opacity(0.9), Color.black.opacity(0.4), Color.black.opacity(0.1), Color.white.opacity(0.2), Color.black.opacity(0.3)]),
+            startPoint: .init(x: 0.5, y: 0.0),
+            endPoint: .init(x: 0.5, y: 1)
           ))
           .frame(width: 340, height: 200)
           .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -140,7 +128,7 @@ struct Attraction: View {
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.white).multilineTextAlignment(.leading)
-//              .fixedSize(horizontal: false, vertical: true)
+            //              .fixedSize(horizontal: false, vertical: true)
             Spacer()
           }/*.padding(EdgeInsets(top: 15, leading: 15, bottom: 0, trailing: 0))*/
           Spacer()
@@ -201,12 +189,9 @@ struct Travel: View {
       Spacer()
       Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
         .font(.caption)
-//        .border(Color.green , width: 2.0)
+      //        .border(Color.green , width: 2.0)
       Image(systemName: "ellipsis")
-//        .resizable()
         .rotationEffect(.degrees(90))
-//        .frame(height: 25)
-//        .border(Color.green , width: 2.0)
       Text("Travel: " + event.name)
       Spacer()
       VStack {

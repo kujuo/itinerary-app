@@ -16,6 +16,7 @@ struct EventDetailView: View {
   @Binding var path: NavigationPath
 //  var dayEvent: (Int, Int)
   var body: some View {
+    var meow = event
 //    let day = dayEvent.0
 //    let eventNum = dayEvent.1
     VStack(alignment: .center) {
@@ -39,13 +40,16 @@ struct EventDetailView: View {
           let store = Firestore.firestore()
           let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
           var newItinerary: Itinerary = itinerary
-          for i in 0..<(newItinerary.days?.count)! {
-            var day = newItinerary.days![i]
+          for i in 0..<(itinerary.days?.count)! {
+            var day = itinerary.days![i]
             for j in 0..<(day.events?.count)! {
               var newEvent = day.events![j]
               if newEvent.id == event.id {
                 newItinerary.days![i].events!.remove(at: j)
 //                newItinerary.days![i].events![j].name="Testing12345"
+                if newItinerary.days![i].events!.isEmpty {
+                  newItinerary.days!.remove(at:i)
+                }
                 newItinerary.lastEditDate = Date()
 //                newEvent.name = "Testing12345"
                 do {
@@ -53,8 +57,8 @@ struct EventDetailView: View {
                 } catch let error {
                   print("Error writing city to Firestore: \(error)")
                 }
-                path = NavigationPath()
-//                path.removeLast()
+//                navStateManager.path = NavigationPath()
+                path.removeLast()
               }
             }
           }
@@ -68,6 +72,21 @@ struct EventDetailView: View {
 //          } catch let error {
 //            print("Error writing city to Firestore: \(error)")
 //          }
+        }
+        NavigationLink(value: event) {
+          Button("Edit") {
+            let store = Firestore.firestore()
+            let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+            var newItinerary: Itinerary = itinerary
+            for i in 0..<(itinerary.days?.count)! {
+              var day = itinerary.days![i]
+              for j in 0..<(day.events?.count)! {
+                var newEvent = day.events![j]
+                if newEvent.id == event.id {
+                }
+              }
+            }
+          }
         }
       }
       Spacer()

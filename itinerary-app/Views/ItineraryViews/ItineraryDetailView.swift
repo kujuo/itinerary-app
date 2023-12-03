@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct ItineraryDetailView: View {
+  @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   var itinerary: Itinerary
   @State var saved: Bool
   @State private var detailed: Int = 0
@@ -33,6 +34,8 @@ struct ItineraryDetailView: View {
         }).pickerStyle(SegmentedPickerStyle())
         SummaryView(itinerary: itinerary, saved: saved, path: $path)
       }
+    }.navigationDestination(for: Event.self) { event in
+      EventDetailView(event: event, itinerary: itinerary, path: $path)
     }
   }
 }
@@ -41,7 +44,6 @@ struct DetailedView: View {
   var itinerary: Itinerary
   @State var saved: Bool
   @Binding var path: NavigationPath
-  
   var body: some View {
     VStack {
       LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -59,8 +61,6 @@ struct DetailedView: View {
                     NavigationLink(value: event) {
                       EventNavView(event: event, itinerary: itinerary)
                     }
-                  }.navigationDestination(for: Event.self) { event in
-                    EventDetailView(event: event, itinerary: itinerary, path: $path)
                   }
                 }
               }
@@ -77,6 +77,7 @@ struct SummaryView: View {
   var itinerary: Itinerary
   @State var saved: Bool
   @Binding var path: NavigationPath
+//  @EnvironmentObject var navStateManager: NavigationStateManager
   var body: some View {
     VStack {
       LazyVStack(pinnedViews: [.sectionHeaders]) {
@@ -94,8 +95,6 @@ struct SummaryView: View {
                     NavigationLink(value: event) {
                       ShortEventNavView(event: event, itinerary: itinerary)
                     }
-                  }.navigationDestination(for: Event.self) { event in
-                    EventDetailView(event: event, itinerary: itinerary, path: $path)
                   }
                 }
               }
@@ -104,7 +103,7 @@ struct SummaryView: View {
         }
       }
       Spacer()
-    }.frame(maxWidth: .infinity/*, alignment: .topLeading*/)
+    }.frame(maxWidth: .infinity)
   }
 }
 
