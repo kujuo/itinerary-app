@@ -50,10 +50,7 @@ struct HomeView: View {
       }
       Spacer()
     }
-    .onAppear(perform: {
-      itineraryRepository.get()
-//      path = NavigationPath()
-    })
+
 //        .onAppear(perform: {
 //          let store = Firestore.firestore()
 //          for des in cityDestinations {

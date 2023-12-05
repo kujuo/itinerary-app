@@ -52,8 +52,6 @@ struct HistoryView: View {
       }.navigationDestination(for: Itinerary.self) { itinerary in
         ItineraryDetailView(itinerary: itinerary, saved: true, path: $path)
       }
-    }.onAppear(perform: {
-      print(current?.location)
-    })
+    }
   }
 }
