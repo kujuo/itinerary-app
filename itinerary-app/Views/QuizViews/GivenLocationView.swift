@@ -91,7 +91,7 @@ struct GivenLocationView: View {
                 Spacer()
 
                 if let bestDestination {
-                    NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
+                    NavigationLink(destination: FoodTagsView(quiz: quiz, bestDestination: bestDestination)) {
                         Text("Next")
                             .font(.subheadline)
                             .fontWeight(.medium)

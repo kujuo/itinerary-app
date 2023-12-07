@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FoodTagsView: View {
     var quiz: Quiz
-    
+    @State var bestDestination: CityDestination
     @State private var selectedTags: Set<String> = []
     
     var foodTags = ["Asia", "Taiwanese", "Cafe", "Bar", "International", "Pub", "Healthy", "Steakhouse", "Thai", "Japanese", "Sushi", "Italian", "Seafood"]
@@ -58,7 +58,7 @@ struct FoodTagsView: View {
                 .padding(.horizontal, 20)
                 
                 // Next button
-                NavigationLink(destination: ActivityTagsView(quiz: quiz)) {
+                NavigationLink(destination: ActivityTagsView(quiz: quiz, bestDestination: bestDestination)) {
                     Text("Next")
                         .font(.subheadline)
                         .fontWeight(.medium)
@@ -72,6 +72,7 @@ struct FoodTagsView: View {
                 .simultaneousGesture(TapGesture().onEnded {
                     // Access the selected tags using self.selectedTags
                     print("Selected tags: \(self.selectedTags)")
+                    selectedTags = quiz.foodTags
                 })
                 
                 Spacer()

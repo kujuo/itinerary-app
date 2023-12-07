@@ -169,6 +169,8 @@ class Quiz {
     var continent: Continent?
     var weather: Weather?
     var cityType: CityType?
+    var foodTags: Set<String> = []
+    var activityTags: Set<String> = []
     var continentMatching: Dictionary<String, [CityDestination]>
     var weatherMatching: Dictionary<String, [CityDestination]>
     var cityTypeMatching: Dictionary<String, [CityDestination]>

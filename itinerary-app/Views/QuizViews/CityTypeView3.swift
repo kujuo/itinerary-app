@@ -99,7 +99,7 @@ struct CityTypeView3: View {
                 .frame(width: 400, height: 2)
                 .offset(y: 20) // Adjust the offset to position the divider
 
-            NavigationLink(destination: FoodTagsView(quiz: quiz)) {
+            NavigationLink(destination: GivenLocationView(quiz: quiz)) {
                 Text("Next")
                     .font(.subheadline)
                     .fontWeight(.medium)
