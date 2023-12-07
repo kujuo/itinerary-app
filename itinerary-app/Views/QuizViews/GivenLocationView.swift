@@ -59,10 +59,9 @@ let cityDestinations = [
 ]
 
 
-
-
 struct GivenLocationView: View {
     var quiz: Quiz
+    @State private var isLoading = true
 
     var body: some View {
         let bestDestination = quiz.getBestDestination()
@@ -71,44 +70,52 @@ struct GivenLocationView: View {
             Image("flight2")
                 .resizable()
                 .scaledToFill()
-//                .edgesIgnoringSafeArea(.all)
                 .opacity(0.7)
 
-            // Move the text and button outside of the VStack
-            Text("Your location is:")
-                .font(.system(size: 40, weight: .semibold))
-                .foregroundColor(.black)
-                .padding(.bottom, 60)
+            VStack {
+                // Your location text with increased bottom padding
+                Text("Your location is:")
+                    .font(.system(size: 40, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.bottom, 100) // Increase the bottom padding
 
-            Text(bestDestination?.name ?? "")
-                .font(.system(size: 40, weight: .semibold))
-                .foregroundColor(.white)
-                .padding(.top, 25)
-            
+                // Given location text with increased top padding and larger white background
+                Text(bestDestination?.name ?? "")
+                    .font(.system(size: 40, weight: .semibold))
+                    .foregroundColor(.accentColor)
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .frame(width: 390, height: 180) // Adjust the width and height here
+                    .padding(.top, 120) // Adjust the top padding here
 
-            if let bestDestination {
-                NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
-                    VStack {
+                Spacer()
+
+                if let bestDestination {
+                    NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination)) {
                         Text("Next")
                             .font(.subheadline)
-                            .fontWeight(.light)
-                            .foregroundColor(.black)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color("AccentColor"))
                             .cornerRadius(20)
-                            .frame(width: 100, height: 50)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.white, lineWidth: 2)
-                            )
-                            .padding()
-                        Spacer()
+                            .frame(width: 200) // Adjust the width here
                     }
-                    
+                    .padding(.bottom, 20) // Add some bottom padding for the "Next" button
                 }
-                .padding(.bottom, 20)
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
 

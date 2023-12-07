@@ -208,44 +208,76 @@ struct GeneratingItineraryView: View {
     @State private var itinerary: Itinerary? = nil
     var location: String
     var bestDestination: CityDestination
+    @State private var isLoading = true
+
     var body: some View {
         ZStack {
-            Color(.colorGreenMedium)
+            LinearGradient(
+                gradient: Gradient(colors: [Color(.colorGreenMedium), .clear]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            
             VStack {
-                let attractions = generateEventList(bestDestination: bestDestination, category: 1)
-                let geos = generateEventList(bestDestination: bestDestination, category: 2)
-                let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
-                
-                let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
-                
-                let i = itinerary
-                
-                Text("Itinerary Finished Generating!")
-                    .padding(.top, 30)
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                Spacer()
-                //        Text(itinerary.days?[0].events?[0].name ?? "None")
-                NavigationLink(destination: ItineraryDetailView(itinerary: itinerary, saved: false)) {
-                    Text("Next")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
+                if isLoading {
+                    LoadingView()
+                        .padding(.top, 30)
+                } else {
+                    let attractions = generateEventList(bestDestination: bestDestination, category: 1)
+                    let geos = generateEventList(bestDestination: bestDestination, category: 2)
+                    let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
+                    
+                    let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
+                    
+                    let i = itinerary
+
+                    Text("Generated Itinerary!")
+                        .padding(.top, 30)
+                        .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color("AccentColor"))
-                        .cornerRadius(20)
-                        .frame(width: 200, height: 300)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    NavigationLink(destination: ItineraryDetailView(itinerary: itinerary, saved: false)) {
+                        Text("Next")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("AccentColor"))
+                            .cornerRadius(20)
+                            .frame(width: 200, height: 50)
+                    }
                 }
-                //          Text(quiz_ans.continent)
-                //          Text(quiz.continent?.rawValue ?? "wrong").font(.title).bold()
-                //          Text(quiz_ans.weather)
-                //          Text(quiz.weather?.rawValue ?? "wrongweather")
-                
-                
+            }
+        }
+        .onAppear {
+            // Simulate a delay or some asynchronous task completion
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.isLoading = false
             }
         }
     }
 }
 
+struct LoadingView: View {
+    @State private var rotation = 0.0
+
+    var body: some View {
+        VStack {
+            Text("Generating Itinerary...")
+                .font(.headline)
+                .foregroundColor(.gray)
+
+            Image(systemName: "arrow.2.circlepath.circle")
+                .rotationEffect(.degrees(rotation))
+                .foregroundColor(Color("AccentColor")) // Apply color to the symbols
+                .onAppear() {
+                    withAnimation(Animation.linear(duration: 1.0).repeatForever(autoreverses: false)) {
+                        self.rotation = 360.0
+                    }
+                }
+        }
+        .padding()
+    }
+}

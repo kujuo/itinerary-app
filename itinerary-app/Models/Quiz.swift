@@ -63,6 +63,20 @@ enum QuizQuestionType {
     case activity
 }
 
+extension Weather {
+    func toString() -> String {
+        switch self {
+        case .hot:
+            return "Hot"
+        case .cold:
+            return "Cold"
+        case .warm:
+            return "Warm"
+        }
+        
+    }
+}
+
 
 
 //toString for view in city type

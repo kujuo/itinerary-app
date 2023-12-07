@@ -4,47 +4,7 @@
 //
 //  Created by Mitun Adenuga on 11/2/23.
 //
-/*
-import SwiftUI
 
-struct ContinentQuestionView: View {
-    var quiz: Quiz
-    
-    @State private var selectedContinent = Continent.northAmerica // Default selection
-    
-
-    var body: some View {
-        ZStack {
-            Color(.colorGreenMedium)
-            VStack {
-                Text("Select the continent you'd like to visit:")
-                    .padding(.bottom, 10)
-                Picker("Continent", selection: $selectedContinent) {
-                    ForEach(Continent.allCases, id: \.self) { continent in
-                        Text(continent.rawValue).tag(continent)
-                    }
-                }
-                .pickerStyle(.wheel) // You can use other styles as well
-
-              NavigationLink(destination: WeatherQuestionView(quiz: quiz)) {
-                  Text("Next")
-                      .font(.subheadline)
-                      .fontWeight(.medium)
-                      .foregroundColor(.white)
-                      .frame(maxWidth: .infinity)
-                      .padding()
-                      .background(Color("AccentColor"))
-                      .cornerRadius(20)
-                      .frame(width: 200, height: 300)
-              }.simultaneousGesture(TapGesture().onEnded{
-                quiz.continent = selectedContinent
-                quiz.continentMatchUpdate(continent: selectedContinent, points: 1)
-              })
-            }
-        }
-    }
-}
-*/
 import SwiftUI
 
 struct ContinentQuestionView: View {
@@ -66,7 +26,7 @@ struct ContinentQuestionView: View {
                     )
                     .edgesIgnoringSafeArea(.all)
             VStack {
-                Spacer()
+                //Spacer()
                 
                 ZStack {
                     // Bigger rounded rectangle as a background with stroke
@@ -92,14 +52,14 @@ struct ContinentQuestionView: View {
                                            )
                                            .frame(width: 280, height: 130) // Adjust size accordingly
                     
-                    Spacer()
+                    //Spacer()
                     // Text with thick rounded border
                     Text("Scroll to select the continent you'd like to visit: ")
                         .font(.system(size: 20))
                         //.foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
                         .fontWeight(.medium)
-                        .padding()
+                        //.padding()
                         .frame(width: 300, height: 150)
                     
                     Divider()
@@ -111,20 +71,19 @@ struct ContinentQuestionView: View {
                     
                 }
                 
-                Spacer()
+                //Spacer()
                
                 VStack(spacing:40) {
+                 
                     Picker("Continent", selection: $selectedContinent) {
                         ForEach(Continent.allCases, id: \.self) { continent in
-                            Text(continent.rawValue).tag(continent)
+                            Text(continent.toString()).tag(continent)
                         }
                     }
                     .pickerStyle(.wheel) // You can use other styles as well
-                    .padding(.top, 50)
-
                 }
                 
-                Spacer()
+                //Spacer()
                 
                 NavigationLink(destination: WeatherQuestionView(quiz: quiz)) {
                     Text("Next")

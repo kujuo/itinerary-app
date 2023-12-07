@@ -41,14 +41,6 @@ struct CardView: View {
                     }
                     
                     //MARK: - FOOTER
-                    // something like this for the button instead?
-                    /* NavigationLink {
-                     // destination view to navigation to
-                     DetailView()
-                     } label: {
-                     Image(systemName: "list.dash")
-                     .foregroundColor(.gray)
-                     }*/
                     VStack {
                         Text("If you're still unsure...")
                             .multilineTextAlignment(.center)

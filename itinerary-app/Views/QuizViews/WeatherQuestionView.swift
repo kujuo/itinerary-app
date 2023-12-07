@@ -169,7 +169,7 @@ struct WeatherQuestionView: View {
                             Button(action: {
                                 selectedWeather = weatherType
                             }) {
-                                Text(weatherType.rawValue)
+                                Text(weatherType.toString())
                                     .font(.title)
                                     .foregroundColor(selectedWeather == weatherType ? .white : .black)
                                     .padding()
