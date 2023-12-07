@@ -393,17 +393,17 @@ struct GeneratingItineraryView: View {
                     LoadingView()
                         .padding(.top, 30)
                 } else {
-                    let attractions = generateEventList(bestDestination: bestDestination, category: 1)
-                    let geos = generateEventList(bestDestination: bestDestination, category: 2)
-                    let restaurants = generateEventList(bestDestination: bestDestination, category: 3)
+                    let (attractions, attractions_id) = generateEventList(bestDestination: bestDestination, category: 1)
+                    let (geos, geos_id) = generateEventList(bestDestination: bestDestination, category: 2)
+                    let (restaurants, restaurants_id) = generateEventList(bestDestination: bestDestination, category: 3)
+                    let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
                     
-                    let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location)
                     
                     let i = itinerary
-
+                    
                     Text("Generated Itinerary!")
                         .padding(.top, 30)
-                        .font(.system(size: 40, weight: .bold)
+                        .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .center)
                     
