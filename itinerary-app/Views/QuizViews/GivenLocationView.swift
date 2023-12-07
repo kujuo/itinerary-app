@@ -1,9 +1,10 @@
 //
-//  GivenLocationView.swift
+//  GivenLocationView2.swift
 //  itinerary-app
 //
-//  Created by Mitun Adenuga on 11/2/23.
+//  Created by Mitun Adenuga on 12/7/23.
 //
+
 
 import SwiftUI
 
@@ -46,39 +47,55 @@ func findBestDestination(for quizResult: QuizLocationAnswers, from cityDestinati
 }
 
 let cityDestinations = [
-  CityDestination(name: "Paris", latitude: 48.8566, longitude: 2.3522, weather: "warm", cityType: ["modern", "historical"], continent: "Europe"),
-  CityDestination(name: "Cairo", latitude: 30.0444, longitude: 31.2357, weather: "hot", cityType: ["historical"], continent: "Africa"),
-  CityDestination(name: "New York", latitude: 40.7128, longitude: -74.0060, weather: "warm", cityType: ["modern", "coastal"], continent: "North America"),
-  CityDestination(name: "Tokyo", latitude: 35.6895, longitude: 139.6917, weather: "warm", cityType: ["modern", "coastal"], continent: "Asia"),
-  CityDestination(name: "Sydney", latitude: -33.8688, longitude: 151.2093, weather: "warm", cityType: ["modern", "coastal"], continent: "Australia"),
-  CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
-  CityDestination(name: "Moscow", latitude: 55.7558, longitude: 37.6173, weather: "cold", cityType: ["modern", "historical"], continent: "Europe"),
-  CityDestination(name: "Cape Town", latitude: -33.9249, longitude: 18.4241, weather: "warm", cityType: ["coastal", "historical"], continent: "Africa"),
-  CityDestination(name: "London", latitude: 51.5074, longitude: -0.1278, weather: "cold", cityType: ["modern", "historical"], continent: "Europe"),
-  CityDestination(name: "Vancouver", latitude: 49.2827, longitude: -123.1207, weather: "cold", cityType: ["modern", "coastal"], continent: "North America")
+    CityDestination(name: "Rome", latitude: 41.9028, longitude: 12.4964, weather: "temperate", cityType: ["historical", "metropolitan city"], continent: "Europe"),
+    CityDestination(name: "Bangkok", latitude: 13.7563, longitude: 100.5018, weather: "warm", cityType: ["modern", "metropolitan city"], continent: "Asia"),
+    CityDestination(name: "Cancun", latitude: 21.1619, longitude: -86.8515, weather: "hot", cityType: ["coastal", "island"], continent: "North America"),
+    CityDestination(name: "Bali", latitude: -8.3405, longitude: 115.0920, weather: "warm", cityType: ["island", "nature reserve"], continent: "Asia"),
+    CityDestination(name: "Reykjavik", latitude: 64.1265, longitude: -21.8174, weather: "cold", cityType: ["modern", "coastal"], continent: "Europe"),
+    CityDestination(name: "Cape Town", latitude: -33.9249, longitude: 18.4241, weather: "warm", cityType: ["coastal", "historical"], continent: "Africa"),
+    CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
+    CityDestination(name: "Hawaii", latitude: 20.7967, longitude: -156.3319, weather: "warm", cityType: ["island", "coastal"], continent: "North America"),
+    CityDestination(name: "Kyoto", latitude: 35.0116, longitude: 135.7681, weather: "temperate", cityType: ["historical"], continent: "Asia"),
+    CityDestination(name: "Dubai", latitude: 25.276987, longitude: 55.296249, weather: "hot", cityType: ["modern", "desert"], continent: "Asia"),
+        // Add more destinations here...
+    CityDestination(name: "Istanbul", latitude: 41.0082, longitude: 28.9784, weather: "temperate", cityType: ["historical", "metropolitan city"], continent: "Asia"),
+        CityDestination(name: "Marrakech", latitude: 31.6295, longitude: -7.9811, weather: "warm", cityType: ["historical", "desert"], continent: "Africa"),
+    CityDestination(name: "Auckland", latitude: -36.8485, longitude: 174.7633, weather: "temperate", cityType: ["coastal", "metropolitan city"], continent: "Australia"),
+    CityDestination(name: "Amsterdam", latitude: 52.3676, longitude: 4.9041, weather: "temperate", cityType: ["historical", "metropolitan city"], continent: "Europe"),
+    CityDestination(name: "Machu Picchu", latitude: -13.1631, longitude: -72.5450, weather: "temperate", cityType: ["historical", "nature reserve"], continent: "South America"),
+    CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
+    CityDestination(name: "Los Angeles", latitude: 34.0522, longitude: -118.2437, weather: "warm", cityType: ["modern", "coastal"], continent: "North America"),
+    CityDestination(name: "Miami", latitude: 25.7617, longitude: -80.1918, weather: "hot", cityType: ["coastal", "metropolitan city"], continent: "North America"),
+    CityDestination(name: "Dubai", latitude: 25.276987, longitude: 55.296249, weather: "hot", cityType: ["modern", "desert"], continent: "Asia"),
+    CityDestination(name: "Maui", latitude: 20.7967, longitude: -156.3319, weather: "warm", cityType: ["island", "nature reserve"], continent: "North America"),
+    CityDestination(name: "Santorini", latitude: 36.3932, longitude: 25.4615, weather: "warm", cityType: ["island", "coastal"], continent: "Europe"),
+    CityDestination(name: "Machu Picchu", latitude: -13.1631, longitude: -72.5450, weather: "temperate", cityType: ["historical", "nature reserve"], continent: "South America"),
+    CityDestination(name: "Sydney", latitude: -33.8688, longitude: 151.2093, weather: "warm", cityType: ["modern", "coastal"], continent: "Australia"),
+    CityDestination(name: "Kruger National Park", latitude: -24.4075, longitude: 31.3148, weather: "warm", cityType: ["nature reserve"], continent: "Africa"),
+    CityDestination(name: "New Orleans", latitude: 29.9511, longitude: -90.0715, weather: "hot", cityType: ["modern", "historical"], continent: "North America"),
 ]
 
 
 struct GivenLocationView: View {
     var quiz: Quiz
     @State private var isLoading = true
-
+    
     var body: some View {
         let bestDestination = quiz.getBestDestination()
-
+        
         ZStack {
             Image("flight2")
                 .resizable()
                 .scaledToFill()
                 .opacity(0.7)
-
+            
             VStack {
                 // Your location text with increased bottom padding
                 Text("Your location is:")
                     .font(.system(size: 40, weight: .semibold))
                     .foregroundColor(.white)
                     .padding(.bottom, 100) // Increase the bottom padding
-
+                
                 // Given location text with increased top padding and larger white background
                 Text(bestDestination?.name ?? "")
                     .font(.system(size: 40, weight: .semibold))
@@ -87,9 +104,9 @@ struct GivenLocationView: View {
                     .cornerRadius(5)
                     .frame(width: 390, height: 180) // Adjust the width and height here
                     .padding(.top, 120) // Adjust the top padding here
-
+                
                 Spacer()
-
+                
                 if let bestDestination {
                     NavigationLink(destination: FoodTagsView(quiz: quiz, bestDestination: bestDestination)) {
                         Text("Next")
@@ -101,13 +118,15 @@ struct GivenLocationView: View {
                             .background(Color("AccentColor"))
                             .cornerRadius(20)
                             .frame(width: 200) // Adjust the width here
+                        
+                            .padding(.bottom, 20) // Add some bottom padding for the "Next" button
                     }
-                    .padding(.bottom, 20) // Add some bottom padding for the "Next" button
                 }
             }
         }
     }
 }
+
 
 
 
