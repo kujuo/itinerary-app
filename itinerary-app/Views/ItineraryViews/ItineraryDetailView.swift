@@ -55,7 +55,7 @@ struct DetailedView: View {
               VStack(alignment: .center) {
                 ForEach(day.events!) {
                   event in
-                    EventNavView(event: event)
+                  EventNavView(event: event, itinerary: itinerary)
                 }
               }
             }
@@ -83,7 +83,7 @@ struct SummaryView: View {
              ) {
               VStack(alignment: .center) {
                 ForEach(day.events!) {
-                  event in ShortEventNavView(event: event)
+                  event in ShortEventNavView(event: event, itinerary: itinerary)
                 }
               }
             }
