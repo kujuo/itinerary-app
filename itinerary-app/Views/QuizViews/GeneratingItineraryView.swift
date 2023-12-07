@@ -106,18 +106,6 @@ struct User: Decodable {
 
 //
 
-
-
-
-//func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
-//    let Event1 = Event(id: UUID(), name: attraction_list[daynumber] , type: .attraction)
-//    let Event2 = Event(id: UUID(), name: geos_list[daynumber] , type: .geo)
-//    let Event3 = Event(id: UUID(), name: restaurant_list[daynumber] , type: .restaurant)
-//    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event2, Event3])
-//    
-//    return Dayplan
-//}
-
 func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
     let target_attrc_id = attrac_id[daynumber]
     let target_geo_id = geos_id[daynumber]
@@ -166,12 +154,36 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
 
 
 
+//func generate_itinerary(attrac: [String], geos: [String], restaurant: [String], daynumber: Int, location: String, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Itinerary {
+//    var dayplan: [Day] = []
+//    for i in 0...daynumber {
+//        dayplan.append(generateEvent_for_day(attraction_list: attrac, geos_list: geos, restaurant_list: restaurant, daynumber: i, attrac_id: attrac_id, geos_id: geos_id, restaurant_id: restaurant_id))
+//    }
+//    let Itinerary = Itinerary(id: UUID(), location: location, isCurrent: false, days:dayplan,  lastEditDate: Date())
+//    return Itinerary
+//}
+
+
 func generate_itinerary(attrac: [String], geos: [String], restaurant: [String], daynumber: Int, location: String, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Itinerary {
+    
+    let itinerary_place_id = geos_id[0]
     var dayplan: [Day] = []
     for i in 0...daynumber {
         dayplan.append(generateEvent_for_day(attraction_list: attrac, geos_list: geos, restaurant_list: restaurant, daynumber: i, attrac_id: attrac_id, geos_id: geos_id, restaurant_id: restaurant_id))
     }
-    let Itinerary = Itinerary(id: UUID(), location: location, isCurrent: false, days:dayplan,  lastEditDate: Date())
+    
+    var itinerary_img = ""
+    
+    let semaphore100 = DispatchSemaphore(value: 0)
+    DataManager.shared.fetchImage(from: itinerary_place_id) {
+        result in
+        //print(result)
+        itinerary_img = result
+        semaphore100.signal()
+    }
+    semaphore100.wait()
+    
+    let Itinerary = Itinerary(id: UUID(), location: location, img: itinerary_img, isCurrent: false, days:dayplan,  lastEditDate: Date())
     return Itinerary
 }
 
@@ -378,7 +390,7 @@ struct GeneratingItineraryView: View {
                 
                 let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: dayCount, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
                 
-                let i = itinerary
+                //let i = itinerary
                 
                 Text("Itinerary Finished Generating!")
                     .padding(.top, 30)

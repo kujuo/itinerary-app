@@ -12,6 +12,7 @@ struct CityDestination: Codable, Hashable {
   var weather: String
   var cityType: [String]
   var continent: String
+  var id: String?
   
   enum CodingKeys: String, CodingKey {
     case name
