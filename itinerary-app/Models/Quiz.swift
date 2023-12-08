@@ -219,6 +219,19 @@ class Quiz {
   
   func getBestDestination() -> CityDestination? {
     let sortedByValueDictionary = destinationPoints?.sorted { $0.1 > $1.1 }
-    return sortedByValueDictionary?.first?.0 ?? nil
+    if let sortedByValueDictionary = sortedByValueDictionary {
+      if let firstOne = sortedByValueDictionary.first {
+        let score = firstOne.1
+        var possibleDestinations: [CityDestination] = []
+        for val in sortedByValueDictionary {
+          if val.value >= score {
+            possibleDestinations.append(val.key)
+          }
+        }
+        print(possibleDestinations)
+        return possibleDestinations.randomElement()
+      }
+    }
+    return nil
   }
 }
