@@ -1,9 +1,10 @@
 //
-//  GivenLocationView.swift
+//  GivenLocationView2.swift
 //  itinerary-app
 //
-//  Created by Mitun Adenuga on 11/2/23.
+//  Created by Mitun Adenuga on 12/7/23.
 //
+
 
 import SwiftUI
 
@@ -51,8 +52,6 @@ let cityDestinations = [
     CityDestination(name: "Cancun", latitude: 21.1619, longitude: -86.8515, weather: "hot", cityType: ["coastal", "island"], continent: "North America"),
     CityDestination(name: "Bali", latitude: -8.3405, longitude: 115.0920, weather: "warm", cityType: ["island", "nature reserve"], continent: "Asia"),
     CityDestination(name: "Reykjavik", latitude: 64.1265, longitude: -21.8174, weather: "cold", cityType: ["modern", "coastal"], continent: "Europe"),
-    CityDestination(name: "Cape Town", latitude: -33.9249, longitude: 18.4241, weather: "warm", cityType: ["coastal", "historical"], continent: "Africa"),
-    CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
     CityDestination(name: "Hawaii", latitude: 20.7967, longitude: -156.3319, weather: "warm", cityType: ["island", "coastal"], continent: "North America"),
     CityDestination(name: "Kyoto", latitude: 35.0116, longitude: 135.7681, weather: "temperate", cityType: ["historical"], continent: "Asia"),
     CityDestination(name: "Dubai", latitude: 25.276987, longitude: 55.296249, weather: "hot", cityType: ["modern", "desert"], continent: "Asia"),
@@ -62,74 +61,75 @@ let cityDestinations = [
     CityDestination(name: "Auckland", latitude: -36.8485, longitude: 174.7633, weather: "temperate", cityType: ["coastal", "metropolitan city"], continent: "Australia"),
     CityDestination(name: "Amsterdam", latitude: 52.3676, longitude: 4.9041, weather: "temperate", cityType: ["historical", "metropolitan city"], continent: "Europe"),
     CityDestination(name: "Machu Picchu", latitude: -13.1631, longitude: -72.5450, weather: "temperate", cityType: ["historical", "nature reserve"], continent: "South America"),
-    CityDestination(name: "Rio de Janeiro", latitude: -22.9068, longitude: -43.1729, weather: "hot", cityType: ["coastal"], continent: "South America"),
     CityDestination(name: "Los Angeles", latitude: 34.0522, longitude: -118.2437, weather: "warm", cityType: ["modern", "coastal"], continent: "North America"),
     CityDestination(name: "Miami", latitude: 25.7617, longitude: -80.1918, weather: "hot", cityType: ["coastal", "metropolitan city"], continent: "North America"),
     CityDestination(name: "Dubai", latitude: 25.276987, longitude: 55.296249, weather: "hot", cityType: ["modern", "desert"], continent: "Asia"),
     CityDestination(name: "Maui", latitude: 20.7967, longitude: -156.3319, weather: "warm", cityType: ["island", "nature reserve"], continent: "North America"),
     CityDestination(name: "Santorini", latitude: 36.3932, longitude: 25.4615, weather: "warm", cityType: ["island", "coastal"], continent: "Europe"),
-    CityDestination(name: "Machu Picchu", latitude: -13.1631, longitude: -72.5450, weather: "temperate", cityType: ["historical", "nature reserve"], continent: "South America"),
-    CityDestination(name: "Sydney", latitude: -33.8688, longitude: 151.2093, weather: "warm", cityType: ["modern", "coastal"], continent: "Australia"),
     CityDestination(name: "Kruger National Park", latitude: -24.4075, longitude: 31.3148, weather: "warm", cityType: ["nature reserve"], continent: "Africa"),
     CityDestination(name: "New Orleans", latitude: 29.9511, longitude: -90.0715, weather: "hot", cityType: ["modern", "historical"], continent: "North America"),
 ]
 
 
-
-
 struct GivenLocationView: View {
     var quiz: Quiz
+    @State private var isLoading = true
     
-    //    @State location: String
     var body: some View {
-        var quiz_ans = QuizLocationAnswers(continent: quiz.continent?.toString() ?? "Asia", weather: quiz.weather?.rawValue ?? "warm", type_of_city: quiz.cityType?.toString() ?? "modern", duration: quiz.duration ?? 3)
+        let bestDestination = quiz.getBestDestination()
         
-//        let bestDestination = findBestDestination(for: quiz_ans, from: cityDestinations)
-      let bestDestination = quiz.getBestDestination()
         ZStack {
-            Color(.colorGreenMedium)
+            Image("flight2")
+                .resizable()
+                .scaledToFill()
+                .opacity(0.7)
+            
             VStack {
-                var location = bestDestination?.name
+                // Your location text with increased bottom padding
                 Text("Your location is:")
-                    .padding(.top, 70)
                     .font(.system(size: 40, weight: .semibold))
                     .foregroundColor(.white)
-    
+                    .padding(.bottom, 100) // Increase the bottom padding
+                
+                // Given location text with increased top padding and larger white background
+                Text(bestDestination?.name ?? "")
+                    .font(.system(size: 40, weight: .semibold))
+                    .foregroundColor(.accentColor)
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .frame(width: 390, height: 180) // Adjust the width and height here
+                    .padding(.top, 120) // Adjust the top padding here
+                
                 Spacer()
                 
-                Image("flight2")
-                    .resizable()
-                    .frame(width: 250.0, height: 300.0)
-                    .cornerRadius(10)
-                
-                Spacer()
-                
-                VStack {
-                            Text(location ?? "" )
-                                .padding(.top, 20)
-                                .font(.system(size: 40, weight: .semibold))
-                                .font(.title2)
-                                .foregroundColor(.white)
-                    
-                    if let bestDestination {
-                      NavigationLink(destination: GeneratingItineraryView(location:location ?? "", bestDestination:bestDestination, dayCount: quiz.duration ?? 1)) {
-                            Text("Next")
-                                .font(.subheadline)
-                                .fontWeight(.light)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color("AccentColor"))
-                                .cornerRadius(20)
-                                .frame(width: 100, height: 300)
-                        }
+                if let bestDestination {
+                    NavigationLink(destination: FoodTagsView(quiz: quiz, bestDestination: bestDestination)) {
+                        Text("Next")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color("AccentColor"))
+                            .cornerRadius(20)
+                            .frame(width: 200) // Adjust the width here
+                        
+                            .padding(.bottom, 20) // Add some bottom padding for the "Next" button
                     }
                 }
-                //.padding(.top, 20)
-                
             }
-            
         }
-        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

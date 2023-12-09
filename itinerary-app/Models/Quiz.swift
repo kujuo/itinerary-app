@@ -63,6 +63,20 @@ enum QuizQuestionType {
     case activity
 }
 
+extension Weather {
+    func toString() -> String {
+        switch self {
+        case .hot:
+            return "Hot"
+        case .cold:
+            return "Cold"
+        case .warm:
+            return "Warm"
+        }
+        
+    }
+}
+
 
 
 //toString for view in city type
@@ -71,18 +85,14 @@ extension CityType {
         switch self {
         case .desert:
             return "Desert"
-        case .island:
-            return "Island"
+        case .coastal:
+            return "Coastal"
         case .natureReserve:
             return "Nature Reserve"
-        case .metropolitanCity:
-            return "Metropolitan City"
         case .modern:
           return "modern"
         case .historical:
           return "historical"
-        case .coastal:
-          return "coastal"
         }
         
     }
@@ -133,13 +143,22 @@ enum CityType: String, CaseIterable, Identifiable {
     case modern
     case historical
     case coastal
-    case island
-    case metropolitanCity
     case desert
     case natureReserve
   
 
     var id: String { rawValue }
+    
+    var imageName: String {
+           switch self {
+           case .desert: return "dubai"
+           case .natureReserve: return "nature"
+           case .modern: return "big_city"
+           case .historical: return "history"
+           case .coastal: return "island"
+               
+           }
+       }
 }
 
 
@@ -150,6 +169,8 @@ class Quiz {
     var continent: Continent?
     var weather: Weather?
     var cityType: CityType?
+    var foodTags: Set<String> = []
+    var activityTags: Set<String> = []
     var continentMatching: Dictionary<String, [CityDestination]>
     var weatherMatching: Dictionary<String, [CityDestination]>
     var cityTypeMatching: Dictionary<String, [CityDestination]>
@@ -198,6 +219,19 @@ class Quiz {
   
   func getBestDestination() -> CityDestination? {
     let sortedByValueDictionary = destinationPoints?.sorted { $0.1 > $1.1 }
-    return sortedByValueDictionary?.first?.0 ?? nil
+    if let sortedByValueDictionary = sortedByValueDictionary {
+      if let firstOne = sortedByValueDictionary.first {
+        let score = firstOne.1
+        var possibleDestinations: [CityDestination] = []
+        for val in sortedByValueDictionary {
+          if val.value >= score {
+            possibleDestinations.append(val.key)
+          }
+        }
+        print(possibleDestinations)
+        return possibleDestinations.randomElement()
+      }
+    }
+    return nil
   }
 }
