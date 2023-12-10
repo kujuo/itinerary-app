@@ -10,6 +10,13 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+func hourMinFromStr(time: String?, offset1: Int, offset2: Int) -> Int? {
+  if let time = time {
+    var str = time[String.Index(utf16Offset: offset1, in: time)..<String.Index(utf16Offset: offset2, in: time)]
+    return Int(str)
+  }
+  return nil
+}
 struct EventDetailView: View {
   @State var event: Event
   @State var itinerary: Itinerary
@@ -80,7 +87,12 @@ struct EventDetailView: View {
         
       }
       else {
-        EditItineraryEvent(event: $event, itinerary: itinerary, editing: $editing)
+        EditItineraryEvent(event: $event, itinerary: itinerary, editing: $editing, 
+                           startTimeHour: hourMinFromStr(time: event.timeStart, offset1: 0, offset2: 2),
+                           startTimeMinute: hourMinFromStr(time: event.timeStart, offset1: 2, offset2: 4),
+                           endTimeHour: hourMinFromStr(time: event.timeEnd, offset1: 0, offset2: 2),
+                           endTimeMinute:hourMinFromStr(time: event.timeEnd, offset1: 2, offset2: 4)
+        )
       }
       
     }
@@ -92,10 +104,23 @@ extension EventType {
     return [.restaurant, .geo, .attraction, .travel]
       }
 }
+enum TimeOptions: String {
+    case AM = "AM"
+    case PM = "PM"
+  static var allCases: [TimeOptions] {
+    return [.AM, .PM]
+  }
+}
+
 struct EditItineraryEvent: View {
   @Binding var event: Event
   @State var itinerary: Itinerary
   @Binding var editing: Bool
+  @State var startTimeHour: Int?
+  @State var startTimeMinute: Int?
+  @State var endTimeHour: Int?
+  @State var endTimeMinute: Int?
+  @State var time: TimeOptions = TimeOptions.AM
   var body: some View {
     let origEvent = event
     VStack {
@@ -104,11 +129,46 @@ struct EditItineraryEvent: View {
           TextField("Event name", text: $event.name ).fontWeight(.heavy).multilineTextAlignment(.leading)
           TextField("Description", text: $event.description.toUnwrapped(defaultValue: ""))
         }
+        
+        Section(header: Text("Start and End Times")) {
+          Picker("Start Hour", selection: Binding($startTimeHour, deselectTo: nil)) {
+            Text("None").tag(nil as Int?)
+            ForEach(1...12, id: \.self) { number in
+                Text("\(number)").tag(number as Int?)
+            }
+          }
+          if (startTimeHour != nil) {
+            Picker("Start Minute", selection: $startTimeMinute) {
+                ForEach(0...59, id: \.self) { number in
+                    Text("\(number)").tag(number as Int?)
+                }
+            }
+          }
+          
+          Picker("End Hour", selection: $endTimeHour) {
+            Text("None").tag(nil as Int?)
+              ForEach(1...12, id: \.self) { number in
+                  Text("\(number)").tag(number as Int?)
+              }
+          }
+          if (endTimeHour != nil) {
+            Picker("End Minute", selection: $endTimeMinute) {
+                ForEach(0...59, id: \.self) { number in
+                    Text("\(number)").tag(number as Int?)
+                }
+            }
+          }
+          Picker("AM/PM", selection: $time) {
+            ForEach(TimeOptions.allCases, id: \.self) { option in
+              Text(option.rawValue.capitalized)
+            }
+          }.pickerStyle(SegmentedPickerStyle())
+        }
 
         Section(header: Text("Other Information")) {
           Picker("Event type", selection: $event.type) {
             ForEach(EventType.allCases, id: \.self) { option in
-              Text(option.rawValue.capitalized)
+              Text(option.rawValue)
             }
           }
           .pickerStyle(SegmentedPickerStyle())
@@ -130,6 +190,10 @@ struct EditItineraryEvent: View {
           Button("Save") {
             editing = false
             var saveEvent = event
+            var timeOffset: Int
+            if time == TimeOptions.PM {
+              timeOffset = 12
+            } else { timeOffset = 0 }
             saveEvent.name = event.name
             saveEvent.description = event.description
             saveEvent.type = event.type
@@ -139,6 +203,40 @@ struct EditItineraryEvent: View {
             if (event.img == "") {
               saveEvent.img = nil
             } else { saveEvent.img = event.img }
+            if var startTimeHour = startTimeHour {
+              startTimeHour += timeOffset
+              var str = String(startTimeHour)
+              if startTimeHour < 10 {
+                str = "0" + str
+              }
+              if startTimeMinute! < 10 {
+                str = str + "0"
+              }
+              str.append((String(startTimeMinute!)))
+              
+              saveEvent.timeStart = str
+            }
+            else {
+              saveEvent.timeStart = nil
+            }
+            if var endTimeHour = endTimeHour {
+              endTimeHour += timeOffset
+              
+              var str = String(endTimeHour)
+              if endTimeHour < 10 {
+                str = "0" + str
+              }
+              if endTimeMinute! < 10 {
+                str = str + "0"
+              }
+              str.append((String(endTimeMinute!)))
+              
+              saveEvent.timeEnd = str
+            }
+            else {
+              saveEvent.timeEnd = nil
+            }
+            print(saveEvent)
             let store = Firestore.firestore()
             let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
             var newItinerary: Itinerary = itinerary
@@ -181,4 +279,12 @@ extension Binding {
      func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
         Binding<T>(get: { self.wrappedValue ?? defaultValue }, set: { self.wrappedValue = $0 })
     }
+}
+
+public extension Binding where Value: Equatable {
+  init(_ source: Binding<Value>, deselectTo value: Value) {
+    self.init(get: { source.wrappedValue },
+              set: { source.wrappedValue = $0 == source.wrappedValue ? value : $0 }
+    )
+  }
 }
