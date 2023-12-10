@@ -27,7 +27,7 @@ struct Itinerary: Identifiable, Codable, Comparable {
   }
   
   static func < (lhs: Itinerary, rhs: Itinerary) -> Bool {
-    lhs.lastEditDate < rhs.lastEditDate
+    lhs.lastEditDate > rhs.lastEditDate
   }
   
   static func == (lhs: Itinerary, rhs: Itinerary) -> Bool {
