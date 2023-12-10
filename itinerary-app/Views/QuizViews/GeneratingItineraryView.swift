@@ -195,6 +195,7 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
     var res_coord: (String, String) = ("0", "0")
     
     let semaphore100 = DispatchSemaphore(value: 0)
+  
     DataManager.shared.fetchImage(from: target_attrc_id) {
         result in
         //print(result)
@@ -583,6 +584,7 @@ struct GeneratingItineraryView: View {
     var location: String
     var bestDestination: CityDestination
     @State private var isLoading = true
+    var quiz: Quiz
     var body: some View {
         ZStack {
             LinearGradient(
@@ -599,7 +601,7 @@ struct GeneratingItineraryView: View {
                     let (attractions, attractions_id) = generateEventList(bestDestination: bestDestination, category: 1)
                     let (geos, geos_id) = generateEventList(bestDestination: bestDestination, category: 2)
                     let (restaurants, restaurants_id) = generateEventList(bestDestination: bestDestination, category: 3)
-                    let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
+                  let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: (quiz.duration ?? 1) - 1, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
                     
                     
                     let i = itinerary
