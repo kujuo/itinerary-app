@@ -13,10 +13,10 @@ struct CityTypeView3: View {
     private let cityTypes: [CityType] = [.desert, .natureReserve, .modern, .historical, .coastal]
     private let imageTexts: [String] = [
         "A city with interesting deserts like Dubai",
-        "A city with beautiful islands like the Maldives",
         "A city with nature reserves and great adventure trails",
         "A metropolitan city full of life and entertainment",
-        "A city known for its rich cultural history"
+        "A city known for its rich cultural history",
+        "A city with beautiful islands like the Maldives"
     ]
 
     var body: some View {

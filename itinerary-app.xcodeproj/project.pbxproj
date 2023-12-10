@@ -65,7 +65,6 @@
 		DBE6244B2AFDD8820040B58F /* CustomBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624432AFDD8810040B58F /* CustomBackgroundView.swift */; };
 		DBE6244C2AFDD8820040B58F /* ContinentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624442AFDD8810040B58F /* ContinentQuestionView.swift */; };
 		DBE6244D2AFDD8820040B58F /* GivenLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624452AFDD8810040B58F /* GivenLocationView.swift */; };
-		DBE6244E2AFDD8820040B58F /* CityTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624462AFDD8810040B58F /* CityTypeView.swift */; };
 		DBE6244F2AFDD8820040B58F /* QuizBeginningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE624472AFDD8810040B58F /* QuizBeginningView.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +99,6 @@
 		DBE624432AFDD8810040B58F /* CustomBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBackgroundView.swift; sourceTree = "<group>"; };
 		DBE624442AFDD8810040B58F /* ContinentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinentQuestionView.swift; sourceTree = "<group>"; };
 		DBE624452AFDD8810040B58F /* GivenLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GivenLocationView.swift; sourceTree = "<group>"; };
-		DBE624462AFDD8810040B58F /* CityTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityTypeView.swift; sourceTree = "<group>"; };
 		DBE624472AFDD8810040B58F /* QuizBeginningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizBeginningView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -252,7 +250,6 @@
 				DBE624442AFDD8810040B58F /* ContinentQuestionView.swift */,
 				DBE624452AFDD8810040B58F /* GivenLocationView.swift */,
 				DB2C76FB2AFDE92900DEC330 /* GeneratingItineraryView.swift */,
-				DBE624462AFDD8810040B58F /* CityTypeView.swift */,
 				DBE624472AFDD8810040B58F /* QuizBeginningView.swift */,
 				398499222B06A35600BDE9E1 /* CityTypeView3.swift */,
 				3969D7662B2185E500F84BDD /* FoodTagsView.swift */,
@@ -402,7 +399,6 @@
 				DBE6244F2AFDD8820040B58F /* QuizBeginningView.swift in Sources */,
 				DBA3B5932AF2F34D00BDE32B /* HomeView.swift in Sources */,
 				DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */,
-				DBE6244E2AFDD8820040B58F /* CityTypeView.swift in Sources */,
 				DBE6244B2AFDD8820040B58F /* CustomBackgroundView.swift in Sources */,
 				3969D7692B219CFC00F84BDD /* ActivityTagsViews.swift in Sources */,
 				DBAE00BB2ADF7C87003137AD /* Event.swift in Sources */,

@@ -578,11 +578,13 @@ func generateEventList (bestDestination: CityDestination, category: Int) -> ([St
 
 
 
+
 struct GeneratingItineraryView: View {
     @State private var itinerary: Itinerary? = nil
     var location: String
     var bestDestination: CityDestination
     @State private var isLoading = true
+    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -593,7 +595,7 @@ struct GeneratingItineraryView: View {
             
             VStack {
                 if isLoading {
-                    LoadingView()
+                    PulsatingCircle()
                         .padding(.top, 30)
                 } else {
                     let (attractions, attractions_id) = generateEventList(bestDestination: bestDestination, category: 1)
@@ -601,10 +603,7 @@ struct GeneratingItineraryView: View {
                     let (restaurants, restaurants_id) = generateEventList(bestDestination: bestDestination, category: 3)
                     let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: 3, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
                     
-                    
-                    let i = itinerary
-                    
-                    Text("Generated Itinerary!")
+                    Text("Itinerary Generated!")
                         .padding(.top, 30)
                         .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
@@ -633,24 +632,34 @@ struct GeneratingItineraryView: View {
     }
 }
 
-struct LoadingView: View {
-    @State private var rotation = 0.0
+struct PulsatingCircle: View {
+    @State private var pulsate = false
 
     var body: some View {
-        VStack {
-            Text("Generating Itinerary...")
+        ZStack {
+            Circle()
+                .stroke(Color("AccentColor"), lineWidth: 4)
+                .frame(width: 70, height: 70)
+                .scaleEffect(pulsate ? 1.2 : 1.0)
+                .opacity(pulsate ? 0.0 : 1.0)
+                .animation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: false))
+            
+            Circle()
+                .fill(Color("AccentColor"))
+                .frame(width: 50, height: 50)
+                .scaleEffect(pulsate ? 1.2 : 1.0)
+                .opacity(pulsate ? 0.0 : 1.0)
+                .animation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: false))
+            
+            Text("Loading your itinerary...")
                 .font(.headline)
-                .foregroundColor(.gray)
-
-            Image(systemName: "arrow.2.circlepath.circle")
-                .rotationEffect(.degrees(rotation))
-                .foregroundColor(Color("AccentColor")) // Apply color to the symbols
-                .onAppear() {
-                    withAnimation(Animation.linear(duration: 1.0).repeatForever(autoreverses: false)) {
-                        self.rotation = 360.0
-                    }
-                }
+                .foregroundColor(.white)
+                .offset(y: 40)
+                .opacity(pulsate ? 0.0 : 1.0)
+                .animation(Animation.easeInOut(duration: 1.0).repeatForever(autoreverses: false))
         }
-        .padding()
+        .onAppear {
+            self.pulsate.toggle()
+        }
     }
 }
