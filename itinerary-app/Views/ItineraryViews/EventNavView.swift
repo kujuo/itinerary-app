@@ -50,9 +50,11 @@ struct ShortEventNavView: View {
     NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
       HStack {
         VStack(alignment: .leading) {
-          Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-            .font(.caption)
-            .foregroundColor(Color.black)
+          if (event.timeEnd != nil || event.timeStart != nil) {
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.black)
+          }
           Text(event.name)
             .font(.title3).fontWeight(.heavy)
             .multilineTextAlignment(.leading)
@@ -79,8 +81,10 @@ struct Meal: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+            }
             Text("Meal: " + event.name)
               .font(.title3).fontWeight(.heavy)
               .multilineTextAlignment(.leading)
@@ -120,9 +124,11 @@ struct Attraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
-              .foregroundColor(Color.white)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+                .foregroundColor(Color.white)
+            }
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.white).multilineTextAlignment(.leading)
@@ -155,9 +161,11 @@ struct ShortAttraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
-              .foregroundColor(Color.black)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+                .foregroundColor(Color.black)
+            }
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.black).multilineTextAlignment(.leading)
@@ -183,9 +191,10 @@ struct Travel: View {
   var body: some View {
     HStack {
       Spacer()
-      Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-        .font(.caption)
-//        .border(Color.green , width: 2.0)
+      if (event.timeEnd != nil || event.timeStart != nil) {
+        Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+          .font(.caption)
+      }
       Image(systemName: "ellipsis")
 //        .resizable()
         .rotationEffect(.degrees(90))

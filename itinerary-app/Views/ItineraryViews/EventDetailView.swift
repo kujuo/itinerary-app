@@ -13,7 +13,16 @@ import FirebaseFirestoreSwift
 func hourMinFromStr(time: String?, offset1: Int, offset2: Int) -> Int? {
   if let time = time {
     var str = time[String.Index(utf16Offset: offset1, in: time)..<String.Index(utf16Offset: offset2, in: time)]
-    return Int(str)
+    print(str)
+    if var strInt = Int(str) {
+      if strInt > 12 {
+        strInt -= 12
+      }
+      return strInt
+    }
+    else {
+      return Int(str)
+    }
   }
   return nil
 }
@@ -91,12 +100,23 @@ struct EventDetailView: View {
                            startTimeHour: hourMinFromStr(time: event.timeStart, offset1: 0, offset2: 2),
                            startTimeMinute: hourMinFromStr(time: event.timeStart, offset1: 2, offset2: 4),
                            endTimeHour: hourMinFromStr(time: event.timeEnd, offset1: 0, offset2: 2),
-                           endTimeMinute:hourMinFromStr(time: event.timeEnd, offset1: 2, offset2: 4)
+                           endTimeMinute:hourMinFromStr(time: event.timeEnd, offset1: 2, offset2: 4),
+                           timeStart: AMPM(time: event.timeStart),
+                           timeEnd: AMPM(time: event.timeEnd)
         )
       }
       
     }
+  func AMPM(time: String?) -> TimeOptions{
+    if let time = time {
+      let str = time[String.Index(utf16Offset: 0, in: time)..<String.Index(utf16Offset: 2, in: time)]
+      if let intStr = Int(str) {
+        return intStr >= 12 ? TimeOptions.PM : TimeOptions.AM
+      }
+    }
+    return TimeOptions.AM
   }
+}
   
 
 extension EventType {
@@ -120,7 +140,8 @@ struct EditItineraryEvent: View {
   @State var startTimeMinute: Int?
   @State var endTimeHour: Int?
   @State var endTimeMinute: Int?
-  @State var time: TimeOptions = TimeOptions.AM
+  @State var timeStart: TimeOptions
+  @State var timeEnd: TimeOptions
   var body: some View {
     let origEvent = event
     VStack {
@@ -144,7 +165,11 @@ struct EditItineraryEvent: View {
                 }
             }
           }
-          
+          Picker("AM/PM", selection: $timeStart) {
+            ForEach(TimeOptions.allCases, id: \.self) { option in
+              Text(option.rawValue)
+            }
+          }.pickerStyle(SegmentedPickerStyle())
           Picker("End Hour", selection: $endTimeHour) {
             Text("None").tag(nil as Int?)
               ForEach(1...12, id: \.self) { number in
@@ -158,9 +183,9 @@ struct EditItineraryEvent: View {
                 }
             }
           }
-          Picker("AM/PM", selection: $time) {
+          Picker("AM/PM", selection: $timeEnd) {
             ForEach(TimeOptions.allCases, id: \.self) { option in
-              Text(option.rawValue.capitalized)
+              Text(option.rawValue)
             }
           }.pickerStyle(SegmentedPickerStyle())
         }
@@ -190,10 +215,14 @@ struct EditItineraryEvent: View {
           Button("Save") {
             editing = false
             var saveEvent = event
-            var timeOffset: Int
-            if time == TimeOptions.PM {
-              timeOffset = 12
-            } else { timeOffset = 0 }
+            var startOffset: Int
+            var endOffset: Int
+            if timeStart == TimeOptions.PM {
+              startOffset = 12
+            } else { startOffset = 0 }
+            if timeEnd == TimeOptions.PM {
+              endOffset = 12
+            } else { endOffset = 0 }
             saveEvent.name = event.name
             saveEvent.description = event.description
             saveEvent.type = event.type
@@ -204,7 +233,7 @@ struct EditItineraryEvent: View {
               saveEvent.img = nil
             } else { saveEvent.img = event.img }
             if var startTimeHour = startTimeHour {
-              startTimeHour += timeOffset
+              startTimeHour += startOffset
               var str = String(startTimeHour)
               if startTimeHour < 10 {
                 str = "0" + str
@@ -225,7 +254,7 @@ struct EditItineraryEvent: View {
               saveEvent.timeStart = nil
             }
             if var endTimeHour = endTimeHour {
-              endTimeHour += timeOffset
+              endTimeHour += endOffset
               
               var str = String(endTimeHour)
               if endTimeHour < 10 {
