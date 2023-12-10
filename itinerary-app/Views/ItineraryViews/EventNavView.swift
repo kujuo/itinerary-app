@@ -10,6 +10,7 @@ import FirebaseStorage
 
 struct EventNavView: View {
   var event: Event
+  var itinerary: Itinerary
   var body: some View {
     switch event.type {
     case .restaurant:
@@ -17,7 +18,7 @@ struct EventNavView: View {
         Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
-      NavigationLink(destination: EventDetailView(event: event)) {
+      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
         if let imgLink = event.img {
           Attraction(event: event)
         }
@@ -26,7 +27,7 @@ struct EventNavView: View {
         }
       }
     case .geo:
-      NavigationLink(destination: EventDetailView(event: event)) {
+      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
         if let imgLink = event.img {
           Attraction(event: event)
         }
@@ -44,8 +45,9 @@ struct EventNavView: View {
 
 struct ShortEventNavView: View {
   var event: Event
+  var itinerary: Itinerary
   var body: some View {
-    NavigationLink(destination: EventDetailView(event: event)) {
+    NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
       HStack {
         VStack(alignment: .leading) {
           Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
