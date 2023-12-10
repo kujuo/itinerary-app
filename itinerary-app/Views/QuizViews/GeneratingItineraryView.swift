@@ -460,9 +460,3 @@ struct PulsatingCircle: View {
         }
     }
 }
-
-
-
-
-
-
