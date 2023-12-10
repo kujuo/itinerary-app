@@ -7,6 +7,9 @@
 
 import SwiftUI
 import FirebaseStorage
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct EventNavView: View {
   var event: Event
@@ -14,7 +17,36 @@ struct EventNavView: View {
   var body: some View {
     switch event.type {
     case .restaurant:
-      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+      Menu {
+        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+          Text("Link")
+        }
+        Button("Delete", role: .destructive, action: {
+          let store = Firestore.firestore()
+          let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+          var newItinerary: Itinerary = itinerary
+          for i in 0..<(itinerary.days?.count)! {
+            var day = itinerary.days![i]
+            for j in 0..<(day.events?.count)! {
+              var newEvent = day.events![j]
+              if newEvent.id == event.id {
+                newItinerary.days![i].events!.remove(at: j)
+                if newItinerary.days![i].events!.isEmpty {
+                  newItinerary.days!.remove(at:i)
+                }
+                newItinerary.lastEditDate = Date()
+                do {
+                  try itineraryRef.setData(from: newItinerary)
+                  print("worked")
+                } catch let error {
+                  print("Error writing to Firestore: \(error)")
+                }
+              }
+            }
+          }
+
+        })
+      } label: {
         Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
@@ -36,9 +68,38 @@ struct EventNavView: View {
         }
       }
     case .travel:
-      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-        Travel(event: event)
-      }.foregroundColor(Color.black)
+      Menu {
+        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+          Text("Link")
+        }
+        Button("Delete", role: .destructive, action: {
+          let store = Firestore.firestore()
+          let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+          var newItinerary: Itinerary = itinerary
+          for i in 0..<(itinerary.days?.count)! {
+            var day = itinerary.days![i]
+            for j in 0..<(day.events?.count)! {
+              var newEvent = day.events![j]
+              if newEvent.id == event.id {
+                newItinerary.days![i].events!.remove(at: j)
+                if newItinerary.days![i].events!.isEmpty {
+                  newItinerary.days!.remove(at:i)
+                }
+                newItinerary.lastEditDate = Date()
+                do {
+                  try itineraryRef.setData(from: newItinerary)
+                  print("worked")
+                } catch let error {
+                  print("Error writing to Firestore: \(error)")
+                }
+              }
+            }
+          }
+
+        })
+      } label: {
+        Travel(event: event).foregroundColor(Color.black)
+      }
     }
   }
 }
