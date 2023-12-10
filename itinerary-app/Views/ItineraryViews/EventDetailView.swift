@@ -209,11 +209,16 @@ struct EditItineraryEvent: View {
               if startTimeHour < 10 {
                 str = "0" + str
               }
-              if startTimeMinute! < 10 {
-                str = str + "0"
+              if let minute = startTimeMinute {
+                if minute < 10 {
+                  str = str + "0"
+                }
+                str = str + String(minute)
               }
-              str.append((String(startTimeMinute!)))
-              
+              else {
+                str = str + "00"
+              }
+                            
               saveEvent.timeStart = str
             }
             else {
@@ -226,10 +231,15 @@ struct EditItineraryEvent: View {
               if endTimeHour < 10 {
                 str = "0" + str
               }
-              if endTimeMinute! < 10 {
-                str = str + "0"
+              if let minute = endTimeMinute {
+                if minute < 10 {
+                  str = str + "0"
+                }
+                str = str + String(minute)
               }
-              str.append((String(endTimeMinute!)))
+              else {
+                str = str + "00"
+              }
               
               saveEvent.timeEnd = str
             }
