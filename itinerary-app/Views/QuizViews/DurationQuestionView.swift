@@ -109,7 +109,7 @@ struct DurationQuestionView: View {
                
                 VStack(spacing:40) {
                     HStack {
-                        Stepper("\(days) \(days == 1 ? "day" : "days")", value: $days, in: 1...31)
+                        Stepper("\(days) \(days == 1 ? "day" : "days")", value: $days, in: 1...7)
                             .padding(.bottom, 10) // Adjust bottom padding
                             .frame(width: 200)
                     }
