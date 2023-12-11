@@ -7,6 +7,9 @@
 
 import SwiftUI
 import FirebaseStorage
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct EventNavView: View {
   var event: Event
@@ -14,7 +17,36 @@ struct EventNavView: View {
   var body: some View {
     switch event.type {
     case .restaurant:
-      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+      Menu {
+        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+          Text("Link")
+        }
+        Button("Delete", role: .destructive, action: {
+          let store = Firestore.firestore()
+          let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+          var newItinerary: Itinerary = itinerary
+          for i in 0..<(itinerary.days?.count)! {
+            var day = itinerary.days![i]
+            for j in 0..<(day.events?.count)! {
+              var newEvent = day.events![j]
+              if newEvent.id == event.id {
+                newItinerary.days![i].events!.remove(at: j)
+                if newItinerary.days![i].events!.isEmpty {
+                  newItinerary.days!.remove(at:i)
+                }
+                newItinerary.lastEditDate = Date()
+                do {
+                  try itineraryRef.setData(from: newItinerary)
+                  print("worked")
+                } catch let error {
+                  print("Error writing to Firestore: \(error)")
+                }
+              }
+            }
+          }
+
+        })
+      } label: {
         Meal(event: event).foregroundColor(Color.black)
       }
     case .attraction:
@@ -36,9 +68,38 @@ struct EventNavView: View {
         }
       }
     case .travel:
-      Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-        Travel(event: event)
-      }.foregroundColor(Color.black)
+      Menu {
+        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
+          Text("Link")
+        }
+        Button("Delete", role: .destructive, action: {
+          let store = Firestore.firestore()
+          let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+          var newItinerary: Itinerary = itinerary
+          for i in 0..<(itinerary.days?.count)! {
+            var day = itinerary.days![i]
+            for j in 0..<(day.events?.count)! {
+              var newEvent = day.events![j]
+              if newEvent.id == event.id {
+                newItinerary.days![i].events!.remove(at: j)
+                if newItinerary.days![i].events!.isEmpty {
+                  newItinerary.days!.remove(at:i)
+                }
+                newItinerary.lastEditDate = Date()
+                do {
+                  try itineraryRef.setData(from: newItinerary)
+                  print("worked")
+                } catch let error {
+                  print("Error writing to Firestore: \(error)")
+                }
+              }
+            }
+          }
+
+        })
+      } label: {
+        Travel(event: event).foregroundColor(Color.black)
+      }
     }
   }
 }
@@ -50,9 +111,11 @@ struct ShortEventNavView: View {
     NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
       HStack {
         VStack(alignment: .leading) {
-          Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-            .font(.caption)
-            .foregroundColor(Color.black)
+          if (event.timeEnd != nil || event.timeStart != nil) {
+            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+              .font(.title3)
+              .foregroundColor(Color.black)
+          }
           Text(event.name)
             .font(.title3).fontWeight(.heavy)
             .multilineTextAlignment(.leading)
@@ -79,8 +142,10 @@ struct Meal: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+            }
             Text("Meal: " + event.name)
               .font(.title3).fontWeight(.heavy)
               .multilineTextAlignment(.leading)
@@ -120,9 +185,11 @@ struct Attraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
-              .foregroundColor(Color.white)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+                .foregroundColor(Color.white)
+            }
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.white).multilineTextAlignment(.leading)
@@ -155,9 +222,11 @@ struct ShortAttraction: View {
           .clipShape(RoundedRectangle(cornerRadius: 20))
         HStack {
           VStack (alignment: .leading){
-            Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-              .font(.title3)
-              .foregroundColor(Color.black)
+            if (event.timeEnd != nil || event.timeStart != nil) {
+              Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+                .font(.title3)
+                .foregroundColor(Color.black)
+            }
             Text(event.name)
               .font(.title3).fontWeight(.heavy)
               .foregroundColor(Color.black).multilineTextAlignment(.leading)
@@ -183,9 +252,10 @@ struct Travel: View {
   var body: some View {
     HStack {
       Spacer()
-      Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
-        .font(.caption)
-//        .border(Color.green , width: 2.0)
+      if (event.timeEnd != nil || event.timeStart != nil) {
+        Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
+          .font(.caption)
+      }
       Image(systemName: "ellipsis")
 //        .resizable()
         .rotationEffect(.degrees(90))
