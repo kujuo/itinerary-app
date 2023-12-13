@@ -18,7 +18,7 @@ struct HomeView: View {
     
     NavigationView {
       VStack {
-        Text("Welcome!").font(.title).fontWeight(.heavy)
+        Text("Jouni").font(.title).fontWeight(.heavy)
         Spacer()
         VStack(alignment: .leading) {
           Text("Current Itinerary").font(.title2).fontWeight(.bold)
@@ -35,13 +35,23 @@ struct HomeView: View {
               // Text within the button
               HStack {
                 Text("Set an itinerary as your current one!").frame(alignment: .leading)
-                  .fontWeight(.bold).foregroundColor(Color.white)
+                  .fontWeight(.bold).foregroundColor(Color.black)
                   .font(.title3)
               }.padding(10)
                 Spacer()
             }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
           }
         }
+        NavigationLink(destination: DurationQuestionView(quiz: Quiz())) {
+          HStack {
+            Image("flight")
+                .resizable()
+                .scaledToFit().frame(width: 100, height: 100)
+            Text("Create New Itinerary")
+          }
+        }
+        
+        
         Spacer()
 
       }
