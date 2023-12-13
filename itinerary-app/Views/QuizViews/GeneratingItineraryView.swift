@@ -30,10 +30,12 @@ struct Location: Decodable {
 struct Location_coord: Decodable {
     let latitude: String
     let longitude: String
+    let url: String
   
   enum CodingKeys: String, CodingKey {
       case latitude = "latitude"
       case longitude = "longitude"
+      case url = "web_url"
   }
 }
 
@@ -116,70 +118,7 @@ struct User: Decodable {
     let username: String
 }
 
-//
 
-//func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
-//    let target_attrc_id = attrac_id[daynumber]
-//    let target_geo_id = geos_id[daynumber]
-//    let target_restaurant_id = restaurant_id[daynumber]
-//    
-//    
-//    var attrc_img = ""
-//    var geo_img = ""
-//    var res_img = ""
-//    
-//    let semaphore100 = DispatchSemaphore(value: 0)
-//    DataManager.shared.fetchImage(from: target_attrc_id) {
-//        result in
-//        //print(result)
-//        attrc_img = result
-//        semaphore100.signal()
-//    }
-//    semaphore100.wait()
-//    
-//    let semaphore101 = DispatchSemaphore(value: 0)
-//    DataManager.shared.fetchImage(from: target_geo_id) {
-//        result in
-//        //print(result)
-//        geo_img = result
-//        semaphore101.signal()
-//    }
-//    semaphore101.wait()
-//    
-//    let semaphore102 = DispatchSemaphore(value: 0)
-//    DataManager.shared.fetchImage(from: target_restaurant_id) {
-//        result in
-//        //print(result)
-//        res_img = result
-//        semaphore102.signal()
-//    }
-//    semaphore102.wait()
-//    
-//
-//    let Event1 = Event(
-//        id: UUID(),
-//        name: attraction_list[daynumber],
-//        img: attrc_img == "" ? nil : attrc_img,
-//        type: .attraction
-//    )
-//
-//    let Event2 = Event(
-//        id: UUID(),
-//        name: geos_list[daynumber],
-//        img: geo_img == "" ? nil : geo_img,
-//        type: .geo
-//    )
-//
-//    let Event3 = Event(
-//        id: UUID(),
-//        name: restaurant_list[daynumber],
-//        img: res_img == "" ? nil : res_img,
-//        type: .restaurant
-//    )
-//    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event2, Event3])
-//    
-//    return Dayplan
-//}
 func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
     let target_attrc_id = attrac_id[daynumber]
     let target_geo_id = geos_id[daynumber]
@@ -193,6 +132,11 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
     var attrc_coord: (String, String) = ("0", "0")
     var geo_coord: (String, String) = ("0", "0")
     var res_coord: (String, String) = ("0", "0")
+    
+    var attrc_url = ""
+    var geo_url = ""
+    var res_url = ""
+    
     
     let semaphore100 = DispatchSemaphore(value: 0)
   
@@ -223,28 +167,31 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
     semaphore102.wait()
     
     let semaphore103 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_attrc_id) {
-        (lat,lon) in
+    DataManager.shared.fetchCoord_and_url(from: target_attrc_id) {
+        (lat,lon,url) in
         //print(result)
         attrc_coord = (lat,lon)
+        attrc_url = url
         semaphore103.signal()
     }
     semaphore103.wait()
     
     let semaphore104 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_geo_id) {
-        (lat,lon) in
+    DataManager.shared.fetchCoord_and_url(from: target_geo_id) {
+        (lat,lon,url) in
         //print(result)
         geo_coord = (lat,lon)
+        geo_url = url
         semaphore104.signal()
     }
     semaphore104.wait()
     
     let semaphore105 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_restaurant_id) {
-        (lat,lon) in
+    DataManager.shared.fetchCoord_and_url(from: target_restaurant_id) {
+        (lat,lon,url) in
         //print(result)
         res_coord = (lat,lon)
+        res_url = url
         semaphore105.signal()
     }
     semaphore105.wait()
@@ -257,7 +204,7 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
         id: UUID(),
         name: attraction_list[daynumber],
         img: attrc_img == "" ? nil : attrc_img,
-        type: .attraction
+        type: .attraction, url: attrc_url
     )
     
     let Event1to2 = Event(
@@ -271,7 +218,7 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
         id: UUID(),
         name: geos_list[daynumber],
         img: geo_img == "" ? nil : geo_img,
-        type: .geo
+        type: .geo, url: geo_url
     )
     
     let Event2to3 = Event(
@@ -284,7 +231,7 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
         id: UUID(),
         name: restaurant_list[daynumber],
         img: res_img == "" ? nil : res_img,
-        type: .restaurant
+        type: .restaurant, url: res_url
     )
     let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event1to2, Event2, Event2to3, Event3])
     
@@ -449,12 +396,12 @@ class DataManager {
         }
         task.resume() // Start the network request
     }
-    func fetchCoord(from location_id: String, completion: @escaping (String, String) -> Void) {
+    func fetchCoord_and_url(from location_id: String, completion: @escaping (String, String, String) -> Void) {
         let locationURL = "https://api.content.tripadvisor.com/api/v1/location/\(location_id)/details?key=547B30F2C5CF4458B82FAC44F069D0FA&language=en&currency=USD"
         
         guard let url = URL(string: locationURL) else {
             print("Error: Invalid URL")
-            completion("Invalid URL", "")
+            completion("Invalid URL", "", "")
             return
         }
         //print(locationURL)
@@ -462,7 +409,7 @@ class DataManager {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
-                completion("Error: \(error.localizedDescription)", "")
+                completion("Error: \(error.localizedDescription)", "","")
                 return
             }
 
@@ -471,20 +418,20 @@ class DataManager {
 
             guard let data = data else {
                 print("Error: No data to decode")
-                completion("No data to decode", "")
+                completion("No data to decode", "", "")
                 return
             }
 
             guard let answer = try? JSONDecoder().decode(Location_coord.self, from: data) else {
                 print("Error: Couldn't decode data into Answer (Image)")
-                completion("","")
+                completion("","","")
                 return
             }
 
             if (answer.latitude.isEmpty){
-                completion("","")
+                completion("","","")
             } else {
-                completion(answer.latitude, answer.longitude)
+                completion(answer.latitude, answer.longitude, answer.url)
             }
         }
         task.resume() // Start the network request
