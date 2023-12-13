@@ -27,6 +27,7 @@ struct Event: Identifiable, Codable {
   var url: String? // if it's travel, link to google maps page with directions
                    // if it's food, link to food location
                    // if it's attraction, link to attraction website
+  var notes: String? 
   
   // To conform to Codable protocol
   enum CodingKeys: String, CodingKey {
@@ -40,5 +41,6 @@ struct Event: Identifiable, Codable {
     case timeStart
     case timeEnd
     case url
+    case notes
   }
 }
