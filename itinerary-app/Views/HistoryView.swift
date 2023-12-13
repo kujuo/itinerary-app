@@ -12,7 +12,7 @@ struct HistoryView: View {
   var body: some View {
     let itineraries = itineraryRepository.itineraries.sorted()
     let current = itineraryRepository.currentItinerary
-    NavigationStack {
+    NavigationView {
       VStack(alignment: .leading) {
         Text("Current Itinerary").font(.title2).fontWeight(.bold)
         if let current {

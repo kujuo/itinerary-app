@@ -67,7 +67,7 @@ struct ActivityTagsView: View {
                 .padding(.horizontal, 20)
                 
                 // Next button
-              NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination, quiz: quiz)) {
+              NavigationLink(destination: GeneratingItineraryView(location: bestDestination.name, bestDestination: bestDestination, quiz: quiz).navigationBarBackButtonHidden(true)) {
                         Text("Next")
                             .font(.subheadline)
                             .fontWeight(.medium)

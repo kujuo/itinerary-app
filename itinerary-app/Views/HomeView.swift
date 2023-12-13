@@ -16,32 +16,35 @@ struct HomeView: View {
   var body: some View {
     let current = itineraryRepository.currentItinerary
     
-    NavigationStack {
-      Text("Welcome!").font(.title).fontWeight(.heavy)
-      Spacer()
-      VStack(alignment: .leading) {
-        Text("Current Itinerary").font(.title2).fontWeight(.bold)
-        if let current {
-          ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+    NavigationView {
+      VStack {
+        Text("Welcome!").font(.title).fontWeight(.heavy)
+        Spacer()
+        VStack(alignment: .leading) {
+          Text("Current Itinerary").font(.title2).fontWeight(.bold)
+          if let current {
+            ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+          }
+          else {
+            ZStack {
+              // Gradient on top of the image
+              Rectangle()
+                  .fill(lightBlueColor)
+                  .frame(width: 340, height: 200)
+                  .clipShape(RoundedRectangle(cornerRadius: 20))
+              // Text within the button
+              HStack {
+                Text("Set an itinerary as your current one!").frame(alignment: .leading)
+                  .fontWeight(.bold).foregroundColor(Color.white)
+                  .font(.title3)
+              }.padding(10)
+                Spacer()
+            }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
+          }
         }
-        else {
-          ZStack {
-            // Gradient on top of the image
-            Rectangle()
-                .fill(lightBlueColor)
-                .frame(width: 340, height: 200)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-            // Text within the button
-            HStack {
-              Text("Set an itinerary as your current one!").frame(alignment: .leading)
-                .fontWeight(.bold).foregroundColor(Color.white)
-                .font(.title3)
-            }.padding(10)
-              Spacer()
-          }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
-        }
+        Spacer()
+
       }
-      Spacer()
     }
 //        .onAppear(perform: {
 //          let store = Firestore.firestore()
