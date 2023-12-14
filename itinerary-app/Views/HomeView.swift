@@ -14,9 +14,9 @@ import AVKit
 struct HomeView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   @ObservedObject var loc = LocationRepository.locationRepository
-  @State var player = AVPlayer(url: Bundle.main.url(forResource: "home_video", withExtension: "MOV")!)
+  @State var player = AVPlayer(url: Bundle.main.url(forResource: "home_screen", withExtension: "mov")!)
   let video: (player: AVPlayer, looper: AVPlayerLooper)  = {
-          let videoURL = Bundle.main.url(forResource: "home_video", withExtension: "MOV")!
+          let videoURL = Bundle.main.url(forResource: "home_screen", withExtension: "mov")!
           let asset = AVAsset(url: videoURL)
           let item = AVPlayerItem(asset: asset)
           let queuePlayer = AVQueuePlayer(playerItem: item)
