@@ -28,8 +28,17 @@ struct EventNavView: View {
           } label: {
             Text("Details")
           }
-          Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-            Text("Link")
+          if let url = URL(string: event.url ?? "https://www.google.com/maps") {
+            Link(destination: url) {
+              Text("Link")
+            }
+          }
+          else {
+            if let url = URL(string: "https://www.google.com/maps") {
+              Link(destination: url) {
+                Text("Link")
+              }
+            }
           }
           Button("Delete", role: .destructive, action: {
             let store = Firestore.firestore()
@@ -87,8 +96,17 @@ struct EventNavView: View {
         } label: {
           Text("Details")
         }
-        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-          Text("Link")
+        if let url = URL(string: event.url ?? "https://www.google.com/maps") {
+          Link(destination: url) {
+            Text("Link")
+          }
+        }
+        else {
+          if let url = URL(string: "https://www.google.com/maps") {
+            Link(destination: url) {
+              Text("Link")
+            }
+          }
         }
         Button("Delete", role: .destructive, action: {
           let store = Firestore.firestore()
