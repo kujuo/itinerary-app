@@ -18,7 +18,10 @@ struct HomeView: View {
     
     NavigationView {
       VStack {
-        Text("Jouni").font(.title).fontWeight(.heavy)
+        Text("Journi")
+                  .fontWeight(.bold)
+                  .font(.system(size: 30))
+                  .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
         Spacer()
         VStack(alignment: .leading) {
           Text("Current Itinerary").font(.title2).fontWeight(.bold)
