@@ -744,11 +744,21 @@ struct GeneratingItineraryView: View {
                     let (backup_res2, backup_res_id2) = generateEventList(bestDestination: backupDestination2, category: 3)
                     
                     
+                    let (backupGeo3, backupGeoid3) = (geos[2], geos_id[2])
+                    let (backupGeolat3, backupGeolong3) = get_coord_info(id: backupGeoid3)
+                    let backupDestination3 = CityDestination(name: backupGeo3, latitude: Double(backupGeolat3) ?? 0.0, longitude: Double(backupGeolong3) ?? 0.0, cityType: [""])
                     
-                    let attractions = attractions_origin + backup_attractions + backup_attractions2
-                    let attractions_id = attractions_id_origin + backup_attractions_id + backup_attractions_id2
-                    var restaurants = restaurants_origin + backup_res + backup_res2
-                    var restaurants_id = restaurants_id_origin + backup_res_id + backup_res_id2
+                    let (backup_attractions3, backup_attractions_id3) = generateEventList(bestDestination: backupDestination3, category: 1)
+                    let (backup_res3, backup_res_id3) = generateEventList(bestDestination: backupDestination3, category: 3)
+                    
+                    
+                    
+                    
+                    
+                    let attractions = attractions_origin + backup_attractions + backup_attractions2 + backup_attractions3
+                    let attractions_id = attractions_id_origin + backup_attractions_id + backup_attractions_id2 + backup_attractions_id3
+                    let restaurants = restaurants_origin + backup_res + backup_res2 + backup_res3
+                    let restaurants_id = restaurants_id_origin + backup_res_id + backup_res_id2 + backup_res3
                    
 
                     

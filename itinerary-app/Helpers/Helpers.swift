@@ -47,7 +47,7 @@ func getDurationString(days: Int) -> String {
     return "\(days) days"
   }
   else {
-    return "\(days % 7) weeks"
+    return "\(days % 7 + 1) weeks"
   }
 }
 
