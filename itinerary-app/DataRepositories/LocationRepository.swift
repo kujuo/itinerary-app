@@ -9,9 +9,9 @@ struct CityDestination: Codable, Hashable {
   var name: String
   var latitude: Double
   var longitude: Double
-  var weather: String
+  var weather: String?
   var cityType: [String]
-  var continent: String
+  var continent: String?
   var id: String?
   
   enum CodingKeys: String, CodingKey {
@@ -81,8 +81,8 @@ class LocationRepository: ObservableObject {
       quiz.cityTypeMatching[cityType.toString()] = []
     }
     for destination in cityDestinations {
-      quiz.continentMatching[destination.continent]?.append(destination)
-      quiz.weatherMatching[destination.weather]?.append(destination)
+        quiz.continentMatching[destination.continent ?? "Asia"]?.append(destination)
+        quiz.weatherMatching[destination.weather ?? "cold"]?.append(destination)
       for type in destination.cityType {
         quiz.cityTypeMatching[type]?.append(destination)
       }
