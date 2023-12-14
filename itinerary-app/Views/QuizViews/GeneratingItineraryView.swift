@@ -30,10 +30,12 @@ struct Location: Decodable {
 struct Location_coord: Decodable {
     let latitude: String
     let longitude: String
+    let url: String
   
   enum CodingKeys: String, CodingKey {
       case latitude = "latitude"
       case longitude = "longitude"
+      case url = "web_url"
   }
 }
 
@@ -116,7 +118,6 @@ struct User: Decodable {
     let username: String
 }
 
-//
 
 //func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
 //    let target_attrc_id = attrac_id[daynumber]
@@ -128,7 +129,17 @@ struct User: Decodable {
 //    var geo_img = ""
 //    var res_img = ""
 //    
+//    var attrc_coord: (String, String) = ("0", "0")
+//    var geo_coord: (String, String) = ("0", "0")
+//    var res_coord: (String, String) = ("0", "0")
+//    
+//    var attrc_url = ""
+//    var geo_url = ""
+//    var res_url = ""
+//    
+//    
 //    let semaphore100 = DispatchSemaphore(value: 0)
+//  
 //    DataManager.shared.fetchImage(from: target_attrc_id) {
 //        result in
 //        //print(result)
@@ -155,109 +166,191 @@ struct User: Decodable {
 //    }
 //    semaphore102.wait()
 //    
+//    let semaphore103 = DispatchSemaphore(value: 0)
+//    DataManager.shared.fetchCoord_and_url(from: target_attrc_id) {
+//        (lat,lon,url) in
+//        //print(result)
+//        attrc_coord = (lat,lon)
+//        attrc_url = url
+//        semaphore103.signal()
+//    }
+//    semaphore103.wait()
+//    
+//    let semaphore104 = DispatchSemaphore(value: 0)
+//    DataManager.shared.fetchCoord_and_url(from: target_geo_id) {
+//        (lat,lon,url) in
+//        //print(result)
+//        geo_coord = (lat,lon)
+//        geo_url = url
+//        semaphore104.signal()
+//    }
+//    semaphore104.wait()
+//    
+//    let semaphore105 = DispatchSemaphore(value: 0)
+//    DataManager.shared.fetchCoord_and_url(from: target_restaurant_id) {
+//        (lat,lon,url) in
+//        //print(result)
+//        res_coord = (lat,lon)
+//        res_url = url
+//        semaphore105.signal()
+//    }
+//    semaphore105.wait()
+//    
+//    var d1to2 = calculateDistance(from: attrc_coord, to: geo_coord)
+//    var d2to3 = calculateDistance(from: geo_coord, to: res_coord)
+//    
 //
 //    let Event1 = Event(
 //        id: UUID(),
 //        name: attraction_list[daynumber],
 //        img: attrc_img == "" ? nil : attrc_img,
-//        type: .attraction
+//        type: .attraction, url: attrc_url
 //    )
+//    
+//    let Event1to2 = Event(
+//        id: UUID(),
+//        name: "Distance: \(d1to2 ?? "unknown")km",
+//        type: .travel
+//    )
+//    
 //
 //    let Event2 = Event(
 //        id: UUID(),
 //        name: geos_list[daynumber],
 //        img: geo_img == "" ? nil : geo_img,
-//        type: .geo
+//        type: .geo, url: geo_url
+//    )
+//    
+//    let Event2to3 = Event(
+//        id: UUID(),
+//        name: "Distance: \(d2to3 ?? "unknown")km",
+//        type: .travel
 //    )
 //
 //    let Event3 = Event(
 //        id: UUID(),
 //        name: restaurant_list[daynumber],
 //        img: res_img == "" ? nil : res_img,
-//        type: .restaurant
+//        type: .restaurant, url: res_url
 //    )
-//    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event2, Event3])
+//    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event1to2, Event2, Event2to3, Event3])
 //    
 //    return Dayplan
 //}
+
 func generateEvent_for_day(attraction_list: [String], geos_list: [String], restaurant_list: [String], daynumber: Int, attrac_id:[String], geos_id: [String], restaurant_id: [String]) -> Day{
-    let target_attrc_id = attrac_id[daynumber]
-    let target_geo_id = geos_id[daynumber]
-    let target_restaurant_id = restaurant_id[daynumber]
+    let target_attrc_id1 = attrac_id[2 * daynumber]
+    let target_attrc_id2 = attrac_id[2 * daynumber + 1]
+    //let target_geo_id = geos_id[daynumber]
+    let target_restaurant_id1 = restaurant_id[2 * daynumber]
+    let target_restaurant_id2 = restaurant_id[2 * daynumber + 1]
     
     
-    var attrc_img = ""
-    var geo_img = ""
-    var res_img = ""
+    var attrc_img1 = ""
+    var attrc_img2 = ""
+    var res_img1 = ""
+    var res_img2 = ""
     
-    var attrc_coord: (String, String) = ("0", "0")
-    var geo_coord: (String, String) = ("0", "0")
-    var res_coord: (String, String) = ("0", "0")
+    var attrc_coord1: (String, String) = ("0", "0")
+    var attrc_coord2: (String, String) = ("0", "0")
+    var res_coord1: (String, String) = ("0", "0")
+    var res_coord2: (String, String) = ("0", "0")
+    
+    var attrc_url1 = ""
+    var attrc_url2 = ""
+    var res_url1 = ""
+    var res_url2 = ""
+    
     
     let semaphore100 = DispatchSemaphore(value: 0)
   
-    DataManager.shared.fetchImage(from: target_attrc_id) {
+    DataManager.shared.fetchImage(from: target_attrc_id1) {
         result in
         //print(result)
-        attrc_img = result
+        attrc_img1 = result
         semaphore100.signal()
     }
     semaphore100.wait()
     
     let semaphore101 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchImage(from: target_geo_id) {
+    DataManager.shared.fetchImage(from: target_attrc_id2) {
         result in
         //print(result)
-        geo_img = result
+        attrc_img2 = result
         semaphore101.signal()
     }
     semaphore101.wait()
     
     let semaphore102 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchImage(from: target_restaurant_id) {
+    DataManager.shared.fetchImage(from: target_restaurant_id1) {
         result in
         //print(result)
-        res_img = result
+        res_img1 = result
         semaphore102.signal()
     }
     semaphore102.wait()
     
     let semaphore103 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_attrc_id) {
-        (lat,lon) in
+    DataManager.shared.fetchImage(from: target_restaurant_id2) {
+        result in
         //print(result)
-        attrc_coord = (lat,lon)
+        res_img2 = result
         semaphore103.signal()
     }
     semaphore103.wait()
     
+    
+    
     let semaphore104 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_geo_id) {
-        (lat,lon) in
+    DataManager.shared.fetchCoord_and_url(from: target_attrc_id1) {
+        (lat,lon,url) in
         //print(result)
-        geo_coord = (lat,lon)
+        attrc_coord1 = (lat,lon)
+        attrc_url1 = url
         semaphore104.signal()
     }
     semaphore104.wait()
     
     let semaphore105 = DispatchSemaphore(value: 0)
-    DataManager.shared.fetchCoord(from: target_restaurant_id) {
-        (lat,lon) in
+    DataManager.shared.fetchCoord_and_url(from: target_attrc_id2) {
+        (lat,lon,url) in
         //print(result)
-        res_coord = (lat,lon)
+        attrc_coord2 = (lat,lon)
+        attrc_url2 = url
         semaphore105.signal()
     }
     semaphore105.wait()
     
-    var d1to2 = calculateDistance(from: attrc_coord, to: geo_coord)
-    var d2to3 = calculateDistance(from: geo_coord, to: res_coord)
+    let semaphore106 = DispatchSemaphore(value: 0)
+    DataManager.shared.fetchCoord_and_url(from: target_restaurant_id1) {
+        (lat,lon,url) in
+        //print(result)
+        res_coord1 = (lat,lon)
+        res_url1 = url
+        semaphore106.signal()
+    }
+    semaphore106.wait()
+    
+    let semaphore107 = DispatchSemaphore(value: 0)
+    DataManager.shared.fetchCoord_and_url(from: target_restaurant_id2) {
+        (lat,lon,url) in
+        //print(result)
+        res_coord2 = (lat,lon)
+        res_url2 = url
+        semaphore107.signal()
+    }
+    semaphore107.wait()
+    
+    var d1to2 = calculateDistance(from: res_coord1, to: attrc_coord1)
+    var d2to3 = calculateDistance(from: attrc_coord1, to: attrc_coord2)
+    var d3to4 = calculateDistance(from: attrc_coord2, to: res_coord2)
     
 
     let Event1 = Event(
         id: UUID(),
-        name: attraction_list[daynumber],
-        img: attrc_img == "" ? nil : attrc_img,
-        type: .attraction
+        name: restaurant_list[daynumber * 2],
+        img: res_img1 == "" ? nil : res_img1,
+        type: .restaurant, url: res_url1
     )
     
     let Event1to2 = Event(
@@ -269,9 +362,9 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
 
     let Event2 = Event(
         id: UUID(),
-        name: geos_list[daynumber],
-        img: geo_img == "" ? nil : geo_img,
-        type: .geo
+        name: attraction_list[daynumber * 2],
+        img: attrc_img1 == "" ? nil : attrc_img1,
+        type: .attraction, url: attrc_url1
     )
     
     let Event2to3 = Event(
@@ -282,14 +375,31 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
 
     let Event3 = Event(
         id: UUID(),
-        name: restaurant_list[daynumber],
-        img: res_img == "" ? nil : res_img,
-        type: .restaurant
+        name: attraction_list[daynumber * 2 + 1],
+        img: attrc_img2 == "" ? nil : attrc_img2,
+        type: .attraction, url: attrc_url2
     )
-    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event1to2, Event2, Event2to3, Event3])
+    
+    let Event3to4 = Event(
+        id: UUID(),
+        name: "Distance: \(d3to4 ?? "unknown")km",
+        type: .travel
+    )
+    
+    let Event4 = Event(
+        id: UUID(),
+        name: restaurant_list[daynumber * 2 + 1],
+        img: res_img2 == "" ? nil : res_img2,
+        type: .restaurant, url: res_url2
+    )
+    
+    
+    
+    let Dayplan = Day(id: UUID(), dayNumber: daynumber + 1, events: [Event1, Event1to2, Event2, Event2to3, Event3, Event3to4, Event4])
     
     return Dayplan
 }
+
 
 
 
@@ -449,12 +559,12 @@ class DataManager {
         }
         task.resume() // Start the network request
     }
-    func fetchCoord(from location_id: String, completion: @escaping (String, String) -> Void) {
+    func fetchCoord_and_url(from location_id: String, completion: @escaping (String, String, String) -> Void) {
         let locationURL = "https://api.content.tripadvisor.com/api/v1/location/\(location_id)/details?key=547B30F2C5CF4458B82FAC44F069D0FA&language=en&currency=USD"
         
         guard let url = URL(string: locationURL) else {
             print("Error: Invalid URL")
-            completion("Invalid URL", "")
+            completion("Invalid URL", "", "")
             return
         }
         //print(locationURL)
@@ -462,7 +572,7 @@ class DataManager {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
-                completion("Error: \(error.localizedDescription)", "")
+                completion("Error: \(error.localizedDescription)", "","")
                 return
             }
 
@@ -471,20 +581,20 @@ class DataManager {
 
             guard let data = data else {
                 print("Error: No data to decode")
-                completion("No data to decode", "")
+                completion("No data to decode", "", "")
                 return
             }
 
             guard let answer = try? JSONDecoder().decode(Location_coord.self, from: data) else {
                 print("Error: Couldn't decode data into Answer (Image)")
-                completion("","")
+                completion("","","")
                 return
             }
 
             if (answer.latitude.isEmpty){
-                completion("","")
+                completion("","","")
             } else {
-                completion(answer.latitude, answer.longitude)
+                completion(answer.latitude, answer.longitude, answer.url)
             }
         }
         task.resume() // Start the network request
@@ -578,6 +688,19 @@ func generateEventList (bestDestination: CityDestination, category: Int) -> ([St
 }
 
 
+func get_coord_info(id: String) -> (String, String) {
+    let semaphore110 = DispatchSemaphore(value: 0)
+    var (reslat,reslong) = ("0","0")
+    DataManager.shared.fetchCoord_and_url(from: id) {
+        (lat,lon,url) in
+        //print(result)
+        (reslat,reslong) = (lat,lon)
+        semaphore110.signal()
+    }
+    semaphore110.wait()
+    return (reslat, reslong)
+}
+
 
 
 struct GeneratingItineraryView: View {
@@ -599,9 +722,38 @@ struct GeneratingItineraryView: View {
                     PulsatingCircle()
                         .padding(.top, 30)
                 } else {
-                    let (attractions, attractions_id) = generateEventList(bestDestination: bestDestination, category: 1)
+                    let (attractions_origin, attractions_id_origin) = generateEventList(bestDestination: bestDestination, category: 1)
                     let (geos, geos_id) = generateEventList(bestDestination: bestDestination, category: 2)
-                    let (restaurants, restaurants_id) = generateEventList(bestDestination: bestDestination, category: 3)
+                    let (restaurants_origin, restaurants_id_origin) = generateEventList(bestDestination: bestDestination, category: 3)
+                    
+                    
+                    let (backupGeo, backupGeoid) = (geos[0], geos_id[0])
+                    let (backupGeolat, backupGeolong) = get_coord_info(id: backupGeoid)
+                    let backupDestination = CityDestination(name: backupGeo, latitude: Double(backupGeolat) ?? 0.0, longitude: Double(backupGeolong) ?? 0.0, cityType: [""])
+                    
+                    let (backup_attractions, backup_attractions_id) = generateEventList(bestDestination: backupDestination, category: 1)
+                    let (backup_res, backup_res_id) = generateEventList(bestDestination: backupDestination, category: 3)
+                    
+                    
+                    
+                    let (backupGeo2, backupGeoid2) = (geos[1], geos_id[1])
+                    let (backupGeolat2, backupGeolong2) = get_coord_info(id: backupGeoid2)
+                    let backupDestination2 = CityDestination(name: backupGeo2, latitude: Double(backupGeolat2) ?? 0.0, longitude: Double(backupGeolong2) ?? 0.0, cityType: [""])
+                    
+                    let (backup_attractions2, backup_attractions_id2) = generateEventList(bestDestination: backupDestination2, category: 1)
+                    let (backup_res2, backup_res_id2) = generateEventList(bestDestination: backupDestination2, category: 3)
+                    
+                    
+                    
+                    let attractions = attractions_origin + backup_attractions + backup_attractions2
+                    let attractions_id = attractions_id_origin + backup_attractions_id + backup_attractions_id2
+                    var restaurants = restaurants_origin + backup_res + backup_res2
+                    var restaurants_id = restaurants_id_origin + backup_res_id + backup_res_id2
+                   
+
+                    
+                    
+                    
                   let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: (quiz.duration ?? 1) - 1, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
                     
                     Text("Itinerary Generated!")
