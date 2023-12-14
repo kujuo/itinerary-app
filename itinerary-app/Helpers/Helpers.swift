@@ -43,11 +43,17 @@ func getURL(path: String?, completion: @escaping (URL) -> Void) {
 
 
 func getDurationString(days: Int) -> String {
-  if (days < 7) {
+  if (days == 1) {
+    return "1 day"
+  }
+  else if (days < 7) {
     return "\(days) days"
   }
+  else if (days == 7) {
+    return "1 week"
+  }
   else {
-    return "\(days % 7) weeks"
+    return "\(days / 7) weeks"
   }
 }
 
