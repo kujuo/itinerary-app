@@ -10,50 +10,83 @@ import Combine
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import AVKit
 struct HomeView: View {
   @ObservedObject var itineraryRepository = ItineraryRepository.itineraryRepository
   @ObservedObject var loc = LocationRepository.locationRepository
+  @State var player = AVPlayer(url: Bundle.main.url(forResource: "home_video", withExtension: "MOV")!)
+  let video: (player: AVPlayer, looper: AVPlayerLooper)  = {
+          let videoURL = Bundle.main.url(forResource: "home_video", withExtension: "MOV")!
+          let asset = AVAsset(url: videoURL)
+          let item = AVPlayerItem(asset: asset)
+          let queuePlayer = AVQueuePlayer(playerItem: item)
+          let playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
+          queuePlayer.play()
+          queuePlayer.isMuted = true
+          return (queuePlayer, playerLooper)
+      }()
   var body: some View {
+//    video.player.isMuted = true
     let current = itineraryRepository.currentItinerary
-    
     NavigationView {
-      VStack {
-        Text("Jouni").font(.title).fontWeight(.heavy)
-        Spacer()
-        VStack(alignment: .leading) {
-          Text("Current Itinerary").font(.title2).fontWeight(.bold)
-          if let current {
-            ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+      ZStack {
+        VideoPlayer(player: video.player)
+                        .disabled(true) // Hides iOS video controls
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                        .onAppear { 
+                          print("meow")
+                          video.player.isMuted = true
+                          video.player.play()
+                        }
+                        .onDisappear{ print("meow")
+                          video.player.pause() }
+                        .opacity(0.5)
+        VStack {
+          Text("Jouni").font(.title).fontWeight(.heavy)
+          Spacer()
+          VStack(alignment: .leading) {
+            Text("Current Itinerary").font(.title2).fontWeight(.bold)
+            if let current {
+              ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+            }
+            else {
+              ZStack {
+                // Gradient on top of the image
+                Rectangle()
+                    .fill(lightBlueColor)
+                    .frame(width: 340, height: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                // Text within the button
+                HStack {
+                  Text("Set an itinerary as your current one!").frame(alignment: .leading)
+                    .fontWeight(.bold).foregroundColor(Color.black)
+                    .font(.title3)
+                }.padding(10)
+                  Spacer()
+              }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
+            }
           }
-          else {
+          NavigationLink(destination: DurationQuestionView(quiz: Quiz())) {
             ZStack {
-              // Gradient on top of the image
               Rectangle()
-                  .fill(lightBlueColor)
-                  .frame(width: 340, height: 200)
+                .fill(Color.gray)
+                  .frame(width: 340, height: 100)
                   .clipShape(RoundedRectangle(cornerRadius: 20))
-              // Text within the button
+                  .opacity(0.7)
               HStack {
-                Text("Set an itinerary as your current one!").frame(alignment: .leading)
-                  .fontWeight(.bold).foregroundColor(Color.black)
-                  .font(.title3)
-              }.padding(10)
-                Spacer()
-            }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
+                Image("flight")
+                    .resizable()
+                    .scaledToFit().frame(width: 100, height: 100)
+                Text("Create New Itinerary").foregroundColor(Color.black)
+              }
+            }
           }
-        }
-        NavigationLink(destination: DurationQuestionView(quiz: Quiz())) {
-          HStack {
-            Image("flight")
-                .resizable()
-                .scaledToFit().frame(width: 100, height: 100)
-            Text("Create New Itinerary")
-          }
-        }
-        
-        
-        Spacer()
+          
+          
+          Spacer()
 
+        }
       }
     }
 //        .onAppear(perform: {
