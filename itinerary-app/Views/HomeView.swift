@@ -35,15 +35,14 @@ struct HomeView: View {
                         .scaledToFill()
                         .frame(maxWidth: .infinity)
                         .onAppear { 
-                          print("meow")
                           video.player.isMuted = true
                           video.player.play()
                         }
-                        .onDisappear{ print("meow")
+                        .onDisappear{
                           video.player.pause() }
                         .opacity(0.5)
         VStack {
-          Text("Jouni").font(.title).fontWeight(.heavy)
+          Text("Journi").font(.title).fontWeight(.heavy)
           Spacer()
           VStack(alignment: .leading) {
             Text("Current Itinerary").font(.title2).fontWeight(.bold)
