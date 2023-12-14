@@ -14,41 +14,62 @@ import FirebaseFirestoreSwift
 struct EventNavView: View {
   var event: Event
   var itinerary: Itinerary
+  @State var navigation: Bool = false
+//  @Binding var navigation: Bool = false
   var body: some View {
+//    var navigation = false
     switch event.type {
     case .restaurant:
-      Menu {
-        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-          Text("Link")
-        }
-        Button("Delete", role: .destructive, action: {
-          let store = Firestore.firestore()
-          let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
-          var newItinerary: Itinerary = itinerary
-          for i in 0..<(itinerary.days?.count)! {
-            var day = itinerary.days![i]
-            for j in 0..<(day.events?.count)! {
-              var newEvent = day.events![j]
-              if newEvent.id == event.id {
-                newItinerary.days![i].events!.remove(at: j)
-                if newItinerary.days![i].events!.isEmpty {
-                  newItinerary.days!.remove(at:i)
-                }
-                newItinerary.lastEditDate = Date()
-                do {
-                  try itineraryRef.setData(from: newItinerary)
-                  print("worked")
-                } catch let error {
-                  print("Error writing to Firestore: \(error)")
-                }
+      ZStack {
+        NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary), isActive: $navigation) { EmptyView () }
+        Menu {
+          Button {
+            navigation = true
+          } label: {
+            Text("Details")
+          }
+          if let url = URL(string: event.url ?? "https://www.google.com/maps") {
+            Link(destination: url) {
+              Text("Link")
+            }
+          }
+          else {
+            if let url = URL(string: "https://www.google.com/maps") {
+              Link(destination: url) {
+                Text("Link")
               }
             }
           }
+          Button("Delete", role: .destructive, action: {
+            let store = Firestore.firestore()
+            let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+            var newItinerary: Itinerary = itinerary
+            for i in 0..<(itinerary.days?.count)! {
+              var day = itinerary.days![i]
+              for j in 0..<(day.events?.count)! {
+                var newEvent = day.events![j]
+                if newEvent.id == event.id {
+                  newItinerary.days![i].events!.remove(at: j)
+                  if newItinerary.days![i].events!.isEmpty {
+                    newItinerary.days!.remove(at:i)
+                  }
+                  newItinerary.lastEditDate = Date()
+                  do {
+                    try itineraryRef.setData(from: newItinerary)
+                    print("worked")
+                  } catch let error {
+                    print("Error writing to Firestore: \(error)")
+                  }
+                }
+              }
+            }
 
-        })
-      } label: {
-        Meal(event: event).foregroundColor(Color.black)
-      }
+          })
+        } label: {
+          Meal(event: event).foregroundColor(Color.black)
+        }
+
+      }.padding(.bottom, 1).padding(.top, 1)
     case .attraction:
       NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary)) {
         if let imgLink = event.img {
@@ -68,9 +89,24 @@ struct EventNavView: View {
         }
       }
     case .travel:
+      NavigationLink(destination: EventDetailView(event: event, itinerary: itinerary), isActive: $navigation) { EmptyView () }
       Menu {
-        Link(destination: URL(string: event.url ?? "https://www.google.com/maps")!) {
-          Text("Link")
+        Button {
+          navigation = true
+        } label: {
+          Text("Details")
+        }
+        if let url = URL(string: event.url ?? "https://www.google.com/maps") {
+          Link(destination: url) {
+            Text("Link")
+          }
+        }
+        else {
+          if let url = URL(string: "https://www.google.com/maps") {
+            Link(destination: url) {
+              Text("Link")
+            }
+          }
         }
         Button("Delete", role: .destructive, action: {
           let store = Firestore.firestore()

@@ -30,6 +30,7 @@ struct EventDetailView: View {
   @State var event: Event
   @State var itinerary: Itinerary
   @State var editing: Bool = false
+//  @State var notes: event.note
   //  var dayEvent: (Int, Int)
   var body: some View {
     if !editing {
@@ -55,10 +56,72 @@ struct EventDetailView: View {
             Text(timeTransform(time: event.timeStart) + "-" + timeTransform(time: event.timeEnd))
               .font(.title3).fontWeight(.bold).padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             Text(event.description ?? "")
-          }.frame(maxWidth: 340, alignment: .center)/*.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))*/
-          HStack {
-            Button("Edit") { editing = true }
-            Button("Delete", role: .destructive) {
+            HStack {
+              Spacer()
+              Button("Edit") { editing = true }
+              Spacer()
+              Button("Delete", role: .destructive) {
+                let store = Firestore.firestore()
+                let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+                var newItinerary: Itinerary = itinerary
+                for i in 0..<(itinerary.days?.count)! {
+                  var day = itinerary.days![i]
+                  for j in 0..<(day.events?.count)! {
+                    var newEvent = day.events![j]
+                    if newEvent.id == event.id {
+                      newItinerary.days![i].events!.remove(at: j)
+                      //                newItinerary.days![i].events![j].name="Testing12345"
+                      if newItinerary.days![i].events!.isEmpty {
+                        newItinerary.days!.remove(at:i)
+                      }
+                      newItinerary.lastEditDate = Date()
+                      //                newEvent.name = "Testing12345"
+                      do {
+                        try itineraryRef.setData(from: newItinerary)
+                        print("worked")
+                      } catch let error {
+                        print("Error writing city to Firestore: \(error)")
+                      }
+                      //                navStateManager.path = NavigationPath()
+  //                    path.removeLast()
+  //                    path = NavigationPath()
+                    }
+                  }
+                }
+              }
+              Spacer()
+            }
+            TextField("Personal notes", text: $event.notes.toUnwrapped(defaultValue: ""),  axis: .vertical)
+                .lineLimit(5...15)
+                .padding()
+                .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.gray, lineWidth: 1)
+                    )
+//                .onChange(of: event.notes) { notes in
+//                  var saveEvent = event
+//                  let store = Firestore.firestore()
+//                  let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
+//                  var newItinerary: Itinerary = itinerary
+//                  for i in 0..<(itinerary.days?.count)! {
+//                    var day = itinerary.days![i]
+//                    for j in 0..<(day.events?.count)! {
+//                      var newEvent = day.events![j]
+//                      if newEvent.id == event.id {
+//                        newItinerary.days![i].events![j] = saveEvent
+//                        newItinerary.lastEditDate = Date()
+//                        print(newItinerary)
+//                        do {
+//                          try itineraryRef.setData(from: newItinerary)
+//                        } catch let error {
+//                          print("Error writing city to Firestore: \(error)")
+//                        }
+//                      }
+//                    }
+//                  }
+//                }
+            Button("Save Notes") {
+              let saveEvent = event
               let store = Firestore.firestore()
               let itineraryRef = store.collection("itineraries").document(itinerary.id.uuidString)
               var newItinerary: Itinerary = itinerary
@@ -67,27 +130,21 @@ struct EventDetailView: View {
                 for j in 0..<(day.events?.count)! {
                   var newEvent = day.events![j]
                   if newEvent.id == event.id {
-                    newItinerary.days![i].events!.remove(at: j)
-                    //                newItinerary.days![i].events![j].name="Testing12345"
-                    if newItinerary.days![i].events!.isEmpty {
-                      newItinerary.days!.remove(at:i)
-                    }
+                    newItinerary.days![i].events![j] = saveEvent
                     newItinerary.lastEditDate = Date()
-                    //                newEvent.name = "Testing12345"
+                    print(newItinerary)
                     do {
                       try itineraryRef.setData(from: newItinerary)
-                      print("worked")
                     } catch let error {
                       print("Error writing city to Firestore: \(error)")
                     }
-                    //                navStateManager.path = NavigationPath()
-//                    path.removeLast()
-//                    path = NavigationPath()
                   }
                 }
               }
             }
-          }
+          }.frame(maxWidth: 340, alignment: .center)/*.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))*/
+        
+          
           Spacer()
           
         }
