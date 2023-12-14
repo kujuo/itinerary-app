@@ -401,6 +401,18 @@ func generateEvent_for_day(attraction_list: [String], geos_list: [String], resta
 }
 
 
+func shuffleTwoListsInSameOrder(list1: inout [String], list2: inout [String]) -> ([String], [String]) {
+    guard list1.count == list2.count else {
+        print("Error: Lists must be of the same length")
+        return ([], [])
+    }
+
+    let indices = list1.indices.shuffled()
+
+    var list1_res = indices.map { list1[$0] }
+    var list2_res = indices.map { list2[$0] }
+    return(list1_res, list2_res)
+}
 
 
 func calculateDistance(
@@ -755,13 +767,13 @@ struct GeneratingItineraryView: View {
                     
                     
                     
-                    let attractions = attractions_origin + backup_attractions + backup_attractions2 + backup_attractions3
-                    let attractions_id = attractions_id_origin + backup_attractions_id + backup_attractions_id2 + backup_attractions_id3
+                    var attractions = attractions_origin + backup_attractions + backup_attractions2 + backup_attractions3
+                    var attractions_id = attractions_id_origin + backup_attractions_id + backup_attractions_id2 + backup_attractions_id3
                     let restaurants = restaurants_origin + backup_res + backup_res2 + backup_res3
                     let restaurants_id = restaurants_id_origin + backup_res_id + backup_res_id2 + backup_res3
                    
 
-                    
+
                     
                     
                   let itinerary = generate_itinerary(attrac: attractions, geos: geos, restaurant: restaurants, daynumber: (quiz.duration ?? 1) - 1, location: location, attrac_id: attractions_id, geos_id: geos_id, restaurant_id: restaurants_id)
