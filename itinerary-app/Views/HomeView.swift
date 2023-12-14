@@ -29,6 +29,18 @@ struct HomeView: View {
 //    video.player.isMuted = true
     let current = itineraryRepository.currentItinerary
     NavigationView {
+<<<<<<< HEAD
+      VStack {
+        Text("Journi")
+                  .fontWeight(.bold)
+                  .font(.system(size: 30))
+                  .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
+        Spacer()
+        VStack(alignment: .leading) {
+          Text("Current Itinerary").font(.title2).fontWeight(.bold)
+          if let current {
+            ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
+=======
       ZStack {
         VideoPlayer(player: video.player)
                         .disabled(true) // Hides iOS video controls
@@ -65,6 +77,7 @@ struct HomeView: View {
                   Spacer()
               }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
             }
+>>>>>>> ec1b5a0f7dd1fef7d8fcd56a4e06814a67fea875
           }
           NavigationLink(destination: DurationQuestionView(quiz: Quiz())) {
             ZStack {
