@@ -18,6 +18,8 @@
 		DB3804502AF74F9900BD36C4 /* EventNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB38044F2AF74F9900BD36C4 /* EventNavView.swift */; };
 		DB3804522AF752CF00BD36C4 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804512AF752CF00BD36C4 /* EventDetailView.swift */; };
 		DB3804552AF86A6A00BD36C4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3804542AF86A6A00BD36C4 /* Helpers.swift */; };
+		DB5B970F2B2AA8A90095AEB5 /* home_video.MOV in Resources */ = {isa = PBXBuildFile; fileRef = DB5B970E2B2AA8A90095AEB5 /* home_video.MOV */; };
+		DB5B97112B2AB54A0095AEB5 /* home_screen.mov in Resources */ = {isa = PBXBuildFile; fileRef = DB5B97102B2AB54A0095AEB5 /* home_screen.mov */; };
 		DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */; };
 		DB7FFA5C2ADE2902009E2A7D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5B2ADE2902009E2A7D /* FirebaseAnalytics */; };
 		DB7FFA5E2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = DB7FFA5D2ADE2902009E2A7D /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -78,6 +80,8 @@
 		DB38044F2AF74F9900BD36C4 /* EventNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNavView.swift; sourceTree = "<group>"; };
 		DB3804512AF752CF00BD36C4 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 		DB3804542AF86A6A00BD36C4 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		DB5B970E2B2AA8A90095AEB5 /* home_video.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = home_video.MOV; sourceTree = "<group>"; };
+		DB5B97102B2AB54A0095AEB5 /* home_screen.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; name = home_screen.mov; path = "itinerary-app/home_screen.mov"; sourceTree = SOURCE_ROOT; };
 		DB6321642AE0ACFF000A73FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB7FFA922ADE4476009E2A7D /* Itinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		DBA3B58C2AF2F34D00BDE32B /* AppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				DBA3B58C2AF2F34D00BDE32B /* AppView.swift */,
 				DBA3B58E2AF2F34D00BDE32B /* HomeView.swift */,
 				DB38044A2AF34A2700BD36C4 /* HistoryView.swift */,
+				DB5B97102B2AB54A0095AEB5 /* home_screen.mov */,
+				DB5B970E2B2AA8A90095AEB5 /* home_video.MOV */,
 				DB38044E2AF54F1700BD36C4 /* ItineraryViews */,
 			);
 			path = Views;
@@ -365,8 +371,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBBC87892ADE26AD00208797 /* Preview Assets.xcassets in Resources */,
+				DB5B970F2B2AA8A90095AEB5 /* home_video.MOV in Resources */,
 				DB6321652AE0ACFF000A73FD /* GoogleService-Info.plist in Resources */,
 				DBBC87862ADE26AD00208797 /* Assets.xcassets in Resources */,
+				DB5B97112B2AB54A0095AEB5 /* home_screen.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
