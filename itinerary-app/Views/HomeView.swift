@@ -26,27 +26,14 @@ struct HomeView: View {
           return (queuePlayer, playerLooper)
       }()
   var body: some View {
-//    video.player.isMuted = true
     let current = itineraryRepository.currentItinerary
     NavigationView {
-<<<<<<< HEAD
-      VStack {
-        Text("Journi")
-                  .fontWeight(.bold)
-                  .font(.system(size: 30))
-                  .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
-        Spacer()
-        VStack(alignment: .leading) {
-          Text("Current Itinerary").font(.title2).fontWeight(.bold)
-          if let current {
-            ItineraryNavView(itinerary: current, isCurrent: true, saved: true/*, itineraryRepository: self.itineraryRepository*/)
-=======
       ZStack {
         VideoPlayer(player: video.player)
                         .disabled(true) // Hides iOS video controls
                         .scaledToFill()
                         .frame(maxWidth: .infinity)
-                        .onAppear { 
+                        .onAppear {
                           video.player.isMuted = true
                           video.player.play()
                         }
@@ -54,8 +41,12 @@ struct HomeView: View {
                           video.player.pause() }
                         .opacity(0.5)
         VStack {
-          Text("Journi").font(.title).fontWeight(.heavy)
           Spacer()
+          Text("Journi")
+                  .fontWeight(.bold)
+                  .font(.system(size: 30))
+                  .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
+          Spacer().frame(height: 50)
           VStack(alignment: .leading) {
             Text("Current Itinerary").font(.title2).fontWeight(.bold)
             if let current {
@@ -77,7 +68,6 @@ struct HomeView: View {
                   Spacer()
               }.frame(maxWidth: 340, maxHeight: 200, alignment: .leading)
             }
->>>>>>> ec1b5a0f7dd1fef7d8fcd56a4e06814a67fea875
           }
           NavigationLink(destination: DurationQuestionView(quiz: Quiz())) {
             ZStack {
@@ -101,24 +91,7 @@ struct HomeView: View {
         }
       }
     }
-//        .onAppear(perform: {
-//          let store = Firestore.firestore()
-//          for des in cityDestinations {
-//            let collectionRef = store.collection("cityDestinations")
-//            do {
-//              let newDocReference = try collectionRef.document(des.name).setData(from: des)
-//  //            let newDocReference = try collectionRef.addDocument(from: itinerary)
-//              print("Itinerary stored with new document reference: \(newDocReference)")
-//            }
-//            catch {
-//              print(error)
-//            }
-//          }
-////          let event1 = Event(id: UUID(), name: "Baguette Cafe", type: EventType.meal, timeStart: "0700", timeEnd: "1030", url: "https://maps.app.goo.gl/eM3YziUNKzWNmwnX8")
-////          let itinerary = Itinerary(id: UUID(), location: "Test Saving Itinerary", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/800px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg", isCurrent: false, days: [day], lastEditDate: Date())
-////
-//        })
-    }
+  }
 }
 
 #Preview {

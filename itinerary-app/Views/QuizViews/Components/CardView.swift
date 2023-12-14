@@ -19,7 +19,7 @@ struct CardView: View {
                 VStack {
                     // MARK: - HEADER
                     VStack {
-                        Text("With travel suggestions tailored just for you...'app name' finds you the perfect destination.")
+                        Text("With travel suggestions tailored just for you...Journi finds you the perfect destination.")
                             //.multilineTextAlignment(.center)
                             .italic()
                             .foregroundColor(.customBlush)

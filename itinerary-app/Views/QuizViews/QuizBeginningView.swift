@@ -16,7 +16,7 @@ import SwiftUI
 struct QuizBeginningView: View {
     var body: some View {
         VStack {
-            Text("Location Finder")
+            Text("Journi")
                 .fontWeight(.bold)
                 .font(.system(size: 30))
                 .foregroundStyle(LinearGradient(colors: [.customTan, .customBlush], startPoint: .top, endPoint: .bottom))
